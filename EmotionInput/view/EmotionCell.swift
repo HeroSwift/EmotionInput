@@ -21,39 +21,52 @@ class EmotionCell: UICollectionViewCell {
     
     private func setup() {
         
+        emotionView = UIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        emotionView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(emotionView)
         
+        nameLabel = UILabel()
+        nameLabel.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(nameLabel)
+        
+        deleteView = UIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        deleteView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.addSubview(deleteView)
+        
+        addConstraints([
+            NSLayoutConstraint(item: emotionView, attribute: .centerX, relatedBy: .equal, toItem: contentView, attribute: .centerX, multiplier: 1.0, constant: 0),
+            NSLayoutConstraint(item: emotionView, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1.0, constant: 0),
+            
+            NSLayoutConstraint(item: nameLabel, attribute: .centerX, relatedBy: .equal, toItem: contentView, attribute: .centerX, multiplier: 1.0, constant: 0),
+            NSLayoutConstraint(item: nameLabel, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1.0, constant: 0),
+            
+            NSLayoutConstraint(item: deleteView, attribute: .centerX, relatedBy: .equal, toItem: contentView, attribute: .centerX, multiplier: 1.0, constant: 0),
+            NSLayoutConstraint(item: deleteView, attribute: .centerY, relatedBy: .equal, toItem: contentView, attribute: .centerY, multiplier: 1.0, constant: 0),
+        ])
+
         clipsToBounds = true
         
     }
     
-    private func assertEmotionView() {
-        if emotionView == nil {
-            emotionView = UIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-            addSubview(emotionView)
-        }
-    }
-    
-    private func assertNameLabel() {
-        if nameLabel == nil {
-            nameLabel = UILabel()
-            addSubview(nameLabel)
-        }
-    }
-    
-    public func setEmotion(emotion: Emotion) {
+    func setEmotion(emotion: Emotion) {
         
         if !emotion.isValid() {
             return
         }
+
+        if emotion.label != "" {
+            nameLabel.text = emotion.label
+            nameLabel.sizeToFit()
+            nameLabel.isHidden = false
+        }
+        else {
+            nameLabel.isHidden = true
+        }
         
-        assertNameLabel()
-        assertEmotionView()
-        
-        nameLabel.text = emotion.label
-        nameLabel.sizeToFit()
-        
-        emotionView.image = UIImage(named: emotion.resName)
-        emotionView.sizeToFit()
+        if emotion.resName != "" {
+            emotionView.image = UIImage(named: emotion.resName)
+            emotionView.sizeToFit()
+        }
         
         var isChange = false
         

@@ -13,7 +13,7 @@ import EmotionInput
 
 class ViewController: UIViewController {
 
-    let emotions = [
+    let emotionList = [
         Emotion(["code": "1", "label": "开心", "resName": "avatar-anonymous.png", "width": 20, "height": 20]),
         Emotion(["code": "1", "label": "开心", "resName": "hot"]),
         Emotion(["code": "1", "label": "开心", "resName": "avatar-anonymous.png"]),
@@ -44,7 +44,11 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         
+        let grid = EmotionGrid(frame: view.frame)
         
+        view.addSubview(grid)
+        
+        grid.emotionList = emotionList
         
     }
 
