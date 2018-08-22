@@ -17,7 +17,19 @@
 		9D47575B212C621700CF4F8B /* EmotionIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D47575A212C621700CF4F8B /* EmotionIcon.swift */; };
 		9D47575D212C62CD00CF4F8B /* EmotionPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D47575C212C62CD00CF4F8B /* EmotionPage.swift */; };
 		9D47575F212C639500CF4F8B /* EmotionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D47575E212C639500CF4F8B /* EmotionSet.swift */; };
+		9D475764212D552C00CF4F8B /* EmotionGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D475763212D552C00CF4F8B /* EmotionGrid.swift */; };
+		9D475766212D560700CF4F8B /* EmotionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D475765212D560700CF4F8B /* EmotionCell.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9D475760212D132400CF4F8B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9D47572B212C5DA600CF4F8B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 9D475733212C5DA600CF4F8B;
+			remoteInfo = EmotionInput;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		9D475734212C5DA600CF4F8B /* EmotionInput.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EmotionInput.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -34,6 +46,8 @@
 		9D47575A212C621700CF4F8B /* EmotionIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionIcon.swift; sourceTree = "<group>"; };
 		9D47575C212C62CD00CF4F8B /* EmotionPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionPage.swift; sourceTree = "<group>"; };
 		9D47575E212C639500CF4F8B /* EmotionSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionSet.swift; sourceTree = "<group>"; };
+		9D475763212D552C00CF4F8B /* EmotionGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionGrid.swift; sourceTree = "<group>"; };
+		9D475765212D560700CF4F8B /* EmotionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +89,7 @@
 		9D475736212C5DA600CF4F8B /* EmotionInput */ = {
 			isa = PBXGroup;
 			children = (
+				9D475762212D551A00CF4F8B /* view */,
 				9D475757212C5FC400CF4F8B /* model */,
 				9D475738212C5DA600CF4F8B /* Info.plist */,
 				9D475755212C5F5400CF4F8B /* EmotionInput.swift */,
@@ -104,6 +119,15 @@
 				9D47575E212C639500CF4F8B /* EmotionSet.swift */,
 			);
 			path = model;
+			sourceTree = "<group>";
+		};
+		9D475762212D551A00CF4F8B /* view */ = {
+			isa = PBXGroup;
+			children = (
+				9D475763212D552C00CF4F8B /* EmotionGrid.swift */,
+				9D475765212D560700CF4F8B /* EmotionCell.swift */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,6 +172,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				9D475761212D132400CF4F8B /* PBXTargetDependency */,
 			);
 			name = Example;
 			productName = Example;
@@ -217,8 +242,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D475766212D560700CF4F8B /* EmotionCell.swift in Sources */,
 				9D47575D212C62CD00CF4F8B /* EmotionPage.swift in Sources */,
 				9D475756212C5F5400CF4F8B /* EmotionInput.swift in Sources */,
+				9D475764212D552C00CF4F8B /* EmotionGrid.swift in Sources */,
 				9D475759212C600100CF4F8B /* Emotion.swift in Sources */,
 				9D47575F212C639500CF4F8B /* EmotionSet.swift in Sources */,
 				9D47575B212C621700CF4F8B /* EmotionIcon.swift in Sources */,
@@ -235,6 +262,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9D475761212D132400CF4F8B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 9D475733212C5DA600CF4F8B /* EmotionInput */;
+			targetProxy = 9D475760212D132400CF4F8B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		9D475749212C5DB300CF4F8B /* Main.storyboard */ = {

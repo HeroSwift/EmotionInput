@@ -1,10 +1,10 @@
 
 import Foundation
 
-class EmotionPage: NSObject {
+public class EmotionPage: NSObject {
     
     // 每页的图标列表
-    let emotionList = 0
+    let emotionList = [Emotion]()
     
     // 每页有多少列
     let columns = 0

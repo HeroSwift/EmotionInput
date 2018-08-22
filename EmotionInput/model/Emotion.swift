@@ -1,32 +1,36 @@
 
 import Foundation
 
-class Emotion: NSObject {
+public class Emotion: NSObject {
     
     // 表情值
-    var code = ""
+    @objc public var code = ""
     
     // 显示在图片下方的文本
-    var label = ""
+    @objc public var label = ""
     
     // 表情对应的本地图片
-    var resId = 0
+    @objc public var resName = ""
     
     // 表情对应的网络图片
-    var url = ""
+    @objc public var url = ""
     
     // 显示宽度
-    var width = 0
+    @objc public var width = 0
     
     // 显示高度
-    var height = 0
+    @objc public var height = 0
     
     // 是否支持在输入框显示
-    var inline = true
+    @objc public var inline = true
     
-    init(_ dict: [String: Any]) {
+    public init(_ dict: [String: Any]) {
         super.init()
         setValuesForKeys(dict)
+    }
+    
+    public func isValid() -> Bool {
+        return code != ""
     }
     
 }
