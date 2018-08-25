@@ -21,8 +21,6 @@ public class EmotionGrid: UIView {
     // 列间距
     public var columnSpacing = CGFloat(10)
     
-    
-    
     // 表情单元格按下时的背景色
     public var cellBackgroundColorPressed = UIColor(red: 240 / 255, green: 240 / 255, blue: 240 / 255, alpha: 1)
     
@@ -44,8 +42,13 @@ public class EmotionGrid: UIView {
         clipsToBounds = true
         backgroundColor = UIColor.clear
         
-        collectionView = UICollectionView(frame: frame, collectionViewLayout: UICollectionViewFlowLayout())
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical
         
+        collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.alwaysBounceVertical = false
+
         collectionView.register(EmotionCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -65,11 +68,8 @@ extension EmotionGrid: UICollectionViewDataSource {
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! EmotionCell
-        
         cell.setEmotion(emotion: emotionPage.emotionList[indexPath.item], emotionWidth: emotionPage.width, emotionHeight: emotionPage.height)
-
         return cell
     }
     
@@ -78,9 +78,7 @@ extension EmotionGrid: UICollectionViewDataSource {
 extension EmotionGrid: UICollectionViewDelegate {
     
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if emotionPage.emotionList[indexPath.item].isValid() {
-            print("You selected cell #\(indexPath.item)!")
-        }
+        print("You selected cell #\(indexPath.item)!")
     }
     
     public func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
@@ -208,9 +206,6 @@ extension EmotionGrid {
                 nameLabel.isHidden = true
             }
             
-            let width = Int(emotionView.frame.size.width)
-            let height = Int(emotionView.frame.size.height)
-
             if !hasSetEmotionSize && emotionWidth > 0 && emotionHeight > 0 {
 
                 addConstraints([

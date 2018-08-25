@@ -44,17 +44,13 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         
-        let grid = EmotionGrid(frame: view.frame)
+        let pager = EmotionPager(frame: view.frame)
         
-        view.addSubview(grid)
+        view.addSubview(pager)
         
-        grid.emotionPage = EmotionPage([
-            "emotionList": emotionList,
-            "columns": 3,
-            "rows": 4,
-            "width": 40,
-            "height": 40
-        ])
+        let emotionSet = EmotionSet.build(iconName: "", emotionList: emotionList, columns: 3, rows: 4, width: 40, height: 40, hasDeleteButton: true, hasIndicator: true)
+        
+        pager.emotionSet = emotionSet
         
     }
 

@@ -19,7 +19,7 @@ public class EmotionPage: NSObject {
     @objc public var height = 0
     
     // 是否显示删除按钮
-    @objc public let hasDeleteButton = false
+    @objc public var hasDeleteButton = false
     
     public init(_ dict: [String: Any]) {
         super.init()

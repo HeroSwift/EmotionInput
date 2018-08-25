@@ -18,6 +18,7 @@
 		9D47575D212C62CD00CF4F8B /* EmotionPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D47575C212C62CD00CF4F8B /* EmotionPage.swift */; };
 		9D47575F212C639500CF4F8B /* EmotionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D47575E212C639500CF4F8B /* EmotionSet.swift */; };
 		9D475764212D552C00CF4F8B /* EmotionGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D475763212D552C00CF4F8B /* EmotionGrid.swift */; };
+		9D47576821319D1B00CF4F8B /* EmotionPager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D47576721319D1B00CF4F8B /* EmotionPager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		9D47575C212C62CD00CF4F8B /* EmotionPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionPage.swift; sourceTree = "<group>"; };
 		9D47575E212C639500CF4F8B /* EmotionSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionSet.swift; sourceTree = "<group>"; };
 		9D475763212D552C00CF4F8B /* EmotionGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionGrid.swift; sourceTree = "<group>"; };
+		9D47576721319D1B00CF4F8B /* EmotionPager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionPager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				9D475763212D552C00CF4F8B /* EmotionGrid.swift */,
+				9D47576721319D1B00CF4F8B /* EmotionPager.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -243,6 +246,7 @@
 				9D475756212C5F5400CF4F8B /* EmotionInput.swift in Sources */,
 				9D475764212D552C00CF4F8B /* EmotionGrid.swift in Sources */,
 				9D475759212C600100CF4F8B /* Emotion.swift in Sources */,
+				9D47576821319D1B00CF4F8B /* EmotionPager.swift in Sources */,
 				9D47575F212C639500CF4F8B /* EmotionSet.swift in Sources */,
 				9D47575B212C621700CF4F8B /* EmotionIcon.swift in Sources */,
 			);

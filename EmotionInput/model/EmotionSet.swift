@@ -38,7 +38,11 @@ public class EmotionSet: NSObject {
             }
             
             // 该页的表情列表
-            var subList = emotionList[start...end]
+            var subList = [Emotion]()
+            
+            for i in start..<end {
+                subList.append(emotionList[ i ])
+            }
             
             // 如果表情数量没满，需补齐数量
             let blankCount = columns * rows - subList.count
@@ -47,7 +51,7 @@ public class EmotionSet: NSObject {
                     subList.append(Emotion())
                 }
             }
-            
+
             emotionPageList.append(
                 EmotionPage([
                     "emotionList": subList,
