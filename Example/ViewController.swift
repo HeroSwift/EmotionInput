@@ -14,24 +14,24 @@ import EmotionInput
 class ViewController: UIViewController {
 
     let emotionList = [
-        Emotion(["code": "1", "label": "开心", "resName": "avatar-anonymous.png", "width": 20, "height": 20]),
-        Emotion(["code": "1", "label": "开心", "resName": "hot"]),
-        Emotion(["code": "1", "label": "开心", "resName": "avatar-anonymous.png"]),
-        Emotion(["code": "1", "label": "开心", "resName": "avatar-anonymous.png"]),
-        Emotion(["code": "1", "label": "开心", "resName": "avatar-anonymous.png"]),
-        Emotion(["label": "开心", "resName": "avatar-anonymous.png"]),
-        Emotion(["code": "1", "label": "开心", "resName": "avatar-anonymous.png"]),
-        Emotion(["code": "1", "label": "开心", "resName": "avatar-anonymous.png"]),
-        Emotion(["code": "1", "label": "开心", "resName": "avatar-anonymous.png"]),
-        Emotion(["code": "1", "label": "开心", "resName": "avatar-anonymous.png"]),
-        Emotion(["code": "1", "label": "开心", "resName": "avatar-anonymous.png"]),
-        Emotion(["code": "1", "label": "开心", "resName": "avatar-anonymous.png"]),
-        Emotion(["label": "开心", "resName": "avatar-anonymous.png"]),
-        Emotion(["label": "开心", "resName": "avatar-anonymous.png"]),
-        Emotion(["label": "开心", "resName": "avatar-anonymous.png"]),
-        Emotion(["label": "开心", "resName": "avatar-anonymous.png"]),
-        Emotion(["label": "开心", "resName": "avatar-anonymous.png"]),
-        Emotion(["label": "开心", "resName": "avatar-anonymous.png"]),
+        Emotion(["code": "1", "name": "开心", "imageName": "avatar-anonymous.png"]),
+        Emotion(["code": "1", "name": "开心", "imageName": "hot"]),
+        Emotion(["code": "1", "name": "开心", "imageName": "avatar-anonymous.png"]),
+        Emotion(["code": "1", "name": "开心", "imageName": "avatar-anonymous.png"]),
+        Emotion(["code": "1", "name": "开心", "imageName": "avatar-anonymous.png"]),
+        Emotion(["name": "开心", "imageName": "avatar-anonymous.png"]),
+        Emotion(["code": "1", "name": "开心", "imageName": "avatar-anonymous.png"]),
+        Emotion(["code": "1", "name": "开心", "imageName": "avatar-anonymous.png"]),
+        Emotion(["code": "1", "name": "开心", "imageName": "avatar-anonymous.png"]),
+        Emotion(["code": "1", "name": "开心", "imageName": "avatar-anonymous.png"]),
+        Emotion(["code": "1", "name": "开心", "imageName": "avatar-anonymous.png"]),
+        Emotion(["code": "1", "name": "开心", "imageName": "avatar-anonymous.png"]),
+        Emotion(["name": "开心", "imageName": "avatar-anonymous.png"]),
+        Emotion(["name": "开心", "imageName": "avatar-anonymous.png"]),
+        Emotion(["name": "开心", "imageName": "avatar-anonymous.png"]),
+        Emotion(["name": "开心", "imageName": "avatar-anonymous.png"]),
+        Emotion(["name": "开心", "imageName": "avatar-anonymous.png"]),
+        Emotion(["name": "开心", "imageName": "avatar-anonymous.png"]),
         
     ]
     
@@ -48,7 +48,13 @@ class ViewController: UIViewController {
         
         view.addSubview(grid)
         
-        grid.emotionList = emotionList
+        grid.emotionPage = EmotionPage([
+            "emotionList": emotionList,
+            "columns": 3,
+            "rows": 4,
+            "width": 40,
+            "height": 40
+        ])
         
     }
 
