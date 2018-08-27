@@ -5,14 +5,22 @@ public class EmotionPager: UIView {
     
     public var emotionSet = EmotionSet([:]) {
         didSet {
+            
             collectionView.reloadData()
+            
+            indicatorView.count = emotionSet.emotionPageList.count
+            indicatorView.isHidden = !emotionSet.hasIndicator
+            indicatorView.sizeToFit()
+            indicatorView.setNeedsDisplay()
+            
         }
     }
     
-    // 列间距
-    public var columnSpacing = CGFloat(10)
+    // indicator 与网格的距离
+    public var indicatorMarginTop = CGFloat(10)
     
     private var collectionView: UICollectionView!
+    private var indicatorView: DotIndicator!
     private let reuseIdentifier = "cell"
     
     public override init(frame: CGRect) {
@@ -36,15 +44,35 @@ public class EmotionPager: UIView {
         layout.itemSize = bounds.size
         
         collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.isPagingEnabled = true
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.alwaysBounceVertical = false
         
         collectionView.register(EmotionCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView.dataSource = self
+        collectionView.delegate = self
         collectionView.backgroundColor = UIColor.clear
         
         addSubview(collectionView)
+        
+        indicatorView = DotIndicator(frame: frame)
+        indicatorView.translatesAutoresizingMaskIntoConstraints = false
+        
+        addSubview(indicatorView)
+
+        addConstraints([
+            
+            NSLayoutConstraint(item: collectionView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: 0),
+            NSLayoutConstraint(item: collectionView, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: 0),
+            NSLayoutConstraint(item: collectionView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0),
+            NSLayoutConstraint(item: collectionView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -(indicatorView.intrinsicContentSize.height + indicatorMarginTop)),
+            
+
+            NSLayoutConstraint(item: indicatorView, attribute: .centerX, relatedBy: .equal, toItem: collectionView, attribute: .centerX, multiplier: 1.0, constant: 0),
+            NSLayoutConstraint(item: indicatorView, attribute: .top, relatedBy: .equal, toItem: collectionView, attribute: .bottom, multiplier: 1.0, constant: indicatorMarginTop),
+
+        ])
         
     }
     
@@ -63,6 +91,20 @@ extension EmotionPager: UICollectionViewDataSource {
         return cell
     }
     
+    
+}
+
+extension EmotionPager: UICollectionViewDelegate {
+    
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        
+        let x = scrollView.contentOffset.x
+        let width = scrollView.bounds.size.width
+
+        indicatorView.index = Int(ceil(x / width))
+        indicatorView.setNeedsDisplay()
+        
+    }
 }
 
 
@@ -72,7 +114,6 @@ extension EmotionPager {
         
         var emotionGrid: EmotionGrid!
         
-
         override init(frame: CGRect) {
             super.init(frame: frame)
             setup()
@@ -86,9 +127,15 @@ extension EmotionPager {
         private func setup() {
             
             emotionGrid = EmotionGrid(frame: contentView.frame)
+            emotionGrid.translatesAutoresizingMaskIntoConstraints = false
+            
             
             contentView.addSubview(emotionGrid)
             contentView.backgroundColor = UIColor.brown
+            
+//            addConstraints([
+//                NSLayoutConstraint(item: emotionGrid, attribute: .centerY, relatedBy: .equal, toItem: contentView, attribute: .centerY, multiplier: 1.0, constant: 0),
+//            ])
             
         }
         

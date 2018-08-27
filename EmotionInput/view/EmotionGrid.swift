@@ -55,11 +55,10 @@ public class EmotionGrid: UIView {
         collectionView.backgroundColor = UIColor.clear
         
         addSubview(collectionView)
-        
+
     }
     
 }
-
 
 extension EmotionGrid: UICollectionViewDataSource {
     
@@ -69,7 +68,8 @@ extension EmotionGrid: UICollectionViewDataSource {
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! EmotionCell
-        cell.setEmotion(emotion: emotionPage.emotionList[indexPath.item], emotionWidth: emotionPage.width, emotionHeight: emotionPage.height)
+        cell.setup(emotionWidth: emotionPage.width, emotionHeight: emotionPage.height)
+        cell.setEmotion(emotion: emotionPage.emotionList[indexPath.item])
         return cell
     }
     
@@ -124,62 +124,22 @@ extension EmotionGrid {
     
     class EmotionCell: UICollectionViewCell {
         
-        var emotionView: UIImageView!
+        var emotionCell: EmotionGridCell!
         
-        var nameLabel: UILabel!
-        
-        var deleteView: UIImageView!
-        
-        // 单元格文本字体
-        public var labelTextFont = UIFont.systemFont(ofSize: 12)
-        
-        // 单元格文本颜色
-        public var labelTextColor = UIColor(red: 100 / 255, green: 100 / 255, blue: 100 / 255, alpha: 1)
-        
-        // 单元格文本与表情的距离
-        public var labelMarginTop = CGFloat(10)
-        
-        private var hasSetEmotionSize = false
-        
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            setup()
-        }
-        
-        required init?(coder aDecoder: NSCoder) {
-            super.init(coder: aDecoder)
-            setup()
-        }
-        
-        private func setup() {
+        func setup(emotionWidth: Int, emotionHeight: Int) {
             
-            emotionView = UIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-            // 按比例缩放
-            emotionView.contentMode = UIViewContentMode.scaleAspectFit
+            emotionCell = EmotionGridCell()
+            emotionCell.setup(emotionWidth: emotionWidth, emotionHeight: emotionHeight)
             
-            emotionView.translatesAutoresizingMaskIntoConstraints = false
-            contentView.addSubview(emotionView)
-            
-            nameLabel = UILabel()
-            nameLabel.translatesAutoresizingMaskIntoConstraints = false
-            nameLabel.font = labelTextFont
-            nameLabel.textColor = labelTextColor
-            
-            contentView.addSubview(nameLabel)
-            
-            deleteView = UIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-            deleteView.translatesAutoresizingMaskIntoConstraints = false
-            contentView.addSubview(deleteView)
+            emotionCell.translatesAutoresizingMaskIntoConstraints = false
+            contentView.addSubview(emotionCell)
             
             contentView.backgroundColor = UIColor(red: 230 / 255, green: 230 / 255, blue: 230 / 255, alpha: 1)
             
             addConstraints([
                 
-                NSLayoutConstraint(item: emotionView, attribute: .centerX, relatedBy: .equal, toItem: contentView, attribute: .centerX, multiplier: 1.0, constant: 0),
-                NSLayoutConstraint(item: emotionView, attribute: .centerY, relatedBy: .equal, toItem: contentView, attribute: .centerY, multiplier: 1.0, constant: 0),
-                
-                NSLayoutConstraint(item: nameLabel, attribute: .centerX, relatedBy: .equal, toItem: emotionView, attribute: .centerX, multiplier: 1.0, constant: 0),
-                NSLayoutConstraint(item: nameLabel, attribute: .top, relatedBy: .equal, toItem: emotionView, attribute: .bottom, multiplier: 1.0, constant: labelMarginTop),
+                NSLayoutConstraint(item: emotionCell, attribute: .centerX, relatedBy: .equal, toItem: contentView, attribute: .centerX, multiplier: 1.0, constant: 0),
+                NSLayoutConstraint(item: emotionCell, attribute: .centerY, relatedBy: .equal, toItem: contentView, attribute: .centerY, multiplier: 1.0, constant: 0),
                 
             ])
             
@@ -187,38 +147,8 @@ extension EmotionGrid {
             
         }
         
-        func setEmotion(emotion: Emotion, emotionWidth: Int, emotionHeight: Int) {
-            
-            if !emotion.isValid() {
-                return
-            }
-            
-            if emotion.imageName != "" {
-                emotionView.image = UIImage(named: emotion.imageName)
-            }
-            
-            if emotion.name != "" {
-                nameLabel.text = emotion.name
-                nameLabel.sizeToFit()
-                nameLabel.isHidden = false
-            }
-            else {
-                nameLabel.isHidden = true
-            }
-            
-            if !hasSetEmotionSize && emotionWidth > 0 && emotionHeight > 0 {
-
-                addConstraints([
-                    
-                    NSLayoutConstraint(item: emotionView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: CGFloat(emotionWidth)),
-                    NSLayoutConstraint(item: emotionView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: CGFloat(emotionHeight)),
-                
-                ])
-                
-                hasSetEmotionSize = true
-                
-            }
-            
+        func setEmotion(emotion: Emotion) {
+            emotionCell.setEmotion(emotion: emotion)
         }
         
     }
