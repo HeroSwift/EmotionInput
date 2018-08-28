@@ -6,12 +6,19 @@ public class EmotionPager: UIView {
     public var emotionSet = EmotionSet([:]) {
         didSet {
             
-            collectionView.reloadData()
-            
+            indicatorView.index = 0
             indicatorView.count = emotionSet.emotionPageList.count
-            indicatorView.isHidden = !emotionSet.hasIndicator
-            indicatorView.sizeToFit()
-            indicatorView.setNeedsDisplay()
+            
+            let isVisible = emotionSet.hasIndicator
+            indicatorView.isHidden = !isVisible
+            
+            if isVisible {
+                indicatorView.sizeToFit()
+                indicatorView.setNeedsLayout()
+                indicatorView.setNeedsDisplay()
+            }
+            
+            collectionView.reloadData()
             
         }
     }
@@ -88,14 +95,17 @@ extension EmotionPager: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! EmotionCell
         cell.setEmotionPage(emotionPage: emotionSet.emotionPageList[indexPath.item])
+        print("cellForItemAt")
+        print(collectionView.frame.size)
+        print(cell.frame.size)
         return cell
     }
-    
     
 }
 
 extension EmotionPager: UICollectionViewDelegate {
     
+    // 翻页事件
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         
         let x = scrollView.contentOffset.x

@@ -40,7 +40,6 @@ public class EmotionGrid: UIView {
     private func setup() {
     
         clipsToBounds = true
-        backgroundColor = UIColor.clear
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -48,13 +47,21 @@ public class EmotionGrid: UIView {
         collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
         collectionView.showsVerticalScrollIndicator = false
         collectionView.alwaysBounceVertical = false
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
 
         collectionView.register(EmotionCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.backgroundColor = UIColor.clear
+        collectionView.backgroundColor = UIColor.cyan
         
         addSubview(collectionView)
+        
+//        addConstraints([
+//
+//            NSLayoutConstraint(item: collectionView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.0, constant: 0),
+//            NSLayoutConstraint(item: collectionView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: 0),
+//
+//        ])
 
     }
     
@@ -100,6 +107,12 @@ extension EmotionGrid: UICollectionViewDelegate {
 extension EmotionGrid: UICollectionViewDelegateFlowLayout {
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+
+        print(collectionView.frame)
+        print(UIScreen.main.bounds)
+        
+        
+        
         return UIEdgeInsets(top: paddingVertical, left: paddingHorizontal, bottom: paddingVertical, right: paddingHorizontal)
     }
     
