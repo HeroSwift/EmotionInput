@@ -12,11 +12,8 @@ public class EmotionGrid: UIView {
     // 表情网格容器的左右 padding
     public var paddingHorizontal = CGFloat(10)
     
-    // 表情网格容器的上下 padding
-    public var paddingVertical = CGFloat(10)
-    
     // 行间距
-    public var rowSpacing = CGFloat(20)
+    public var rowSpacing = CGFloat(40)
     
     // 列间距
     public var columnSpacing = CGFloat(10)
@@ -25,6 +22,8 @@ public class EmotionGrid: UIView {
     public var cellBackgroundColorPressed = UIColor(red: 240 / 255, green: 240 / 255, blue: 240 / 255, alpha: 1)
     
     private var collectionView: UICollectionView!
+    private var flowLayout: UICollectionViewFlowLayout!
+    
     private let reuseIdentifier = "cell"
     
     public override init(frame: CGRect) {
@@ -41,10 +40,10 @@ public class EmotionGrid: UIView {
     
         clipsToBounds = true
         
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
+        flowLayout = UICollectionViewFlowLayout()
+        flowLayout.scrollDirection = .vertical
         
-        collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
+        collectionView = UICollectionView(frame: frame, collectionViewLayout: flowLayout)
         collectionView.showsVerticalScrollIndicator = false
         collectionView.alwaysBounceVertical = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -108,10 +107,11 @@ extension EmotionGrid: UICollectionViewDelegateFlowLayout {
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
 
-        print(collectionView.frame)
-        print(UIScreen.main.bounds)
+        let rowCount = CGFloat(emotionPage.rows)
+        let itemHeight = getItemSize().height
+        let contentHeight = rowCount * itemHeight + (rowCount - 1) * rowSpacing
         
-        
+        let paddingVertical = (collectionView.frame.height - contentHeight) / 2
         
         return UIEdgeInsets(top: paddingVertical, left: paddingHorizontal, bottom: paddingVertical, right: paddingHorizontal)
     }
@@ -125,15 +125,26 @@ extension EmotionGrid: UICollectionViewDelegateFlowLayout {
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let flowLayout = collectionViewLayout as! UICollectionViewFlowLayout
-        let marginsAndInsets = paddingHorizontal * 2 + flowLayout.sectionInset.left + flowLayout.sectionInset.right + columnSpacing * CGFloat(emotionPage.columns - 1)
-        let itemWidth = ((collectionView.bounds.size.width - marginsAndInsets) / CGFloat(emotionPage.columns)).rounded(.down)
-        return CGSize(width: itemWidth, height: itemWidth)
+        return getItemSize()
     }
     
 }
 
 extension EmotionGrid {
+    
+    func getItemSize() -> CGSize {
+        
+        let columnCount = CGFloat(emotionPage.columns)
+        let marginsAndInsets = paddingHorizontal * 2 + flowLayout.sectionInset.left + flowLayout.sectionInset.right + columnSpacing * (columnCount - 1)
+        let width = ((collectionView.frame.width - marginsAndInsets) / columnCount).rounded(.down)
+
+        // 计算 itemHeight 最大值
+        let rowCount = CGFloat(emotionPage.rows)
+        let maxHeight = (collectionView.frame.height - (rowCount - 1) * rowSpacing) / rowCount
+        
+        return CGSize(width: width, height: min(width, maxHeight))
+        
+    }
     
     class EmotionCell: UICollectionViewCell {
         

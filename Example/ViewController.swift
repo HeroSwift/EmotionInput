@@ -33,18 +33,14 @@ class ViewController: UIViewController {
         Emotion(["name": "开心", "imageName": "avatar-anonymous.png"]),
         Emotion(["name": "开心", "imageName": "avatar-anonymous.png"]),
         
-        ]
-    
-    
-    
-    
+    ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
         
-        let pager = EmotionPager(frame: view.frame)
+        let pager = EmotionPager(frame: CGRect(x: 0, y: 100, width: view.frame.width, height: 500))
         
         view.addSubview(pager)
         
