@@ -26,6 +26,8 @@ public class EmotionGrid: UIView {
     // 单元格文本与表情的距离
     public var cellLabelMarginTop = CGFloat(10)
     
+    public var deleteImageName = "delete"
+    
     // 表情单元格按下时的背景色
     public var cellBackgroundColorPressed = UIColor(red: 240 / 255, green: 240 / 255, blue: 240 / 255, alpha: 1)
     
@@ -52,8 +54,6 @@ public class EmotionGrid: UIView {
         collectionView.backgroundColor = UIColor.cyan
         
         addSubview(collectionView)
-        
-        clipsToBounds = true
 
     }
     
@@ -70,8 +70,24 @@ extension EmotionGrid: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         // 其实这里不存在复用
         // 全是新建
+        
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! EmotionGridCell
-        cell.setup(emotion: emotionPage.emotionList[indexPath.item], labelTextFont: cellLabelTextFont, labelTextColor: cellLabelTextColor, labelMarginTop: cellLabelMarginTop, emotionWidth: emotionPage.width, emotionHeight: emotionPage.height)
+        let emotion = emotionPage.emotionList[indexPath.item]
+        
+        if emotionPage.hasDeleteButton && indexPath.item == emotionPage.rows * emotionPage.columns - 1 {
+            cell.setup(deleteImageName: deleteImageName)
+        }
+        else if emotion.isValid() {
+            cell.setup(
+                emotion: emotion,
+                labelTextFont: cellLabelTextFont,
+                labelTextColor: cellLabelTextColor,
+                labelMarginTop: cellLabelMarginTop,
+                emotionWidth: emotionPage.width,
+                emotionHeight: emotionPage.height
+            )
+        }
+        
         return cell
     }
     
@@ -81,21 +97,29 @@ extension EmotionGrid: UICollectionViewDelegate {
     
     // 点击事件
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("You selected cell #\(indexPath.item)!")
+        let cell = collectionView.cellForItem(at: indexPath) as! EmotionGridCell
+        if cell.isEmotion {
+            let emotion = emotionPage.emotionList[indexPath.item]
+        }
+        else if cell.isDelete {
+            
+        }
     }
     
     // 按下事件
     public func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-        if emotionPage.emotionList[indexPath.item].isValid() {
-            let cell = collectionView.cellForItem(at: indexPath)
-            cell?.backgroundColor = cellBackgroundColorPressed
+        let cell = collectionView.cellForItem(at: indexPath) as! EmotionGridCell
+        if cell.isEmotion || cell.isDelete {
+            cell.backgroundColor = cellBackgroundColorPressed
         }
     }
     
     // 松手事件
     public func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath)
-        cell?.backgroundColor = UIColor.clear
+        let cell = collectionView.cellForItem(at: indexPath) as! EmotionGridCell
+        if cell.isEmotion || cell.isDelete {
+            cell.backgroundColor = .clear
+        }
     }
     
 }
@@ -151,17 +175,27 @@ extension EmotionGrid {
     
     class EmotionGridCell: UICollectionViewCell {
         
-        var emotionCell: EmotionCell!
+        var emotionCell = EmotionCell()
+        
+        var isEmotion = false
+        var isDelete = false
         
         func setup(emotion: Emotion, labelTextFont: UIFont, labelTextColor: UIColor, labelMarginTop: CGFloat, emotionWidth: Int, emotionHeight: Int) {
-            
-            emotionCell = EmotionCell()
             emotionCell.setup(emotion: emotion, labelTextFont: labelTextFont, labelTextColor: labelTextColor, labelMarginTop: labelMarginTop, emotionWidth: emotionWidth, emotionHeight: emotionHeight)
-            
+            setup()
+            isEmotion = true
+        }
+        
+        func setup(deleteImageName: String) {
+            emotionCell.setup(deleteImageName: deleteImageName)
+            setup()
+            isDelete = true
+        }
+        
+        private func setup() {
+        
             emotionCell.translatesAutoresizingMaskIntoConstraints = false
             contentView.addSubview(emotionCell)
-            
-            contentView.backgroundColor = UIColor(red: 230 / 255, green: 230 / 255, blue: 230 / 255, alpha: 1)
             
             addConstraints([
                 
@@ -169,8 +203,6 @@ extension EmotionGrid {
                 NSLayoutConstraint(item: emotionCell, attribute: .centerY, relatedBy: .equal, toItem: contentView, attribute: .centerY, multiplier: 1.0, constant: 0),
                 
             ])
-            
-            clipsToBounds = true
             
         }
         

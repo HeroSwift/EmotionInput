@@ -22,7 +22,7 @@ class EmotionCell: UIView {
         var width = CGFloat(0)
         var height = CGFloat(0)
         
-        if emotionView.isHidden {
+        if emotionView == nil {
             width = deleteView.intrinsicContentSize.width
             height = deleteView.intrinsicContentSize.height
         }
@@ -57,12 +57,8 @@ class EmotionCell: UIView {
         nameLabel.textColor = labelTextColor
         addSubview(nameLabel)
         
-        deleteView = UIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        deleteView.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(deleteView)
-        
-        backgroundColor = UIColor.blue
-        
+        backgroundColor = UIColor(red: 220 / 255, green: 220 / 255, blue: 220 / 255, alpha: 1)
+
         self.labelMarginTop = labelMarginTop
         
         addConstraints([
@@ -89,10 +85,6 @@ class EmotionCell: UIView {
             
         }
         
-        if !emotion.isValid() {
-            return
-        }
-        
         if emotion.imageName != "" {
             emotionView.image = UIImage(named: emotion.imageName)
         }
@@ -105,6 +97,22 @@ class EmotionCell: UIView {
         else {
             nameLabel.isHidden = true
         }
+        
+    }
+    
+    func setup(deleteImageName: String) {
+        
+        deleteView = UIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        deleteView.translatesAutoresizingMaskIntoConstraints = false
+        deleteView.image = UIImage(named: deleteImageName)
+        addSubview(deleteView)
+        
+        addConstraints([
+            
+            NSLayoutConstraint(item: deleteView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.0, constant: 0),
+            NSLayoutConstraint(item: deleteView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: 0),
+            
+        ])
         
     }
     

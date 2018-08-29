@@ -3,22 +3,32 @@ import UIKit
 
 public class EmotionPager: UIView {
     
-    public var emotionSet = EmotionSet([:]) {
+    public var emotionSetList = [EmotionSet]() {
+        didSet {
+            emotionSetIndex = 0
+            collectionView.reloadData()
+        }
+    }
+    
+    public var emotionSetIndex = 0 {
         didSet {
             
-            indicatorView.index = 0
-            indicatorView.count = emotionSet.emotionPageList.count
-            
-            let isVisible = emotionSet.hasIndicator
-            indicatorView.isHidden = !isVisible
-            
-            if isVisible {
-                indicatorView.sizeToFit()
-                indicatorView.setNeedsLayout()
-                indicatorView.setNeedsDisplay()
+            if emotionSetList.count > emotionSetIndex {
+                let emotionSet = emotionSetList[ emotionSetIndex ]
+                if emotionSet.hasIndicator {
+                    indicatorView.isHidden = false
+                    indicatorView.count = emotionSet.emotionPageList.count
+                    indicatorView.sizeToFit()
+                    indicatorView.setNeedsLayout()
+                    indicatorView.setNeedsDisplay()
+                }
+                else {
+                    indicatorView.isHidden = true
+                }
             }
-            
-            collectionView.reloadData()
+            else {
+                indicatorView.isHidden = true
+            }
             
         }
     }
@@ -89,12 +99,18 @@ public class EmotionPager: UIView {
 extension EmotionPager: UICollectionViewDataSource {
     
     public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return emotionSet.emotionPageList.count
+        var count = 0
+        for set in emotionSetList {
+            count += set.emotionPageList.count
+        }
+        return count
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! EmotionPagerCell
-        cell.setup(emotionPage: emotionSet.emotionPageList[indexPath.item])
+        
+        checkRange(index: indexPath.item) { cell.setup(emotionPage: emotionSetList[$0].emotionPageList[$1]) }
+        
         return cell
     }
     
@@ -116,14 +132,34 @@ extension EmotionPager: UICollectionViewDelegate {
         let x = scrollView.contentOffset.x
         let width = scrollView.bounds.size.width
 
-        indicatorView.index = Int(ceil(x / width))
-        indicatorView.setNeedsDisplay()
+        let index = Int(ceil(x / width))
+        
+        checkRange(index: index) {
+            emotionSetIndex = $0
+            indicatorView.index = $1
+            indicatorView.setNeedsDisplay()
+        }
         
     }
 }
 
 
 extension EmotionPager {
+    
+    /**
+     * 绝对 index 到相对 index 的转换
+     */
+    private func checkRange(index: Int, callback: (_ setIndex: Int, _ pageIndex: Int) -> Void) {
+        var from = 0
+        for i in 0..<emotionSetList.count {
+            let to = from + emotionSetList[i].emotionPageList.count
+            if index >= from && index < to {
+                callback(i, index - from)
+                break
+            }
+            from = to
+        }
+    }
     
     class EmotionPagerCell: UICollectionViewCell {
         

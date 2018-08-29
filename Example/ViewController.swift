@@ -71,13 +71,14 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         
-        let pager = EmotionPager(frame: CGRect(x: 0, y: 100, width: view.frame.width, height: 500))
+        let pager = EmotionPager(frame: CGRect(x: 0, y: 60, width: view.frame.width, height: 600))
         
         view.addSubview(pager)
         
-        let emotionSet = EmotionSet.build(iconName: "", emotionList: emotionList, columns: 3, rows: 4, width: 40, height: 40, hasDeleteButton: true, hasIndicator: true)
+        let emotionSet1 = EmotionSet.build(iconName: "", emotionList: emotionList, columns: 3, rows: 4, width: 40, height: 40, hasDeleteButton: true, hasIndicator: true)
+        let emotionSet2 = EmotionSet.build(iconName: "", emotionList: emotionList, columns: 3, rows: 3, width: 40, height: 40, hasDeleteButton: true, hasIndicator: true)
         
-        pager.emotionSet = emotionSet
+        pager.emotionSetList = [emotionSet1, emotionSet2]
         
     }
     
