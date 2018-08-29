@@ -3,7 +3,11 @@ import UIKit
 
 public class EmotionGrid: UIView {
     
-    private var emotionPage: EmotionPage!
+    var emotionPage = EmotionPage([:]) {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
     
     // 表情网格容器的上下 padding
     public var paddingVertical = CGFloat(10)
@@ -36,10 +40,17 @@ public class EmotionGrid: UIView {
     
     private let reuseIdentifier = "cell"
     
-    func setup(emotionPage: EmotionPage) {
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
+    }
     
-        self.emotionPage = emotionPage
-
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    private func setup() {
+    
         flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .vertical
         
@@ -73,6 +84,8 @@ extension EmotionGrid: UICollectionViewDataSource {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! EmotionGridCell
         let emotion = emotionPage.emotionList[indexPath.item]
+        
+        print("获取第几个单元格视图: \(indexPath.item) \(cell.isEmotion || cell.isDelete)")
         
         if emotionPage.hasDeleteButton && indexPath.item == emotionPage.rows * emotionPage.columns - 1 {
             cell.setup(deleteImageName: deleteImageName)
@@ -151,6 +164,7 @@ extension EmotionGrid: UICollectionViewDelegateFlowLayout {
     
     // 设置单元格尺寸
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        print("获取单元格尺寸: \(getCellSize())")
         return getCellSize()
     }
     
