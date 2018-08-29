@@ -56,7 +56,7 @@ public class EmotionPager: UIView {
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.alwaysBounceVertical = false
         
-        collectionView.register(EmotionCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView.register(EmotionPagerCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = UIColor.clear
@@ -93,8 +93,8 @@ extension EmotionPager: UICollectionViewDataSource {
     }
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! EmotionCell
-        cell.setEmotionPage(emotionPage: emotionSet.emotionPageList[indexPath.item])
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! EmotionPagerCell
+        cell.setup(emotionPage: emotionSet.emotionPageList[indexPath.item])
         return cell
     }
     
@@ -125,39 +125,18 @@ extension EmotionPager: UICollectionViewDelegate {
 
 extension EmotionPager {
     
-    class EmotionCell: UICollectionViewCell {
+    class EmotionPagerCell: UICollectionViewCell {
         
         var emotionGrid: EmotionGrid!
         
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            setup()
-        }
-        
-        required init?(coder aDecoder: NSCoder) {
-            super.init(coder: aDecoder)
-            setup()
-        }
-        
-        private func setup() {
+        func setup(emotionPage: EmotionPage) {
             
             emotionGrid = EmotionGrid(frame: contentView.frame)
-            emotionGrid.translatesAutoresizingMaskIntoConstraints = false
-            
-            
+            emotionGrid.setup(emotionPage: emotionPage)
+
             contentView.addSubview(emotionGrid)
             contentView.backgroundColor = UIColor.brown
-            
-//            addConstraints([
-//                NSLayoutConstraint(item: emotionGrid, attribute: .centerY, relatedBy: .equal, toItem: contentView, attribute: .centerY, multiplier: 1.0, constant: 0),
-//            ])
-            
-        }
-        
-        func setEmotionPage(emotionPage: EmotionPage) {
-            
-            emotionGrid.emotionPage = emotionPage
-            
+
         }
     
     }

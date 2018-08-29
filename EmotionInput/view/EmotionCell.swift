@@ -1,7 +1,7 @@
 
 import UIKit
 
-class EmotionGridCell: UIView {
+class EmotionCell: UIView {
     
     // 显示表情图片
     var emotionView: UIImageView!
@@ -12,14 +12,10 @@ class EmotionGridCell: UIView {
     // 显示删除按钮
     var deleteView: UIImageView!
     
-    // 单元格文本字体
-    public var labelTextFont = UIFont.systemFont(ofSize: 12)
-    
-    // 单元格文本颜色
-    public var labelTextColor = UIColor(red: 100 / 255, green: 100 / 255, blue: 100 / 255, alpha: 1)
-    
-    // 单元格文本与表情的距离
-    public var labelMarginTop = CGFloat(10)
+    // 其实我是不想存这几个属性的，但是要用在 intrinsicContentSize 计算中
+    private var emotionWidth = CGFloat(0)
+    private var emotionHeight = CGFloat(0)
+    private var labelMarginTop = CGFloat(0)
     
     public override var intrinsicContentSize: CGSize {
         
@@ -31,30 +27,34 @@ class EmotionGridCell: UIView {
             height = deleteView.intrinsicContentSize.height
         }
         else {
-            width = emotionView.frame.width
-            height = emotionView.frame.height + labelMarginTop + nameLabel.intrinsicContentSize.height
-            if nameLabel.intrinsicContentSize.width > width {
-                width = nameLabel.intrinsicContentSize.width
+            width = emotionWidth > 0 ? emotionWidth : emotionView.intrinsicContentSize.width
+            height = emotionHeight > 0 ? emotionHeight : emotionView.intrinsicContentSize.height
+            
+            if !nameLabel.isHidden {
+                let labelSize = nameLabel.intrinsicContentSize
+                height += labelMarginTop + labelSize.height
+                if labelSize.width > width {
+                    width = labelSize.width
+                }
             }
+            
         }
-
+        
         return CGSize(width: width, height: height)
         
     }
     
-    func setup(emotionWidth: Int, emotionHeight: Int) {
-        
+    func setup(emotion: Emotion, labelTextFont: UIFont, labelTextColor: UIColor, labelMarginTop: CGFloat, emotionWidth: Int, emotionHeight: Int) {
+
         emotionView = UIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
-        // 按比例缩放
-        emotionView.contentMode = UIViewContentMode.scaleAspectFit
         emotionView.translatesAutoresizingMaskIntoConstraints = false
+        emotionView.contentMode = UIViewContentMode.scaleAspectFit
         addSubview(emotionView)
         
         nameLabel = UILabel()
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.font = labelTextFont
         nameLabel.textColor = labelTextColor
-        
         addSubview(nameLabel)
         
         deleteView = UIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
@@ -63,7 +63,7 @@ class EmotionGridCell: UIView {
         
         backgroundColor = UIColor.blue
         
-        
+        self.labelMarginTop = labelMarginTop
         
         addConstraints([
             
@@ -76,22 +76,18 @@ class EmotionGridCell: UIView {
         ])
         
         if emotionWidth > 0 && emotionHeight > 0 {
+
+            self.emotionWidth = CGFloat(emotionWidth)
+            self.emotionHeight = CGFloat(emotionHeight)
             
             addConstraints([
                 
-                NSLayoutConstraint(item: emotionView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: CGFloat(emotionWidth)),
-                NSLayoutConstraint(item: emotionView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: CGFloat(emotionHeight)),
+                NSLayoutConstraint(item: emotionView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: self.emotionWidth),
+                NSLayoutConstraint(item: emotionView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: self.emotionHeight),
                 
             ])
             
-            emotionView.setNeedsLayout()
-            emotionView.layoutIfNeeded()
-            
         }
-        
-    }
-    
-    func setEmotion(emotion: Emotion) {
         
         if !emotion.isValid() {
             return

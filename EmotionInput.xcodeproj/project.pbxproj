@@ -18,7 +18,7 @@
 		9D43078221339FC4001ED814 /* EmotionInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D43077821339FC4001ED814 /* EmotionInput.swift */; };
 		9D43078321339FC4001ED814 /* DotIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D43077A21339FC4001ED814 /* DotIndicator.swift */; };
 		9D43078421339FC4001ED814 /* EmotionGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D43077B21339FC4001ED814 /* EmotionGrid.swift */; };
-		9D43078521339FC4001ED814 /* EmotionGridCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D43077C21339FC4001ED814 /* EmotionGridCell.swift */; };
+		9D43078521339FC4001ED814 /* EmotionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D43077C21339FC4001ED814 /* EmotionCell.swift */; };
 		9D43078621339FC4001ED814 /* EmotionPager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D43077D21339FC4001ED814 /* EmotionPager.swift */; };
 		9D43078A2133A018001ED814 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4307892133A018001ED814 /* ViewController.swift */; };
 /* End PBXBuildFile section */
@@ -49,7 +49,7 @@
 		9D43077821339FC4001ED814 /* EmotionInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionInput.swift; sourceTree = "<group>"; };
 		9D43077A21339FC4001ED814 /* DotIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotIndicator.swift; sourceTree = "<group>"; };
 		9D43077B21339FC4001ED814 /* EmotionGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionGrid.swift; sourceTree = "<group>"; };
-		9D43077C21339FC4001ED814 /* EmotionGridCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionGridCell.swift; sourceTree = "<group>"; };
+		9D43077C21339FC4001ED814 /* EmotionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionCell.swift; sourceTree = "<group>"; };
 		9D43077D21339FC4001ED814 /* EmotionPager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionPager.swift; sourceTree = "<group>"; };
 		9D4307892133A018001ED814 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -130,7 +130,7 @@
 			children = (
 				9D43077A21339FC4001ED814 /* DotIndicator.swift */,
 				9D43077B21339FC4001ED814 /* EmotionGrid.swift */,
-				9D43077C21339FC4001ED814 /* EmotionGridCell.swift */,
+				9D43077C21339FC4001ED814 /* EmotionCell.swift */,
 				9D43077D21339FC4001ED814 /* EmotionPager.swift */,
 			);
 			path = view;
@@ -249,7 +249,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D43078121339FC4001ED814 /* EmotionPage.swift in Sources */,
-				9D43078521339FC4001ED814 /* EmotionGridCell.swift in Sources */,
+				9D43078521339FC4001ED814 /* EmotionCell.swift in Sources */,
 				9D43077F21339FC4001ED814 /* EmotionSet.swift in Sources */,
 				9D43077E21339FC4001ED814 /* EmotionIcon.swift in Sources */,
 				9D43078221339FC4001ED814 /* EmotionInput.swift in Sources */,
