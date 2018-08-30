@@ -14,9 +14,9 @@ import EmotionInput
 class ViewController: UIViewController {
     
     let emotionList = [
-        Emotion(["code": "1", "name": "1", "imageName": "avatar-anonymous.png"]),
-        Emotion(["code": "1", "name": "2", "imageName": "hot"]),
-        Emotion(["code": "1", "name": "3", "imageName": "avatar-anonymous.png"]),
+        Emotion(["code": "", "name": "11", "imageName": "avatar-anonymous.png"]),
+        Emotion(["code": "1", "name": "222", "imageName": "hot"]),
+        Emotion(["code": "1", "name": "", "imageName": "avatar-anonymous.png"]),
         Emotion(["code": "1", "name": "4", "imageName": "avatar-anonymous.png"]),
         Emotion(["code": "1", "name": "5", "imageName": "avatar-anonymous.png"]),
         Emotion(["name": "6", "imageName": "avatar-anonymous.png"]),

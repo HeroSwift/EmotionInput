@@ -21,17 +21,6 @@ public class EmotionGrid: UIView {
     // 列间距
     public var columnSpacing = CGFloat(10)
     
-    // 单元格文本字体
-    public var cellLabelTextFont = UIFont.systemFont(ofSize: 12)
-    
-    // 单元格文本颜色
-    public var cellLabelTextColor = UIColor(red: 100 / 255, green: 100 / 255, blue: 100 / 255, alpha: 1)
-    
-    // 单元格文本与表情的距离
-    public var cellLabelMarginTop = CGFloat(10)
-    
-    public var deleteImageName = "delete"
-    
     // 表情单元格按下时的背景色
     public var cellBackgroundColorPressed = UIColor(red: 240 / 255, green: 240 / 255, blue: 240 / 255, alpha: 1)
     
@@ -42,6 +31,7 @@ public class EmotionGrid: UIView {
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
+        print("创建 EmotionGrid \(frame)")
         setup()
     }
     
@@ -88,17 +78,13 @@ extension EmotionGrid: UICollectionViewDataSource {
         print("获取第几个单元格视图: \(indexPath.item) \(cell.isEmotion || cell.isDelete)")
         
         if emotionPage.hasDeleteButton && indexPath.item == emotionPage.rows * emotionPage.columns - 1 {
-            cell.setup(deleteImageName: deleteImageName)
+            cell.showDelete()
         }
         else if emotion.isValid() {
-            cell.setup(
-                emotion: emotion,
-                labelTextFont: cellLabelTextFont,
-                labelTextColor: cellLabelTextColor,
-                labelMarginTop: cellLabelMarginTop,
-                emotionWidth: emotionPage.width,
-                emotionHeight: emotionPage.height
-            )
+            cell.showEmotion(emotion: emotion, emotionWidth: emotionPage.width, emotionHeight: emotionPage.height)
+        }
+        else {
+            cell.showNothing()
         }
         
         return cell
@@ -181,7 +167,7 @@ extension EmotionGrid {
 
         // 计算 itemHeight 最大值
         let rowCount = CGFloat(emotionPage.rows)
-        let maxHeight = (collectionView.frame.height - 2 * paddingVertical - (rowCount - 1) * rowSpacing) / rowCount
+        let maxHeight = ((collectionView.frame.height - 2 * paddingVertical - (rowCount - 1) * rowSpacing) / rowCount).rounded(.down)
         
         return CGSize(width: width, height: min(width, maxHeight))
         
@@ -189,27 +175,20 @@ extension EmotionGrid {
     
     class EmotionGridCell: UICollectionViewCell {
         
-        var emotionCell = EmotionCell()
+        var emotionCell: EmotionCell!
         
         var isEmotion = false
         var isDelete = false
         
-        func setup(emotion: Emotion, labelTextFont: UIFont, labelTextColor: UIColor, labelMarginTop: CGFloat, emotionWidth: Int, emotionHeight: Int) {
-            emotionCell.setup(emotion: emotion, labelTextFont: labelTextFont, labelTextColor: labelTextColor, labelMarginTop: labelMarginTop, emotionWidth: emotionWidth, emotionHeight: emotionHeight)
-            setup()
-            isEmotion = true
-        }
-        
-        func setup(deleteImageName: String) {
-            emotionCell.setup(deleteImageName: deleteImageName)
-            setup()
-            isDelete = true
-        }
-        
-        private func setup() {
-        
+        public override init(frame: CGRect) {
+            
+            super.init(frame: frame)
+            
+            emotionCell = EmotionCell(frame: frame)
             emotionCell.translatesAutoresizingMaskIntoConstraints = false
             contentView.addSubview(emotionCell)
+            
+            contentView.backgroundColor = UIColor(red: 230 / 255, green: 230 / 255, blue: 230 / 255, alpha: 1)
             
             addConstraints([
                 
@@ -218,6 +197,28 @@ extension EmotionGrid {
                 
             ])
             
+        }
+        
+        public required init?(coder aDecoder: NSCoder) {
+            fatalError("init(coder:) has not been implemented")
+        }
+        
+        func showEmotion(emotion: Emotion, emotionWidth: Int, emotionHeight: Int) {
+            isDelete = false
+            isEmotion = true
+            emotionCell.showEmotion(emotion: emotion, emotionWidth: emotionWidth, emotionHeight: emotionHeight)
+        }
+        
+        func showDelete() {
+            isDelete = true
+            isEmotion = false
+            emotionCell.showDelete()
+        }
+        
+        func showNothing() {
+            isDelete = false
+            isEmotion = false
+            emotionCell.showNothing()
         }
         
     }
