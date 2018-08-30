@@ -3,6 +3,10 @@ import UIKit
 
 class EmotionCell: UIView {
     
+    //
+    // MARK: - 界面元素
+    //
+    
     // 显示表情图片
     var emotionView: UIImageView!
     
@@ -11,6 +15,10 @@ class EmotionCell: UIView {
     
     // 显示删除按钮
     var deleteView: UIImageView!
+    
+    //
+    // MARK: - 界面配置
+    //
     
     // 单元格文本字体
     var nameTextFont = UIFont.systemFont(ofSize: 12)
@@ -24,7 +32,9 @@ class EmotionCell: UIView {
     // 删除按钮的图片
     var deleteImageName = "delete"
     
-    var emotion = Emotion([:])
+    //
+    // MARK: - 布局约束
+    //
     
     private var emotionTopConstraint: NSLayoutConstraint!
     private var emotionCenterXConstraint: NSLayoutConstraint!
@@ -38,18 +48,20 @@ class EmotionCell: UIView {
     private var emotionWidthConstraint: NSLayoutConstraint?
     private var emotionHeightConstraint: NSLayoutConstraint?
     
+    //
+    // MARK: - 获取 View 的真实尺寸
+    //
+    
     public override var intrinsicContentSize: CGSize {
         
         var width = CGFloat(0)
         var height = CGFloat(0)
         
-        if emotionView.isHidden {
-            if !deleteView.isHidden {
-                width = deleteView.intrinsicContentSize.width
-                height = deleteView.intrinsicContentSize.height
-            }
+        if !deleteView.isHidden {
+            width = deleteView.intrinsicContentSize.width
+            height = deleteView.intrinsicContentSize.height
         }
-        else {
+        else if !emotionView.isHidden {
             
             if let constraint = emotionWidthConstraint {
                 width = constraint.constant
@@ -73,14 +85,13 @@ class EmotionCell: UIView {
                 }
             }
         }
-        print("计算 cell 真实尺寸 \(width) \(height) \(emotion.name)")
+
         return CGSize(width: width, height: height)
         
     }
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
-        print("\n")
         print("创建 EmotionCell \(frame)")
         setup()
     }
@@ -89,6 +100,7 @@ class EmotionCell: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // 初始化界面元素和约束
     func setup() {
         
         emotionView = UIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
@@ -138,9 +150,6 @@ class EmotionCell: UIView {
         else {
             hideNameView()
         }
-        
-        self.emotion = emotion
-        
         invalidateIntrinsicContentSize()
     }
     
@@ -149,7 +158,6 @@ class EmotionCell: UIView {
         hideEmotionView()
         hideNameView()
         showDeleteView()
-        
         invalidateIntrinsicContentSize()
     }
     
@@ -158,7 +166,6 @@ class EmotionCell: UIView {
         hideEmotionView()
         hideNameView()
         hideDeleteView()
-        
         invalidateIntrinsicContentSize()
     }
     
