@@ -1,7 +1,7 @@
 
 import UIKit
 
-public class EmotionGrid: UIView {
+public class EmotionGrid: UICollectionViewCell {
     
     var emotionPage = EmotionPage([:]) {
         didSet {
@@ -27,7 +27,7 @@ public class EmotionGrid: UIView {
     private var collectionView: UICollectionView!
     private var flowLayout: UICollectionViewFlowLayout!
     
-    private let reuseIdentifier = "cell"
+    private let cellIdentifier = "cell"
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -45,14 +45,14 @@ public class EmotionGrid: UIView {
         flowLayout.scrollDirection = .vertical
         
         collectionView = UICollectionView(frame: frame, collectionViewLayout: flowLayout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.alwaysBounceVertical = false
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
 
-        collectionView.register(EmotionGridCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView.register(EmotionGridCell.self, forCellWithReuseIdentifier: cellIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.backgroundColor = UIColor.cyan
+        collectionView.backgroundColor = .blue
         
         addSubview(collectionView)
 
@@ -72,19 +72,19 @@ extension EmotionGrid: UICollectionViewDataSource {
         // 其实这里不存在复用
         // 全是新建
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! EmotionGridCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! EmotionGridCell
         let emotion = emotionPage.emotionList[indexPath.item]
         
-        print("获取第几个单元格视图: \(indexPath.item) \(cell.isEmotion || cell.isDelete)")
+        print("获取第几个单元格视图: \(indexPath.item)")
         
         if emotionPage.hasDeleteButton && indexPath.item == emotionPage.rows * emotionPage.columns - 1 {
-            cell.showDelete()
+            cell.emotionCell.showDelete()
         }
         else if emotion.isValid() {
-            cell.showEmotion(emotion: emotion, emotionWidth: emotionPage.width, emotionHeight: emotionPage.height)
+            cell.emotionCell.showEmotion(emotion: emotion, emotionWidth: emotionPage.width, emotionHeight: emotionPage.height)
         }
         else {
-            cell.showNothing()
+            cell.emotionCell.showNothing()
         }
         
         return cell
@@ -97,18 +97,20 @@ extension EmotionGrid: UICollectionViewDelegate {
     // 点击事件
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! EmotionGridCell
-        if cell.isEmotion {
-            let emotion = emotionPage.emotionList[indexPath.item]
-        }
-        else if cell.isDelete {
-            
+        if cell.emotionCell.hasContent() {
+            if let emotion = cell.emotionCell.emotion {
+                
+            }
+            else {
+                
+            }
         }
     }
     
     // 按下事件
     public func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! EmotionGridCell
-        if cell.isEmotion || cell.isDelete {
+        if cell.emotionCell.hasContent() {
             cell.backgroundColor = cellBackgroundColorPressed
         }
     }
@@ -116,7 +118,7 @@ extension EmotionGrid: UICollectionViewDelegate {
     // 松手事件
     public func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! EmotionGridCell
-        if cell.isEmotion || cell.isDelete {
+        if cell.emotionCell.hasContent() {
             cell.backgroundColor = .clear
         }
     }
@@ -173,12 +175,10 @@ extension EmotionGrid {
         
     }
     
+    // 为了让 View 垂直居中搞的这么麻烦...
     class EmotionGridCell: UICollectionViewCell {
         
         var emotionCell: EmotionCell!
-        
-        var isEmotion = false
-        var isDelete = false
         
         public override init(frame: CGRect) {
             
@@ -186,39 +186,21 @@ extension EmotionGrid {
             
             emotionCell = EmotionCell(frame: frame)
             emotionCell.translatesAutoresizingMaskIntoConstraints = false
+            
             contentView.addSubview(emotionCell)
             
             contentView.backgroundColor = UIColor(red: 230 / 255, green: 230 / 255, blue: 230 / 255, alpha: 1)
             
+            
             addConstraints([
-                
                 NSLayoutConstraint(item: emotionCell, attribute: .centerX, relatedBy: .equal, toItem: contentView, attribute: .centerX, multiplier: 1.0, constant: 0),
                 NSLayoutConstraint(item: emotionCell, attribute: .centerY, relatedBy: .equal, toItem: contentView, attribute: .centerY, multiplier: 1.0, constant: 0),
-                
             ])
             
         }
         
         public required init?(coder aDecoder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
-        }
-        
-        func showEmotion(emotion: Emotion, emotionWidth: Int, emotionHeight: Int) {
-            isDelete = false
-            isEmotion = true
-            emotionCell.showEmotion(emotion: emotion, emotionWidth: emotionWidth, emotionHeight: emotionHeight)
-        }
-        
-        func showDelete() {
-            isDelete = true
-            isEmotion = false
-            emotionCell.showDelete()
-        }
-        
-        func showNothing() {
-            isDelete = false
-            isEmotion = false
-            emotionCell.showNothing()
         }
         
     }

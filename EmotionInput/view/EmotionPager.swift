@@ -16,18 +16,18 @@ public class EmotionPager: UIView {
             if emotionSetList.count > emotionSetIndex {
                 let emotionSet = emotionSetList[ emotionSetIndex ]
                 if emotionSet.hasIndicator {
-                    indicatorView.isHidden = false
+                    showIndicatorView()
                     indicatorView.count = emotionSet.emotionPageList.count
                     indicatorView.sizeToFit()
                     indicatorView.setNeedsLayout()
                     indicatorView.setNeedsDisplay()
                 }
                 else {
-                    indicatorView.isHidden = true
+                    hideIndicatorView()
                 }
             }
             else {
-                indicatorView.isHidden = true
+                hideIndicatorView()
             }
             
         }
@@ -39,7 +39,10 @@ public class EmotionPager: UIView {
     private var collectionView: UICollectionView!
     private var indicatorView: DotIndicator!
     
-    private let reuseIdentifier = "cell"
+    private let cellIdentifier = "grid"
+    
+    private var indicatorCenterXConstraint: NSLayoutConstraint!
+    private var indicatorTopConstraint: NSLayoutConstraint!
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -66,7 +69,7 @@ public class EmotionPager: UIView {
         collectionView.alwaysBounceVertical = false
         collectionView.isPagingEnabled = true
         
-        collectionView.register(EmotionPagerCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView.register(EmotionGrid.self, forCellWithReuseIdentifier: cellIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = .clear
@@ -75,19 +78,17 @@ public class EmotionPager: UIView {
         
         indicatorView = DotIndicator(frame: frame)
         indicatorView.translatesAutoresizingMaskIntoConstraints = false
-        
-        addSubview(indicatorView)
+        indicatorView.isHidden = true
 
+        indicatorCenterXConstraint = NSLayoutConstraint(item: indicatorView, attribute: .centerX, relatedBy: .equal, toItem: collectionView, attribute: .centerX, multiplier: 1.0, constant: 0)
+        indicatorTopConstraint = NSLayoutConstraint(item: indicatorView, attribute: .top, relatedBy: .equal, toItem: collectionView, attribute: .bottom, multiplier: 1.0, constant: indicatorMarginTop)
+        
         addConstraints([
             
             NSLayoutConstraint(item: collectionView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: 0),
             NSLayoutConstraint(item: collectionView, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: 0),
             NSLayoutConstraint(item: collectionView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0),
-            NSLayoutConstraint(item: collectionView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -(indicatorView.intrinsicContentSize.height + indicatorMarginTop)),
-            
-
-            NSLayoutConstraint(item: indicatorView, attribute: .centerX, relatedBy: .equal, toItem: collectionView, attribute: .centerX, multiplier: 1.0, constant: 0),
-            NSLayoutConstraint(item: indicatorView, attribute: .top, relatedBy: .equal, toItem: collectionView, attribute: .bottom, multiplier: 1.0, constant: indicatorMarginTop),
+            NSLayoutConstraint(item: collectionView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -(indicatorView.intrinsicContentSize.height + indicatorMarginTop))
 
         ])
         
@@ -108,11 +109,11 @@ extension EmotionPager: UICollectionViewDataSource {
     
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! EmotionPagerCell
-        print("获取第几页视图: \(indexPath.item)")
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! EmotionGrid
+        print("\n\n\n获取第几页视图: \(indexPath.item)")
         
         checkRange(index: indexPath.item) {
-            cell.setEmotionPage(emotionSetList[$0].emotionPageList[$1])
+            cell.emotionPage = emotionSetList[$0].emotionPageList[$1]
         }
         
         return cell
@@ -151,6 +152,30 @@ extension EmotionPager: UICollectionViewDelegate {
 
 extension EmotionPager {
     
+    private func showIndicatorView() {
+        
+        let fromHidden = indicatorView.isHidden
+        
+        if fromHidden {
+            addSubview(indicatorView)
+            indicatorView.isHidden = false
+            addConstraints([indicatorTopConstraint, indicatorCenterXConstraint])
+        }
+        
+    }
+    
+    private func hideIndicatorView() {
+        
+        let fromVisible = indicatorView.isHidden
+        
+        if fromVisible {
+            removeConstraints([indicatorTopConstraint, indicatorCenterXConstraint])
+            indicatorView.isHidden = true
+            indicatorView.removeFromSuperview()
+        }
+        
+    }
+    
     /**
      * 绝对 index 到相对 index 的转换
      */
@@ -164,27 +189,6 @@ extension EmotionPager {
             }
             from = to
         }
-    }
-    
-    class EmotionPagerCell: UICollectionViewCell {
-        
-        private var emotionGrid: EmotionGrid!
-
-        public override init(frame: CGRect) {
-            super.init(frame: frame)
-            emotionGrid = EmotionGrid(frame: frame)
-            contentView.addSubview(emotionGrid)
-            contentView.backgroundColor = .red
-        }
-        
-        public required init?(coder aDecoder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-        
-        func setEmotionPage(_ emotionPage: EmotionPage) {
-            emotionGrid.emotionPage = emotionPage
-        }
-    
     }
     
 }

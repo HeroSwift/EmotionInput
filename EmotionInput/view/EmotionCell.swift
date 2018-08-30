@@ -33,6 +33,12 @@ class EmotionCell: UIView {
     var deleteImageName = "delete"
     
     //
+    // MARK: - 表情数据
+    //
+    
+    var emotion: Emotion?
+    
+    //
     // MARK: - 布局约束
     //
     
@@ -48,6 +54,7 @@ class EmotionCell: UIView {
     private var emotionWidthConstraint: NSLayoutConstraint?
     private var emotionHeightConstraint: NSLayoutConstraint?
     
+
     //
     // MARK: - 获取 View 的真实尺寸
     //
@@ -135,6 +142,8 @@ class EmotionCell: UIView {
     func showEmotion(emotion: Emotion, emotionWidth: Int, emotionHeight: Int) {
         print("showEmotion \(emotion)")
         
+        self.emotion = emotion
+        
         showEmotionView(emotionWidth: emotionWidth, emotionHeight: emotionHeight)
         hideDeleteView()
         
@@ -150,6 +159,7 @@ class EmotionCell: UIView {
         else {
             hideNameView()
         }
+        
         invalidateIntrinsicContentSize()
     }
     
@@ -168,6 +178,14 @@ class EmotionCell: UIView {
         hideDeleteView()
         invalidateIntrinsicContentSize()
     }
+    
+    func hasContent() -> Bool {
+        return !emotionView.isHidden || !deleteView.isHidden
+    }
+    
+}
+
+extension EmotionCell {
     
     private func showEmotionView(emotionWidth: Int, emotionHeight: Int) {
         
@@ -233,7 +251,9 @@ class EmotionCell: UIView {
         let fromVisible = !emotionView.isHidden
         
         if fromVisible {
-
+            
+            emotion = nil
+            
             removeConstraints([ emotionTopConstraint, emotionCenterXConstraint ])
             if let constraint = emotionWidthConstraint {
                 removeConstraint(constraint)
