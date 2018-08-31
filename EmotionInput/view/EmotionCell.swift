@@ -99,7 +99,6 @@ class EmotionCell: UIView {
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
-        print("创建 EmotionCell \(frame)")
         setup()
     }
     
@@ -140,8 +139,7 @@ class EmotionCell: UIView {
     }
     
     func showEmotion(emotion: Emotion, emotionWidth: Int, emotionHeight: Int) {
-        print("showEmotion \(emotion)")
-        
+
         self.emotion = emotion
         
         showEmotionView(emotionWidth: emotionWidth, emotionHeight: emotionHeight)
@@ -164,7 +162,6 @@ class EmotionCell: UIView {
     }
     
     func showDelete() {
-        print("showDelete")
         hideEmotionView()
         hideNameView()
         showDeleteView()
@@ -172,7 +169,6 @@ class EmotionCell: UIView {
     }
     
     func showNothing() {
-        print("showNothing")
         hideEmotionView()
         hideNameView()
         hideDeleteView()

@@ -6,6 +6,8 @@ public class EmotionGrid: UICollectionViewCell {
     var emotionPage = EmotionPage([:]) {
         didSet {
             collectionView.reloadData()
+            flowLayout.invalidateLayout()
+            print("emotionPage 赋值 \(collectionView.frame) \(collectionView.isHidden) \(collectionView.bounds)")
         }
     }
     
@@ -31,7 +33,7 @@ public class EmotionGrid: UICollectionViewCell {
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
-        print("创建 EmotionGrid \(frame)")
+        print("!!!! 创建 EmotionGrid \(frame)")
         setup()
     }
     
@@ -45,16 +47,16 @@ public class EmotionGrid: UICollectionViewCell {
         flowLayout.scrollDirection = .vertical
         
         collectionView = UICollectionView(frame: frame, collectionViewLayout: flowLayout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.alwaysBounceVertical = false
-
+        
         collectionView.register(EmotionGridCell.self, forCellWithReuseIdentifier: cellIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.backgroundColor = .blue
         
-        addSubview(collectionView)
+        contentView.addSubview(collectionView)
+        contentView.backgroundColor = .red
 
     }
     
@@ -69,21 +71,20 @@ extension EmotionGrid: UICollectionViewDataSource {
     
     // 复用 cell 组件
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        // 其实这里不存在复用
-        // 全是新建
-        
+
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! EmotionGridCell
         let emotion = emotionPage.emotionList[indexPath.item]
         
-        print("获取第几个单元格视图: \(indexPath.item)")
-        
         if emotionPage.hasDeleteButton && indexPath.item == emotionPage.rows * emotionPage.columns - 1 {
+            print("showDelete")
             cell.emotionCell.showDelete()
         }
         else if emotion.isValid() {
+            print("showEmotion")
             cell.emotionCell.showEmotion(emotion: emotion, emotionWidth: emotionPage.width, emotionHeight: emotionPage.height)
         }
         else {
+            print("showNothing")
             cell.emotionCell.showNothing()
         }
         
@@ -152,7 +153,6 @@ extension EmotionGrid: UICollectionViewDelegateFlowLayout {
     
     // 设置单元格尺寸
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        print("获取单元格尺寸: \(getCellSize())")
         return getCellSize()
     }
     
