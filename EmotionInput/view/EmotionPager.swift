@@ -56,8 +56,6 @@ public class EmotionPager: UIView {
     
     private func setup() {
         
-        backgroundColor = UIColor(red: 220 / 250, green: 220 / 250, blue: 220 / 250, alpha: 1)
-        
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
@@ -109,11 +107,8 @@ extension EmotionPager: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! EmotionGrid
-        print("\n\n\n获取第几页视图: \(indexPath.item)")
-        
-        
+
         checkRange(index: indexPath.item) {
-            print("\($0) \($1)")
             cell.emotionPage = emotionSetList[$0].emotionPageList[$1]
         }
         
@@ -125,7 +120,6 @@ extension EmotionPager: UICollectionViewDataSource {
 extension EmotionPager: UICollectionViewDelegateFlowLayout {
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        print("获取每页的尺寸: \(collectionView.frame.size)")
         return collectionView.frame.size
     }
     
@@ -140,8 +134,6 @@ extension EmotionPager: UICollectionViewDelegate {
         let width = scrollView.bounds.size.width
 
         let index = Int(ceil(x / width))
-        
-        print("翻页到 \(index)")
         
         checkRange(index: index) {
             emotionSetIndex = $0

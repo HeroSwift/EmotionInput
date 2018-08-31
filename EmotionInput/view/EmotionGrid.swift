@@ -6,8 +6,6 @@ public class EmotionGrid: UICollectionViewCell {
     var emotionPage = EmotionPage([:]) {
         didSet {
             collectionView.reloadData()
-            flowLayout.invalidateLayout()
-            print("emotionPage 赋值 \(collectionView.frame) \(collectionView.isHidden) \(collectionView.bounds)")
         }
     }
     
@@ -33,7 +31,6 @@ public class EmotionGrid: UICollectionViewCell {
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
-        print("!!!! 创建 EmotionGrid \(frame)")
         setup()
     }
     
@@ -47,16 +44,25 @@ public class EmotionGrid: UICollectionViewCell {
         flowLayout.scrollDirection = .vertical
         
         collectionView = UICollectionView(frame: frame, collectionViewLayout: flowLayout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsVerticalScrollIndicator = false
         collectionView.alwaysBounceVertical = false
         
         collectionView.register(EmotionGridCell.self, forCellWithReuseIdentifier: cellIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.backgroundColor = .blue
+        collectionView.backgroundColor = .clear
         
-        contentView.addSubview(collectionView)
-        contentView.backgroundColor = .red
+        addSubview(collectionView)
+        
+        addConstraints([
+            
+            NSLayoutConstraint(item: collectionView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: 0),
+            NSLayoutConstraint(item: collectionView, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: 0),
+            NSLayoutConstraint(item: collectionView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0),
+            NSLayoutConstraint(item: collectionView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: 0)
+            
+        ])
 
     }
     
@@ -73,18 +79,16 @@ extension EmotionGrid: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! EmotionGridCell
-        let emotion = emotionPage.emotionList[indexPath.item]
+        let index = indexPath.item
+        let emotion = emotionPage.emotionList[index]
         
-        if emotionPage.hasDeleteButton && indexPath.item == emotionPage.rows * emotionPage.columns - 1 {
-            print("showDelete")
+        if emotionPage.hasDeleteButton && index == emotionPage.rows * emotionPage.columns - 1 {
             cell.emotionCell.showDelete()
         }
         else if emotion.isValid() {
-            print("showEmotion")
             cell.emotionCell.showEmotion(emotion: emotion, emotionWidth: emotionPage.width, emotionHeight: emotionPage.height)
         }
         else {
-            print("showNothing")
             cell.emotionCell.showNothing()
         }
         
@@ -187,14 +191,11 @@ extension EmotionGrid {
             emotionCell = EmotionCell(frame: frame)
             emotionCell.translatesAutoresizingMaskIntoConstraints = false
             
-            contentView.addSubview(emotionCell)
-            
-            contentView.backgroundColor = UIColor(red: 230 / 255, green: 230 / 255, blue: 230 / 255, alpha: 1)
-            
+            addSubview(emotionCell)
             
             addConstraints([
-                NSLayoutConstraint(item: emotionCell, attribute: .centerX, relatedBy: .equal, toItem: contentView, attribute: .centerX, multiplier: 1.0, constant: 0),
-                NSLayoutConstraint(item: emotionCell, attribute: .centerY, relatedBy: .equal, toItem: contentView, attribute: .centerY, multiplier: 1.0, constant: 0),
+                NSLayoutConstraint(item: emotionCell, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.0, constant: 0),
+                NSLayoutConstraint(item: emotionCell, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: 0),
             ])
             
         }
