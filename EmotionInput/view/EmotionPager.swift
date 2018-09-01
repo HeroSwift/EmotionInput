@@ -74,8 +74,6 @@ public class EmotionPager: UIView {
         collectionView.delegate = self
         collectionView.backgroundColor = .clear
         
-        backgroundColor = UIColor.brown
-        
         addSubview(collectionView)
         
         indicatorView = DotIndicator(frame: frame)

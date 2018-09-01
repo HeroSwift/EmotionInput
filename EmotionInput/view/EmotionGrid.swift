@@ -51,7 +51,7 @@ public class EmotionGrid: UICollectionViewCell {
         collectionView.register(EmotionGridCell.self, forCellWithReuseIdentifier: cellIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.backgroundColor = .red
+        collectionView.backgroundColor = .clear
         
         addSubview(collectionView)
         
