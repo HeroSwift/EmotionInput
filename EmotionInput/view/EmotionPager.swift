@@ -30,6 +30,20 @@ public class EmotionPager: UIView {
                 hideIndicatorView()
             }
             
+            var index = 0
+            toolbarView.emotionIconList = emotionSetList.map {
+                
+                let currentIndex = index
+                index = index + 1
+                
+                return EmotionIcon([
+                    "index": currentIndex,
+                    "iconName": $0.iconName,
+                    "selected": currentIndex == emotionSetIndex,
+                ])
+                
+            }
+            
         }
     }
     
@@ -86,6 +100,21 @@ public class EmotionPager: UIView {
         
         toolbarView = EmotionToolbar(frame: frame)
         toolbarView.translatesAutoresizingMaskIntoConstraints = false
+        toolbarView.onIconPress = { icon in
+            var count = 0
+            for i in 0..<self.emotionSetList.count {
+                if i == icon.index {
+                    self.collectionView.scrollToItem(at: IndexPath(item: count, section: 0), at: .centeredHorizontally, animated: true)
+                    self.emotionSetIndex = i
+                    break
+                }
+                count += self.emotionSetList[i].emotionPageList.count
+            }
+        }
+        toolbarView.onSendPress = {
+            
+        }
+        
         addSubview(toolbarView)
 
         collectionBottomConstraint = NSLayoutConstraint(item: collectionView, attribute: .bottom, relatedBy: .equal, toItem: indicatorView, attribute: .top, multiplier: 1.0, constant: 0)
@@ -148,7 +177,6 @@ extension EmotionPager: UICollectionViewDelegateFlowLayout {
     }
     
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        print("\(indexPath.item) \(collectionView.bounds.size)")
         return collectionView.bounds.size
     }
     

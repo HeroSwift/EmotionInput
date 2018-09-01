@@ -7,7 +7,7 @@ public class EmotionIcon: NSObject {
     @objc public var index = 0
     
     // 本地图标
-    @objc public var imageId = 0
+    @objc public var iconName = ""
     
     // 是否是选中状态
     @objc public var selected = false
