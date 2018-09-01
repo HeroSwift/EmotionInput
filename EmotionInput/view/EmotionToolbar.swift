@@ -88,7 +88,7 @@ class EmotionToolbar: UIView {
         dividerView.backgroundColor = sendButtonBorderColor
         addSubview(dividerView)
         
-        sendButton = SimpleButton(frame: CGRect.zero)
+        sendButton = SimpleButton()
         sendButton.translatesAutoresizingMaskIntoConstraints = false
         sendButton.setTitle(sendButtonText, for: .normal)
         sendButton.setTitleColor(sendButtonTextColor, for: .normal)

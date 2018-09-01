@@ -71,14 +71,15 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         
-        let pager = EmotionPager(frame: CGRect(x: 0, y: 60, width: view.frame.width, height: 600))
+        let emotionInput = EmotionInput(frame: CGRect(x: 0, y: 60, width: view.frame.width, height: 400))
+        emotionInput.backgroundColor = UIColor(red: 240 / 255, green: 240 / 255, blue: 240 / 255, alpha: 1)
+        emotionInput.delegate = self
+        view.addSubview(emotionInput)
         
-        view.addSubview(pager)
+        let emotionSet1 = EmotionSet.build(iconName: "hot", emotionList: emotionList, columns: 3, rows: 4, width: 40, height: 40, hasDeleteButton: true, hasIndicator: true)
+        let emotionSet2 = EmotionSet.build(iconName: "hot", emotionList: emotionList, columns: 3, rows: 3, width: 40, height: 40, hasDeleteButton: false, hasIndicator: false)
         
-        let emotionSet1 = EmotionSet.build(iconName: "", emotionList: emotionList, columns: 3, rows: 4, width: 40, height: 40, hasDeleteButton: true, hasIndicator: true)
-        let emotionSet2 = EmotionSet.build(iconName: "", emotionList: emotionList, columns: 3, rows: 3, width: 40, height: 40, hasDeleteButton: true, hasIndicator: true)
-        
-        pager.emotionSetList = [emotionSet1, emotionSet2]
+        emotionInput.emotionSetList = [emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2]
         
     }
     
@@ -88,5 +89,20 @@ class ViewController: UIViewController {
     }
     
     
+}
+
+extension ViewController: EmotionInputDelegate {
+    
+    func emotionInputDidSendClick(_ emotionInput: EmotionInput) {
+        print("send click")
+    }
+    
+    func emotionInputDidDeleteClick(_ emotionInput: EmotionInput) {
+        print("delete click")
+    }
+    
+    func emotionInputDidEmotionClick(_ emotionInput: EmotionInput, _ emotion: Emotion) {
+        print("emotion click \(emotion.name)")
+    }
 }
 

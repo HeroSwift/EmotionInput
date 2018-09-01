@@ -1,16 +1,16 @@
 
 import UIKit
 
-public class EmotionPager: UIView {
+class EmotionPager: UIView {
     
-    public var emotionSetList = [EmotionSet]() {
+    var emotionSetList = [EmotionSet]() {
         didSet {
             emotionSetIndex = 0
             collectionView.reloadData()
         }
     }
     
-    public var emotionSetIndex = 0 {
+    var emotionSetIndex = 0 {
         didSet {
             
             if emotionSetList.count > emotionSetIndex {
@@ -48,10 +48,14 @@ public class EmotionPager: UIView {
     }
     
     // indicator 与网格的距离
-    public var indicatorMarginTop = CGFloat(8)
+    var indicatorMarginTop = CGFloat(8)
     
     // toolbar 与 indicator 的距离
-    public var toolbarMarginTop = CGFloat(8)
+    var toolbarMarginTop = CGFloat(8)
+    
+    var onEmotionPress: ((_ emotion: Emotion) -> Void)?
+    var onDeletePress: (() -> Void)?
+    var onSendPress: (() -> Void)?
     
     private var collectionView: UICollectionView!
     private var flowLayout: UICollectionViewFlowLayout!
@@ -65,12 +69,12 @@ public class EmotionPager: UIView {
     private var indicatorBottomConstraint: NSLayoutConstraint!
     private var indicatorHeightConstraint: NSLayoutConstraint!
     
-    public override init(frame: CGRect) {
+    override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
     }
     
-    public required init?(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
@@ -112,7 +116,7 @@ public class EmotionPager: UIView {
             }
         }
         toolbarView.onSendPress = {
-            
+            self.onSendPress?()
         }
         
         addSubview(toolbarView)
@@ -145,7 +149,7 @@ public class EmotionPager: UIView {
 
 extension EmotionPager: UICollectionViewDataSource {
     
-    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         var count = 0
         for set in emotionSetList {
             count += set.emotionPageList.count
@@ -153,13 +157,16 @@ extension EmotionPager: UICollectionViewDataSource {
         return count
     }
     
-    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! EmotionGrid
 
         checkRange(index: indexPath.item) {
             cell.emotionPage = emotionSetList[$0].emotionPageList[$1]
         }
+        
+        cell.onEmotionPress = onEmotionPress
+        cell.onDeletePress = onDeletePress
         
         return cell
     }
@@ -169,16 +176,16 @@ extension EmotionPager: UICollectionViewDataSource {
 extension EmotionPager: UICollectionViewDelegateFlowLayout {
     
     // 行间距
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
     
     // 列间距
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
     
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return collectionView.bounds.size
     }
     
@@ -187,7 +194,7 @@ extension EmotionPager: UICollectionViewDelegateFlowLayout {
 extension EmotionPager: UICollectionViewDelegate {
     
     // 翻页事件
-    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         
         let x = scrollView.contentOffset.x
         let width = scrollView.bounds.size.width

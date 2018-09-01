@@ -27,6 +27,9 @@ public class EmotionGrid: UICollectionViewCell {
     // 表情单元格按下时的背景色
     public var cellBackgroundColorPressed = UIColor(red: 240 / 255, green: 240 / 255, blue: 240 / 255, alpha: 1)
     
+    var onEmotionPress: ((_ emotion: Emotion) -> Void)?
+    var onDeletePress: (() -> Void)?
+    
     private var collectionView: UICollectionView!
     private var flowLayout: UICollectionViewFlowLayout!
     
@@ -107,10 +110,10 @@ extension EmotionGrid: UICollectionViewDelegate {
         let cell = collectionView.cellForItem(at: indexPath) as! EmotionGridCell
         if cell.emotionCell.hasContent() {
             if let emotion = cell.emotionCell.emotion {
-                print(emotion.name)
+                onEmotionPress?(emotion)
             }
             else {
-                print("delete")
+                onDeletePress?()
             }
         }
     }
