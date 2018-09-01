@@ -44,11 +44,12 @@ class EmotionToolbar: UIView {
     var onSendPress: (() -> Void)?
     
     
-    
     private var collectionView: UICollectionView!
     private var flowLayout: UICollectionViewFlowLayout!
     
+    // 发送按钮的左边框
     private var dividerView: UIView!
+    // 发送按钮
     private var sendButton: SimpleButton!
     
     private let cellIdentifier = "icon"
@@ -99,6 +100,10 @@ class EmotionToolbar: UIView {
         sendButton.layer.shadowOpacity = 0.15
         sendButton.layer.shadowOffset = CGSize(width: -3, height: 0)
         sendButton.layer.shadowRadius = 3
+        
+        sendButton.onPress = {
+            self.onSendPress?()
+        }
 
         addSubview(sendButton)
 
@@ -120,13 +125,7 @@ class EmotionToolbar: UIView {
             
         ])
         
-        backgroundColor = .white
         clipsToBounds = true
-
-        sendButton.onPress = {
-            self.onSendPress?()
-        }
-        
 
     }
     
@@ -141,14 +140,14 @@ extension EmotionToolbar: UICollectionViewDelegate {
     
     // 按下事件
     public func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! EmotionIconCell
-        cell.backgroundColor = cellBackgroundColorPressed
+        let cell = collectionView.cellForItem(at: indexPath)
+        cell?.backgroundColor = cellBackgroundColorPressed
     }
     
     // 松手事件
     public func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! EmotionIconCell
-        cell.backgroundColor = .clear
+        let cell = collectionView.cellForItem(at: indexPath)
+        cell?.backgroundColor = .clear
     }
     
 }

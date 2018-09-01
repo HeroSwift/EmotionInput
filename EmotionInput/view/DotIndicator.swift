@@ -33,7 +33,7 @@ public class DotIndicator: UIView {
     }
     
     public override var intrinsicContentSize: CGSize {
-        return CGSize(width: isHidden ? 0 : contentWidth, height: isHidden ? 0 : contentHeight)
+        return CGSize(width: contentWidth, height: contentHeight)
     }
     
     public override init(frame: CGRect) {

@@ -21,6 +21,9 @@ public class EmotionGrid: UICollectionViewCell {
     // 列间距
     public var columnSpacing = CGFloat(10)
     
+    // 删除图片
+    public var deleteImageName = "delete"
+    
     // 表情单元格按下时的背景色
     public var cellBackgroundColorPressed = UIColor(red: 240 / 255, green: 240 / 255, blue: 240 / 255, alpha: 1)
     
@@ -83,7 +86,7 @@ extension EmotionGrid: UICollectionViewDataSource {
         let emotion = emotionPage.emotionList[index]
         
         if emotionPage.hasDeleteButton && index == emotionPage.rows * emotionPage.columns - 1 {
-            cell.emotionCell.showDelete()
+            cell.emotionCell.showDelete(deleteImageName: deleteImageName)
         }
         else if emotion.isValid() {
             cell.emotionCell.showEmotion(emotion: emotion, emotionWidth: emotionPage.width, emotionHeight: emotionPage.height)

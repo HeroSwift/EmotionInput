@@ -24,13 +24,10 @@ class EmotionCell: UIView {
     var nameTextFont = UIFont.systemFont(ofSize: 12)
     
     // 单元格文本颜色
-    var nameTextColor = UIColor(red: 100 / 255, green: 100 / 255, blue: 100 / 255, alpha: 1)
+    var nameTextColor = UIColor(red: 120 / 255, green: 120 / 255, blue: 120 / 255, alpha: 1)
     
     // 单元格文本与表情的距离
-    var nameMarginTop = CGFloat(10)
-    
-    // 删除按钮的图片
-    var deleteImageName = "delete"
+    var nameMarginTop = CGFloat(5)
     
     //
     // MARK: - 表情数据
@@ -109,7 +106,7 @@ class EmotionCell: UIView {
     // 初始化界面元素和约束
     func setup() {
         
-        emotionView = UIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        emotionView = UIImageView(frame: CGRect.zero)
         emotionView.translatesAutoresizingMaskIntoConstraints = false
         emotionView.contentMode = UIViewContentMode.scaleAspectFit
         emotionView.isHidden = true
@@ -120,9 +117,8 @@ class EmotionCell: UIView {
         nameView.textColor = nameTextColor
         nameView.isHidden = true
         
-        deleteView = UIImageView(frame: CGRect(x: 0, y: 0, width: 0, height: 0))
+        deleteView = UIImageView(frame: CGRect.zero)
         deleteView.translatesAutoresizingMaskIntoConstraints = false
-        deleteView.image = UIImage(named: deleteImageName)
         deleteView.isHidden = true
 
         emotionTopConstraint = NSLayoutConstraint(item: emotionView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0)
@@ -159,10 +155,10 @@ class EmotionCell: UIView {
         invalidateIntrinsicContentSize()
     }
     
-    func showDelete() {
+    func showDelete(deleteImageName: String) {
         hideEmotionView()
         hideNameView()
-        showDeleteView()
+        showDeleteView(deleteImageName: deleteImageName)
         invalidateIntrinsicContentSize()
     }
     
@@ -287,11 +283,12 @@ extension EmotionCell {
         
     }
     
-    private func showDeleteView() {
+    private func showDeleteView(deleteImageName: String) {
         
         let fromHidden = deleteView.isHidden
         
         if fromHidden {
+            deleteView.image = UIImage(named: deleteImageName)
             addSubview(deleteView)
             deleteView.isHidden = false
             addConstraints([ deleteCenterXConstraint, deleteCenterYConstraint ])

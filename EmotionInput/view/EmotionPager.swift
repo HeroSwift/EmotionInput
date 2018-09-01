@@ -48,10 +48,10 @@ public class EmotionPager: UIView {
     }
     
     // indicator 与网格的距离
-    public var indicatorMarginTop = CGFloat(10)
+    public var indicatorMarginTop = CGFloat(8)
     
     // toolbar 与 indicator 的距离
-    public var toolbarMarginTop = CGFloat(10)
+    public var toolbarMarginTop = CGFloat(8)
     
     private var collectionView: UICollectionView!
     private var flowLayout: UICollectionViewFlowLayout!
@@ -63,6 +63,7 @@ public class EmotionPager: UIView {
     
     private var collectionBottomConstraint: NSLayoutConstraint!
     private var indicatorBottomConstraint: NSLayoutConstraint!
+    private var indicatorHeightConstraint: NSLayoutConstraint!
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -82,29 +83,28 @@ public class EmotionPager: UIView {
         collectionView = UICollectionView(frame: frame, collectionViewLayout: flowLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.showsHorizontalScrollIndicator = false
-        collectionView.alwaysBounceVertical = false
         collectionView.isPagingEnabled = true
         
         collectionView.register(EmotionGrid.self, forCellWithReuseIdentifier: cellIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.backgroundColor = UIColor.green
+        collectionView.backgroundColor = .clear
         
         addSubview(collectionView)
         
         indicatorView = DotIndicator(frame: frame)
         indicatorView.translatesAutoresizingMaskIntoConstraints = false
         indicatorView.isHidden = true
-        indicatorView.backgroundColor = UIColor.brown
         addSubview(indicatorView)
         
         toolbarView = EmotionToolbar(frame: frame)
         toolbarView.translatesAutoresizingMaskIntoConstraints = false
+        toolbarView.backgroundColor = .white
         toolbarView.onIconPress = { icon in
             var count = 0
             for i in 0..<self.emotionSetList.count {
                 if i == icon.index {
-                    self.collectionView.scrollToItem(at: IndexPath(item: count, section: 0), at: .centeredHorizontally, animated: true)
+                    self.collectionView.scrollToItem(at: IndexPath(item: count, section: 0), at: .centeredHorizontally, animated: false)
                     self.emotionSetIndex = i
                     break
                 }
@@ -119,7 +119,8 @@ public class EmotionPager: UIView {
 
         collectionBottomConstraint = NSLayoutConstraint(item: collectionView, attribute: .bottom, relatedBy: .equal, toItem: indicatorView, attribute: .top, multiplier: 1.0, constant: 0)
         indicatorBottomConstraint = NSLayoutConstraint(item: indicatorView, attribute: .bottom, relatedBy: .equal, toItem: toolbarView, attribute: .top, multiplier: 1.0, constant: 0)
-
+        indicatorHeightConstraint = NSLayoutConstraint(item: indicatorView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: 0)
+        
         addConstraints([
             
             NSLayoutConstraint(item: toolbarView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: 0),
@@ -128,6 +129,7 @@ public class EmotionPager: UIView {
             
             NSLayoutConstraint(item: indicatorView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.0, constant: 0),
             indicatorBottomConstraint,
+            indicatorHeightConstraint,
             
             NSLayoutConstraint(item: collectionView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: 0),
             NSLayoutConstraint(item: collectionView, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: 0),
@@ -212,6 +214,7 @@ extension EmotionPager {
             indicatorView.isHidden = false
             collectionBottomConstraint.constant = -indicatorMarginTop
             indicatorBottomConstraint.constant = -toolbarMarginTop
+            removeConstraint(indicatorHeightConstraint)
         }
         
     }
@@ -221,6 +224,7 @@ extension EmotionPager {
         let fromVisible = !indicatorView.isHidden
         
         if fromVisible {
+            addConstraint(indicatorHeightConstraint)
             collectionBottomConstraint.constant = 0
             indicatorBottomConstraint.constant = 0
             indicatorView.isHidden = true
