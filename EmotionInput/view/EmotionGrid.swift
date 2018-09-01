@@ -51,7 +51,7 @@ public class EmotionGrid: UICollectionViewCell {
         collectionView.register(EmotionGridCell.self, forCellWithReuseIdentifier: cellIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.backgroundColor = .clear
+        collectionView.backgroundColor = .red
         
         addSubview(collectionView)
         
@@ -104,10 +104,10 @@ extension EmotionGrid: UICollectionViewDelegate {
         let cell = collectionView.cellForItem(at: indexPath) as! EmotionGridCell
         if cell.emotionCell.hasContent() {
             if let emotion = cell.emotionCell.emotion {
-                
+                print(emotion.name)
             }
             else {
-                
+                print("delete")
             }
         }
     }
