@@ -36,16 +36,19 @@ public class EmotionPager: UIView {
     // indicator 与网格的距离
     public var indicatorMarginTop = CGFloat(10)
     
+    // toolbar 与 indicator 的距离
+    public var toolbarMarginTop = CGFloat(10)
+    
     private var collectionView: UICollectionView!
     private var flowLayout: UICollectionViewFlowLayout!
     
     private var indicatorView: DotIndicator!
+    private var toolbarView: EmotionToolbar!
     
     private let cellIdentifier = "grid"
     
     private var collectionBottomConstraint: NSLayoutConstraint!
-    private var indicatorCenterXConstraint: NSLayoutConstraint!
-    private var indicatorTopConstraint: NSLayoutConstraint!
+    private var indicatorBottomConstraint: NSLayoutConstraint!
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -61,7 +64,6 @@ public class EmotionPager: UIView {
         
         flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
-        flowLayout.minimumLineSpacing = 0
         
         collectionView = UICollectionView(frame: frame, collectionViewLayout: flowLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -72,19 +74,31 @@ public class EmotionPager: UIView {
         collectionView.register(EmotionGrid.self, forCellWithReuseIdentifier: cellIdentifier)
         collectionView.dataSource = self
         collectionView.delegate = self
-        collectionView.backgroundColor = .clear
+        collectionView.backgroundColor = UIColor.green
         
         addSubview(collectionView)
         
         indicatorView = DotIndicator(frame: frame)
         indicatorView.translatesAutoresizingMaskIntoConstraints = false
         indicatorView.isHidden = true
-
-        indicatorCenterXConstraint = NSLayoutConstraint(item: indicatorView, attribute: .centerX, relatedBy: .equal, toItem: collectionView, attribute: .centerX, multiplier: 1.0, constant: 0)
-        indicatorTopConstraint = NSLayoutConstraint(item: indicatorView, attribute: .top, relatedBy: .equal, toItem: collectionView, attribute: .bottom, multiplier: 1.0, constant: indicatorMarginTop)
-        collectionBottomConstraint = NSLayoutConstraint(item: collectionView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: 0)
+        indicatorView.backgroundColor = UIColor.brown
+        addSubview(indicatorView)
         
+        toolbarView = EmotionToolbar(frame: frame)
+        toolbarView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(toolbarView)
+
+        collectionBottomConstraint = NSLayoutConstraint(item: collectionView, attribute: .bottom, relatedBy: .equal, toItem: indicatorView, attribute: .top, multiplier: 1.0, constant: 0)
+        indicatorBottomConstraint = NSLayoutConstraint(item: indicatorView, attribute: .bottom, relatedBy: .equal, toItem: toolbarView, attribute: .top, multiplier: 1.0, constant: 0)
+
         addConstraints([
+            
+            NSLayoutConstraint(item: toolbarView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: 0),
+            NSLayoutConstraint(item: toolbarView, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: 0),
+            NSLayoutConstraint(item: toolbarView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: 0),
+            
+            NSLayoutConstraint(item: indicatorView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.0, constant: 0),
+            indicatorBottomConstraint,
             
             NSLayoutConstraint(item: collectionView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: 0),
             NSLayoutConstraint(item: collectionView, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: 0),
@@ -123,8 +137,19 @@ extension EmotionPager: UICollectionViewDataSource {
 
 extension EmotionPager: UICollectionViewDelegateFlowLayout {
     
+    // 行间距
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    // 列间距
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return collectionView.frame.size
+        print("\(indexPath.item) \(collectionView.bounds.size)")
+        return collectionView.bounds.size
     }
     
 }
@@ -156,11 +181,9 @@ extension EmotionPager {
         let fromHidden = indicatorView.isHidden
         
         if fromHidden {
-            addSubview(indicatorView)
             indicatorView.isHidden = false
-            addConstraints([indicatorTopConstraint, indicatorCenterXConstraint])
-            collectionBottomConstraint.constant = -(indicatorView.intrinsicContentSize.height + indicatorMarginTop)
-            flowLayout.invalidateLayout()
+            collectionBottomConstraint.constant = -indicatorMarginTop
+            indicatorBottomConstraint.constant = -toolbarMarginTop
         }
         
     }
@@ -171,10 +194,8 @@ extension EmotionPager {
         
         if fromVisible {
             collectionBottomConstraint.constant = 0
-            removeConstraints([indicatorTopConstraint, indicatorCenterXConstraint])
+            indicatorBottomConstraint.constant = 0
             indicatorView.isHidden = true
-            indicatorView.removeFromSuperview()
-            flowLayout.invalidateLayout()
         }
         
     }
