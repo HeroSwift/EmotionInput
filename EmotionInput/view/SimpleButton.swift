@@ -44,7 +44,7 @@ public class SimpleButton: UIButton {
         }
         leftBorder = UIView()
         if let border = leftBorder {
-
+            
             border.translatesAutoresizingMaskIntoConstraints = false
             border.backgroundColor = color
             addSubview(border)
