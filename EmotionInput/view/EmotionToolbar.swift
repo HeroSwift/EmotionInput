@@ -40,15 +40,13 @@ class EmotionToolbar: UIView {
     var sendButtonPaddingLeft = CGFloat(14)
     var sendButtonPaddingRight = CGFloat(14)
     
-    var onIconPress: ((_ icon: EmotionIcon) -> Void)?
-    var onSendPress: (() -> Void)?
+    var onIconClick: ((_ icon: EmotionIcon) -> Void)?
+    var onSendClick: (() -> Void)?
     
     
     private var collectionView: UICollectionView!
     private var flowLayout: UICollectionViewFlowLayout!
     
-    // 发送按钮的左边框
-    private var dividerView: UIView!
     // 发送按钮
     private var sendButton: SimpleButton!
     
@@ -83,11 +81,6 @@ class EmotionToolbar: UIView {
         
         addSubview(collectionView)
         
-        dividerView = UIView()
-        dividerView.translatesAutoresizingMaskIntoConstraints = false
-        dividerView.backgroundColor = sendButtonBorderColor
-        addSubview(dividerView)
-        
         sendButton = SimpleButton()
         sendButton.translatesAutoresizingMaskIntoConstraints = false
         sendButton.setTitle(sendButtonText, for: .normal)
@@ -101,8 +94,10 @@ class EmotionToolbar: UIView {
         sendButton.layer.shadowOffset = CGSize(width: -3, height: 0)
         sendButton.layer.shadowRadius = 3
         
-        sendButton.onPress = {
-            self.onSendPress?()
+        sendButton.setLeftBorder(width: 1 / UIScreen.main.scale, color: sendButtonBorderColor)
+        
+        sendButton.onClick = {
+            self.onSendClick?()
         }
 
         addSubview(sendButton)
@@ -112,14 +107,9 @@ class EmotionToolbar: UIView {
             NSLayoutConstraint(item: sendButton, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: 0),
             NSLayoutConstraint(item: sendButton, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0),
             NSLayoutConstraint(item: sendButton, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: 0),
-            
-            NSLayoutConstraint(item: dividerView, attribute: .right, relatedBy: .equal, toItem: sendButton, attribute: .left, multiplier: 1.0, constant: 0),
-            NSLayoutConstraint(item: dividerView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0),
-            NSLayoutConstraint(item: dividerView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: 0),
-            NSLayoutConstraint(item: dividerView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: 1 / UIScreen.main.scale),
-            
+
             NSLayoutConstraint(item: collectionView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: 0),
-            NSLayoutConstraint(item: collectionView, attribute: .right, relatedBy: .equal, toItem: dividerView, attribute: .left, multiplier: 1.0, constant: 0),
+            NSLayoutConstraint(item: collectionView, attribute: .right, relatedBy: .equal, toItem: sendButton, attribute: .left, multiplier: 1.0, constant: 0),
             NSLayoutConstraint(item: collectionView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0),
             NSLayoutConstraint(item: collectionView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: 0)
             
@@ -135,7 +125,7 @@ extension EmotionToolbar: UICollectionViewDelegate {
     
     // 点击事件
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        onIconPress?(emotionIconList[indexPath.item])
+        onIconClick?(emotionIconList[indexPath.item])
     }
     
     // 按下事件

@@ -10,13 +10,13 @@ public class EmotionGrid: UICollectionViewCell {
     }
     
     // 表情网格容器的上下 padding
-    public var paddingVertical = CGFloat(10)
+    public var paddingVertical = CGFloat(20)
     
     // 表情网格容器的左右 padding
-    public var paddingHorizontal = CGFloat(10)
+    public var paddingHorizontal = CGFloat(20)
     
     // 行间距
-    public var rowSpacing = CGFloat(15)
+    public var rowSpacing = CGFloat(10)
     
     // 列间距
     public var columnSpacing = CGFloat(10)
@@ -27,8 +27,8 @@ public class EmotionGrid: UICollectionViewCell {
     // 表情单元格按下时的背景色
     public var cellBackgroundColorPressed = UIColor(red: 240 / 255, green: 240 / 255, blue: 240 / 255, alpha: 1)
     
-    var onEmotionPress: ((_ emotion: Emotion) -> Void)?
-    var onDeletePress: (() -> Void)?
+    var onEmotionClick: ((_ emotion: Emotion) -> Void)?
+    var onDeleteClick: (() -> Void)?
     
     private var collectionView: UICollectionView!
     private var flowLayout: UICollectionViewFlowLayout!
@@ -110,10 +110,10 @@ extension EmotionGrid: UICollectionViewDelegate {
         let cell = collectionView.cellForItem(at: indexPath) as! EmotionGridCell
         if cell.emotionCell.hasContent() {
             if let emotion = cell.emotionCell.emotion {
-                onEmotionPress?(emotion)
+                onEmotionClick?(emotion)
             }
             else {
-                onDeletePress?()
+                onDeleteClick?()
             }
         }
     }

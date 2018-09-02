@@ -17,6 +17,7 @@ class EmotionPager: UIView {
                 let emotionSet = emotionSetList[ emotionSetIndex ]
                 if emotionSet.hasIndicator {
                     showIndicatorView()
+                    indicatorView.index = 0
                     indicatorView.count = emotionSet.emotionPageList.count
                     indicatorView.sizeToFit()
                     indicatorView.setNeedsLayout()
@@ -53,9 +54,9 @@ class EmotionPager: UIView {
     // toolbar 与 indicator 的距离
     var toolbarMarginTop = CGFloat(8)
     
-    var onEmotionPress: ((_ emotion: Emotion) -> Void)?
-    var onDeletePress: (() -> Void)?
-    var onSendPress: (() -> Void)?
+    var onEmotionClick: ((_ emotion: Emotion) -> Void)?
+    var onDeleteClick: (() -> Void)?
+    var onSendClick: (() -> Void)?
     
     private var collectionView: UICollectionView!
     private var flowLayout: UICollectionViewFlowLayout!
@@ -99,12 +100,13 @@ class EmotionPager: UIView {
         indicatorView = DotIndicator(frame: frame)
         indicatorView.translatesAutoresizingMaskIntoConstraints = false
         indicatorView.isHidden = true
+        
         addSubview(indicatorView)
         
         toolbarView = EmotionToolbar(frame: frame)
         toolbarView.translatesAutoresizingMaskIntoConstraints = false
         toolbarView.backgroundColor = .white
-        toolbarView.onIconPress = { icon in
+        toolbarView.onIconClick = { icon in
             var count = 0
             for i in 0..<self.emotionSetList.count {
                 if i == icon.index {
@@ -115,8 +117,8 @@ class EmotionPager: UIView {
                 count += self.emotionSetList[i].emotionPageList.count
             }
         }
-        toolbarView.onSendPress = {
-            self.onSendPress?()
+        toolbarView.onSendClick = {
+            self.onSendClick?()
         }
         
         addSubview(toolbarView)
@@ -165,8 +167,8 @@ extension EmotionPager: UICollectionViewDataSource {
             cell.emotionPage = emotionSetList[$0].emotionPageList[$1]
         }
         
-        cell.onEmotionPress = onEmotionPress
-        cell.onDeletePress = onDeletePress
+        cell.onEmotionClick = onEmotionClick
+        cell.onDeleteClick = onDeleteClick
         
         return cell
     }
@@ -194,20 +196,14 @@ extension EmotionPager: UICollectionViewDelegateFlowLayout {
 extension EmotionPager: UICollectionViewDelegate {
     
     // 翻页事件
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        
-        let x = scrollView.contentOffset.x
-        let width = scrollView.bounds.size.width
-
-        let index = Int(ceil(x / width))
-        
-        checkRange(index: index) {
-            emotionSetIndex = $0
-            indicatorView.index = $1
-            indicatorView.setNeedsDisplay()
-        }
-        
+    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+        updateScrollX(x: scrollView.contentOffset.x, width: scrollView.bounds.size.width)
     }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        updateScrollX(x: scrollView.contentOffset.x, width: scrollView.bounds.size.width)
+    }
+    
 }
 
 
@@ -235,6 +231,18 @@ extension EmotionPager {
             collectionBottomConstraint.constant = 0
             indicatorBottomConstraint.constant = 0
             indicatorView.isHidden = true
+        }
+        
+    }
+    
+    private func updateScrollX(x: CGFloat, width: CGFloat) {
+        
+        let index = Int(ceil(x / width))
+
+        checkRange(index: index) {
+            emotionSetIndex = $0
+            indicatorView.index = $1
+            indicatorView.setNeedsDisplay()
         }
         
     }

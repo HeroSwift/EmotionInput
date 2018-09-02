@@ -72,7 +72,7 @@ class ViewController: UIViewController {
         
         
         let emotionInput = EmotionInput(frame: CGRect(x: 0, y: 60, width: view.frame.width, height: 400))
-        emotionInput.backgroundColor = UIColor(red: 240 / 255, green: 240 / 255, blue: 240 / 255, alpha: 1)
+        emotionInput.backgroundColor = UIColor.blue
         emotionInput.delegate = self
         view.addSubview(emotionInput)
         

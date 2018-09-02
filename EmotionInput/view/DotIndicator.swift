@@ -16,19 +16,20 @@ public class DotIndicator: UIView {
     public var activeColor = UIColor.white
     
     // 默认半径
-    public var radius = 4
+    public var radius = 3.0
     
     // 当前页半径
-    public var activeRadius = 4
+    public var activeRadius = 3.5
     
     // 圆点的间距
-    public var gap = 4
+    public var gap = 4.0
     
-    private var contentWidth: Int {
-        return 2 * radius * (count - 1) + 2 * activeRadius + gap * (count - 1)
+    private var contentWidth: Double {
+        let interval = Double(count - 1)
+        return 2 * radius * interval + 2 * activeRadius + gap * interval
     }
     
-    private var contentHeight: Int {
+    private var contentHeight: Double {
         return 2 * max(radius, activeRadius)
     }
     
@@ -65,11 +66,11 @@ public class DotIndicator: UIView {
             return
         }
         
-        let centerY = Int(frame.height / 2)
+        let centerY = Double(frame.height / 2)
         
-        var startX = (Int(frame.width) - contentWidth) / 2
+        var startX = (Double(frame.width) - contentWidth) / 2
         var dotIndex = 0
-        var dotRadius = 0
+        var dotRadius = 0.0
         var dotColor = UIColor.white
         
         while dotIndex < count {

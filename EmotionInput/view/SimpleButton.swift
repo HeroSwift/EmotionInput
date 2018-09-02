@@ -3,12 +3,19 @@ import UIKit
 
 public class SimpleButton: UIButton {
     
-    public var onPress: (() -> Void)?
+    public var onClick: (() -> Void)?
     
-    private var leftBorder: CALayer?
-    private var topBorder: CALayer?
-    private var rightBorder: CALayer?
-    private var bottomBorder: CALayer?
+    private var leftBorder: UIView?
+    private var leftBorderConstraints: [NSLayoutConstraint]?
+    
+    private var topBorder: UIView?
+    private var topBorderConstraints: [NSLayoutConstraint]?
+    
+    private var rightBorder: UIView?
+    private var rightBorderConstraints: [NSLayoutConstraint]?
+    
+    private var bottomBorder: UIView?
+    private var bottomBorderConstraints: [NSLayoutConstraint]?
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,49 +39,97 @@ public class SimpleButton: UIButton {
     
     public func setLeftBorder(width: CGFloat, color: UIColor) {
         if let border = leftBorder {
-            border.removeFromSuperlayer()
+            removeConstraints(leftBorderConstraints!)
+            border.removeFromSuperview()
         }
-        leftBorder = CALayer()
+        leftBorder = UIView()
         if let border = leftBorder {
-            border.frame = CGRect(x: 0, y: 0, width: width, height: frame.size.height)
-            border.backgroundColor = color.cgColor
-            layer.addSublayer(border)
+
+            border.translatesAutoresizingMaskIntoConstraints = false
+            border.backgroundColor = color
+            addSubview(border)
+            
+            leftBorderConstraints = [
+                NSLayoutConstraint(item: border, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: 0),
+                NSLayoutConstraint(item: border, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0),
+                NSLayoutConstraint(item: border, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: 0),
+                NSLayoutConstraint(item: border, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: width),
+            ]
+            
+            addConstraints(leftBorderConstraints!)
+            
         }
     }
     
     public func setTopBorder(width: CGFloat, color: UIColor) {
         if let border = topBorder {
-            border.removeFromSuperlayer()
+            removeConstraints(topBorderConstraints!)
+            border.removeFromSuperview()
         }
-        topBorder = CALayer()
+        topBorder = UIView()
         if let border = topBorder {
-            border.frame = CGRect(x: 0, y: 0, width: frame.size.width, height: width)
-            border.backgroundColor = color.cgColor
-            layer.addSublayer(border)
+            
+            border.translatesAutoresizingMaskIntoConstraints = false
+            border.backgroundColor = color
+            addSubview(border)
+            
+            topBorderConstraints = [
+                NSLayoutConstraint(item: border, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0),
+                NSLayoutConstraint(item: border, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: 0),
+                NSLayoutConstraint(item: border, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: 0),
+                NSLayoutConstraint(item: border, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: width),
+            ]
+            
+            addConstraints(topBorderConstraints!)
+            
         }
     }
     
     public func setRightBorder(width: CGFloat, color: UIColor) {
         if let border = rightBorder {
-            border.removeFromSuperlayer()
+            removeConstraints(rightBorderConstraints!)
+            border.removeFromSuperview()
         }
-        rightBorder = CALayer()
+        rightBorder = UIView()
         if let border = rightBorder {
-            border.frame = CGRect(x: frame.size.width - width, y: 0, width: width, height: frame.size.height)
-            border.backgroundColor = color.cgColor
-            layer.addSublayer(border)
+            
+            border.translatesAutoresizingMaskIntoConstraints = false
+            border.backgroundColor = color
+            addSubview(border)
+            
+            rightBorderConstraints = [
+                NSLayoutConstraint(item: border, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: 0),
+                NSLayoutConstraint(item: border, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0),
+                NSLayoutConstraint(item: border, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: 0),
+                NSLayoutConstraint(item: border, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: width),
+            ]
+            
+            addConstraints(rightBorderConstraints!)
+            
         }
     }
     
     public func setBottomBorder(width: CGFloat, color: UIColor) {
         if let border = bottomBorder {
-            border.removeFromSuperlayer()
+            removeConstraints(bottomBorderConstraints!)
+            border.removeFromSuperview()
         }
-        bottomBorder = CALayer()
+        bottomBorder = UIView()
         if let border = bottomBorder {
-            border.frame = CGRect(x: 0, y: frame.size.height - width, width: frame.size.width, height: width)
-            border.backgroundColor = color.cgColor
-            layer.addSublayer(border)
+            
+            border.translatesAutoresizingMaskIntoConstraints = false
+            border.backgroundColor = color
+            addSubview(border)
+            
+            bottomBorderConstraints = [
+                NSLayoutConstraint(item: border, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: 0),
+                NSLayoutConstraint(item: border, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: 0),
+                NSLayoutConstraint(item: border, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: 0),
+                NSLayoutConstraint(item: border, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: width),
+            ]
+            
+            addConstraints(bottomBorderConstraints!)
+            
         }
     }
     
@@ -97,7 +152,7 @@ public class SimpleButton: UIButton {
     }
     
     @objc private func touchUpInside() {
-        onPress?()
+        onClick?()
     }
     
 }
