@@ -1,5 +1,6 @@
 
 import UIKit
+import DotIndicator
 
 class EmotionPager: UIView {
     

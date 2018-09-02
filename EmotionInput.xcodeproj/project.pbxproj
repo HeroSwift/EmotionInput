@@ -16,13 +16,15 @@
 		9D43078021339FC4001ED814 /* Emotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D43077621339FC4001ED814 /* Emotion.swift */; };
 		9D43078121339FC4001ED814 /* EmotionPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D43077721339FC4001ED814 /* EmotionPage.swift */; };
 		9D43078221339FC4001ED814 /* EmotionInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D43077821339FC4001ED814 /* EmotionInput.swift */; };
-		9D43078321339FC4001ED814 /* DotIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D43077A21339FC4001ED814 /* DotIndicator.swift */; };
 		9D43078421339FC4001ED814 /* EmotionGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D43077B21339FC4001ED814 /* EmotionGrid.swift */; };
 		9D43078521339FC4001ED814 /* EmotionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D43077C21339FC4001ED814 /* EmotionCell.swift */; };
 		9D43078621339FC4001ED814 /* EmotionPager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D43077D21339FC4001ED814 /* EmotionPager.swift */; };
 		9D43078A2133A018001ED814 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4307892133A018001ED814 /* ViewController.swift */; };
+		9D7105B9213BBCBD00B1DF7C /* DotIndicator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D7105B7213BBCBD00B1DF7C /* DotIndicator.framework */; };
+		9D7105BA213BBCBD00B1DF7C /* DotIndicator.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9D7105B7213BBCBD00B1DF7C /* DotIndicator.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9D7105BB213BBCBD00B1DF7C /* SimpleButton.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D7105B8213BBCBD00B1DF7C /* SimpleButton.framework */; };
+		9D7105BC213BBCBD00B1DF7C /* SimpleButton.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9D7105B8213BBCBD00B1DF7C /* SimpleButton.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9DD08F4D213A746300CE20D9 /* EmotionToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD08F4C213A746300CE20D9 /* EmotionToolbar.swift */; };
-		9DD08F4F213A96A900CE20D9 /* SimpleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD08F4E213A96A800CE20D9 /* SimpleButton.swift */; };
 		9DD08F51213ADF9C00CE20D9 /* EmotionInputDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD08F50213ADF9C00CE20D9 /* EmotionInputDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +37,21 @@
 			remoteInfo = EmotionInput;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9D7105BD213BBCBD00B1DF7C /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				9D7105BC213BBCBD00B1DF7C /* SimpleButton.framework in Embed Frameworks */,
+				9D7105BA213BBCBD00B1DF7C /* DotIndicator.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		9D43075221339F80001ED814 /* EmotionInput.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EmotionInput.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -50,13 +67,13 @@
 		9D43077621339FC4001ED814 /* Emotion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Emotion.swift; sourceTree = "<group>"; };
 		9D43077721339FC4001ED814 /* EmotionPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionPage.swift; sourceTree = "<group>"; };
 		9D43077821339FC4001ED814 /* EmotionInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionInput.swift; sourceTree = "<group>"; };
-		9D43077A21339FC4001ED814 /* DotIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotIndicator.swift; sourceTree = "<group>"; };
 		9D43077B21339FC4001ED814 /* EmotionGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionGrid.swift; sourceTree = "<group>"; };
 		9D43077C21339FC4001ED814 /* EmotionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionCell.swift; sourceTree = "<group>"; };
 		9D43077D21339FC4001ED814 /* EmotionPager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionPager.swift; sourceTree = "<group>"; };
 		9D4307892133A018001ED814 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9D7105B7213BBCBD00B1DF7C /* DotIndicator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DotIndicator.framework; path = Carthage/Build/iOS/DotIndicator.framework; sourceTree = "<group>"; };
+		9D7105B8213BBCBD00B1DF7C /* SimpleButton.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SimpleButton.framework; path = Carthage/Build/iOS/SimpleButton.framework; sourceTree = "<group>"; };
 		9DD08F4C213A746300CE20D9 /* EmotionToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionToolbar.swift; sourceTree = "<group>"; };
-		9DD08F4E213A96A800CE20D9 /* SimpleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleButton.swift; sourceTree = "<group>"; };
 		9DD08F50213ADF9C00CE20D9 /* EmotionInputDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionInputDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -72,6 +89,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D7105BB213BBCBD00B1DF7C /* SimpleButton.framework in Frameworks */,
+				9D7105B9213BBCBD00B1DF7C /* DotIndicator.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +100,8 @@
 		9D43074821339F80001ED814 = {
 			isa = PBXGroup;
 			children = (
+				9D7105B7213BBCBD00B1DF7C /* DotIndicator.framework */,
+				9D7105B8213BBCBD00B1DF7C /* SimpleButton.framework */,
 				9D43075421339F80001ED814 /* EmotionInput */,
 				9D43076221339F8D001ED814 /* Example */,
 				9D43075321339F80001ED814 /* Products */,
@@ -135,8 +156,6 @@
 		9D43077921339FC4001ED814 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				9DD08F4E213A96A800CE20D9 /* SimpleButton.swift */,
-				9D43077A21339FC4001ED814 /* DotIndicator.swift */,
 				9D43077B21339FC4001ED814 /* EmotionGrid.swift */,
 				9D43077C21339FC4001ED814 /* EmotionCell.swift */,
 				9D43077D21339FC4001ED814 /* EmotionPager.swift */,
@@ -183,6 +202,7 @@
 				9D43075D21339F8D001ED814 /* Sources */,
 				9D43075E21339F8D001ED814 /* Frameworks */,
 				9D43075F21339F8D001ED814 /* Resources */,
+				9D7105BD213BBCBD00B1DF7C /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -262,12 +282,10 @@
 				9D43077F21339FC4001ED814 /* EmotionSet.swift in Sources */,
 				9D43077E21339FC4001ED814 /* EmotionIcon.swift in Sources */,
 				9D43078221339FC4001ED814 /* EmotionInput.swift in Sources */,
-				9DD08F4F213A96A900CE20D9 /* SimpleButton.swift in Sources */,
 				9D43078621339FC4001ED814 /* EmotionPager.swift in Sources */,
 				9DD08F51213ADF9C00CE20D9 /* EmotionInputDelegate.swift in Sources */,
 				9D43078021339FC4001ED814 /* Emotion.swift in Sources */,
 				9DD08F4D213A746300CE20D9 /* EmotionToolbar.swift in Sources */,
-				9D43078321339FC4001ED814 /* DotIndicator.swift in Sources */,
 				9D43078421339FC4001ED814 /* EmotionGrid.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -443,6 +461,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = EmotionInput/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -472,6 +494,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SRCROOT)/Carthage/Build/iOS",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = EmotionInput/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -491,10 +517,11 @@
 		9D43077121339F8E001ED814 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N276SVAZ33;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/iOS";
 				INFOPLIST_FILE = Example/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -511,10 +538,11 @@
 		9D43077221339F8E001ED814 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = N276SVAZ33;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/Carthage/Build/iOS";
 				INFOPLIST_FILE = Example/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
