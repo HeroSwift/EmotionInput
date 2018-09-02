@@ -22,7 +22,7 @@ public class EmotionGrid: UICollectionViewCell {
     public var columnSpacing = CGFloat(10)
     
     // 删除图片
-    public var deleteImageName = "delete"
+    public var deleteImageName = "delete-emotion"
     
     // 表情单元格按下时的背景色
     public var cellBackgroundColorPressed = UIColor(red: 240 / 255, green: 240 / 255, blue: 240 / 255, alpha: 1)
