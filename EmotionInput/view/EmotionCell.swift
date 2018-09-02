@@ -134,25 +134,39 @@ class EmotionCell: UIView {
     
     func showEmotion(emotion: Emotion, emotionWidth: Int, emotionHeight: Int) {
 
-        self.emotion = emotion
-        
-        showEmotionView(emotionWidth: emotionWidth, emotionHeight: emotionHeight)
-        hideDeleteView()
+        var hasEmotion = false
         
         if emotion.imageName != "" {
+            hasEmotion = true
             emotionView.image = UIImage(named: emotion.imageName)
         }
+        else if emotion.imageUrl != "" {
+            hasEmotion = true
+        }
         
-        if emotion.name != "" {
-            nameView.text = emotion.name
-            nameView.sizeToFit()
-            showNameView()
+        if hasEmotion {
+            
+            self.emotion = emotion
+            
+            showEmotionView(emotionWidth: emotionWidth, emotionHeight: emotionHeight)
+            hideDeleteView()
+            
+            if emotion.name != "" {
+                nameView.text = emotion.name
+                nameView.sizeToFit()
+                showNameView()
+            }
+            else {
+                hideNameView()
+            }
+            
+            invalidateIntrinsicContentSize()
+            
         }
         else {
-            hideNameView()
+            showNothing()
         }
         
-        invalidateIntrinsicContentSize()
     }
     
     func showDelete(deleteImageName: String) {

@@ -91,7 +91,7 @@ extension EmotionGrid: UICollectionViewDataSource {
         if emotionPage.hasDeleteButton && index == emotionPage.rows * emotionPage.columns - 1 {
             cell.emotionCell.showDelete(deleteImageName: deleteImageName)
         }
-        else if emotion.isValid() {
+        else if emotion.code != "" {
             cell.emotionCell.showEmotion(emotion: emotion, emotionWidth: emotionPage.width, emotionHeight: emotionPage.height)
         }
         else {
@@ -174,8 +174,8 @@ extension EmotionGrid {
     func getCellSize() -> CGSize {
         
         let columnCount = CGFloat(emotionPage.columns)
-        let marginsAndInsets = paddingHorizontal * 2 + flowLayout.sectionInset.left + flowLayout.sectionInset.right + columnSpacing * (columnCount - 1)
-        let width = ((collectionView.frame.width - marginsAndInsets) / columnCount).rounded(.down)
+        let spacing = paddingHorizontal * 2 + flowLayout.sectionInset.left + flowLayout.sectionInset.right + columnSpacing * (columnCount - 1)
+        let width = ((collectionView.frame.width - spacing) / columnCount).rounded(.down)
 
         // 计算 itemHeight 最大值
         let rowCount = CGFloat(emotionPage.rows)

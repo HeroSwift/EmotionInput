@@ -27,8 +27,4 @@ public class Emotion: NSObject {
         
     }
     
-    public func isValid() -> Bool {
-        return code != ""
-    }
-    
 }
