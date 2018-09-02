@@ -11,10 +11,10 @@ class EmotionToolbar: UIView {
     }
     
     // 工具栏的高度
-    var height = CGFloat(40)
+    var height = CGFloat(44)
     
     // 图标单元格宽度
-    var cellWidth = CGFloat(40)
+    var cellWidth = CGFloat(44)
     
     // 表情单元格分割线颜色
     var cellDividerColor = UIColor(red: 230 / 255, green: 230 / 255, blue: 230 / 255, alpha: 1)
@@ -195,6 +195,9 @@ extension EmotionToolbar {
         var dividerView: UIView!
         var imageView: UIImageView!
         
+        var dividerOffset = CGFloat(6)
+        var divierWidth = 1 / UIScreen.main.scale
+        
         public override init(frame: CGRect) {
             
             super.init(frame: frame)
@@ -205,14 +208,15 @@ extension EmotionToolbar {
             
             imageView = UIImageView()
             imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.contentMode = .center
             addSubview(imageView)
             
             addConstraints([
                 
                 NSLayoutConstraint(item: dividerView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: 0),
-                NSLayoutConstraint(item: dividerView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 6),
-                NSLayoutConstraint(item: dividerView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -6),
-                NSLayoutConstraint(item: dividerView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: 1 / UIScreen.main.scale),
+                NSLayoutConstraint(item: dividerView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: dividerOffset),
+                NSLayoutConstraint(item: dividerView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: -dividerOffset),
+                NSLayoutConstraint(item: dividerView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: divierWidth),
                 
                 NSLayoutConstraint(item: imageView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.0, constant: 0),
                 NSLayoutConstraint(item: imageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: 0),

@@ -25,7 +25,7 @@ public class EmotionGrid: UICollectionViewCell {
     public var deleteImageName = "delete-emotion"
     
     // 表情单元格按下时的背景色
-    public var cellBackgroundColorPressed = UIColor(red: 240 / 255, green: 240 / 255, blue: 240 / 255, alpha: 1)
+    public var cellBackgroundColorPressed = UIColor(red: 0, green: 0, blue: 0, alpha: 0.1)
     
     var onEmotionClick: ((_ emotion: Emotion) -> Void)?
     var onDeleteClick: (() -> Void)?
