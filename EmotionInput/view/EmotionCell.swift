@@ -43,7 +43,8 @@ class EmotionCell: UIView {
     private var emotionCenterXConstraint: NSLayoutConstraint!
     
     private var nameTopConstraint: NSLayoutConstraint!
-    private var nameCenterXConstraint: NSLayoutConstraint!
+    private var nameLeftConstraint: NSLayoutConstraint!
+    private var nameRightConstraint: NSLayoutConstraint!
     
     private var deleteCenterXConstraint: NSLayoutConstraint!
     private var deleteCenterYConstraint: NSLayoutConstraint!
@@ -115,6 +116,9 @@ class EmotionCell: UIView {
         nameView.translatesAutoresizingMaskIntoConstraints = false
         nameView.font = nameTextFont
         nameView.textColor = nameTextColor
+        nameView.numberOfLines = 1
+        nameView.lineBreakMode = .byTruncatingTail
+        nameView.textAlignment = .center
         nameView.isHidden = true
         
         deleteView = UIImageView(frame: CGRect.zero)
@@ -125,7 +129,8 @@ class EmotionCell: UIView {
         emotionCenterXConstraint = NSLayoutConstraint(item: emotionView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.0, constant: 0)
         
         nameTopConstraint = NSLayoutConstraint(item: nameView, attribute: .top, relatedBy: .equal, toItem: emotionView, attribute: .bottom, multiplier: 1.0, constant: nameMarginTop)
-        nameCenterXConstraint = NSLayoutConstraint(item: nameView, attribute: .centerX, relatedBy: .equal, toItem: emotionView, attribute: .centerX, multiplier: 1.0, constant: 0)
+        nameLeftConstraint = NSLayoutConstraint(item: nameView, attribute: .left, relatedBy: .equal, toItem: emotionView, attribute: .left, multiplier: 1.0, constant: 0)
+        nameRightConstraint = NSLayoutConstraint(item: nameView, attribute: .right, relatedBy: .equal, toItem: emotionView, attribute: .right, multiplier: 1.0, constant: 0)
         
         deleteCenterXConstraint = NSLayoutConstraint(item: deleteView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.0, constant: 0)
         deleteCenterYConstraint = NSLayoutConstraint(item: deleteView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: 0)
@@ -280,7 +285,7 @@ extension EmotionCell {
         if fromHidden {
             addSubview(nameView)
             nameView.isHidden = false
-            addConstraints([ nameTopConstraint, nameCenterXConstraint ])
+            addConstraints([ nameTopConstraint, nameLeftConstraint, nameRightConstraint ])
         }
         
     }
@@ -290,7 +295,7 @@ extension EmotionCell {
         let fromVisible = !nameView.isHidden
         
         if fromVisible {
-            removeConstraints([ nameTopConstraint, nameCenterXConstraint ])
+            removeConstraints([ nameTopConstraint, nameLeftConstraint, nameRightConstraint ])
             nameView.isHidden = true
             nameView.removeFromSuperview()
         }

@@ -14,8 +14,8 @@ import EmotionInput
 class ViewController: UIViewController {
     
     let emotionList = [
-        Emotion(["code": "", "name": "11", "imageName": "avatar-anonymous.png"]),
-        Emotion(["code": "1", "name": "222", "imageName": "hot"]),
+        Emotion(["code": "", "name": "开心", "imageName": "avatar-anonymous.png"]),
+        Emotion(["code": "1", "name": "开心开心开心开心", "imageName": "hot"]),
         Emotion(["code": "1", "name": "", "imageName": "avatar-anonymous.png"]),
         Emotion(["code": "1", "name": "4", "imageName": "avatar-anonymous.png"]),
         Emotion(["code": "1", "name": "5", "imageName": "avatar-anonymous.png"]),
@@ -70,17 +70,31 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        let textInput = UITextView(frame: CGRect.zero)
+        textInput.backgroundColor = UIColor.lightGray
+        textInput.translatesAutoresizingMaskIntoConstraints = false
+        textInput.font = UIFont.systemFont(ofSize: 14)
         
-        let emotionInput = EmotionInput(frame: CGRect(x: 0, y: 60, width: view.frame.width, height: 400))
-        emotionInput.backgroundColor = UIColor.blue
+        view.addSubview(textInput)
+        view.addConstraints([
+            NSLayoutConstraint(item: textInput, attribute: .left, relatedBy: .equal, toItem: view, attribute: .left, multiplier: 1.0, constant: 0),
+            NSLayoutConstraint(item: textInput, attribute: .right, relatedBy: .equal, toItem: view, attribute: .right, multiplier: 1.0, constant: 0),
+            NSLayoutConstraint(item: textInput, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: 50),
+            NSLayoutConstraint(item: textInput, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: 30),
+        ])
+        
+        let emotionInput = EmotionInput(frame: CGRect(x: 0, y: 120, width: view.frame.width, height: 400))
         emotionInput.delegate = self
         view.addSubview(emotionInput)
         
-        let emotionSet1 = EmotionSet.build(iconName: "hot", emotionList: emotionList, columns: 3, rows: 4, width: 40, height: 40, hasDeleteButton: true, hasIndicator: true)
+        let emotionSet1 = EmotionSet.build(iconName: "hot", emotionList: emotionList, columns: 5, rows: 4, width: 40, height: 40, hasDeleteButton: true, hasIndicator: true)
         let emotionSet2 = EmotionSet.build(iconName: "hot", emotionList: emotionList, columns: 3, rows: 3, width: 40, height: 40, hasDeleteButton: false, hasIndicator: false)
         
         emotionInput.emotionSetList = [emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2]
         
+        let filter = BracketFilter()
+        filter.filterTextInput(textInput: textInput, text: "123[开心]456[开心]789")
+
     }
     
     override func didReceiveMemoryWarning() {

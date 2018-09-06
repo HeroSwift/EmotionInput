@@ -24,6 +24,8 @@
 		9D7105BA213BBCBD00B1DF7C /* DotIndicator.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9D7105B7213BBCBD00B1DF7C /* DotIndicator.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9D7105BB213BBCBD00B1DF7C /* SimpleButton.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D7105B8213BBCBD00B1DF7C /* SimpleButton.framework */; };
 		9D7105BC213BBCBD00B1DF7C /* SimpleButton.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9D7105B8213BBCBD00B1DF7C /* SimpleButton.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9D7105D9213ED8C700B1DF7C /* EmotionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7105D8213ED8C700B1DF7C /* EmotionFilter.swift */; };
+		9D7105DB2140B89200B1DF7C /* BracketFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7105DA2140B89100B1DF7C /* BracketFilter.swift */; };
 		9DD08F4D213A746300CE20D9 /* EmotionToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD08F4C213A746300CE20D9 /* EmotionToolbar.swift */; };
 		9DD08F51213ADF9C00CE20D9 /* EmotionInputDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD08F50213ADF9C00CE20D9 /* EmotionInputDelegate.swift */; };
 /* End PBXBuildFile section */
@@ -73,6 +75,8 @@
 		9D4307892133A018001ED814 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9D7105B7213BBCBD00B1DF7C /* DotIndicator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DotIndicator.framework; path = Carthage/Build/iOS/DotIndicator.framework; sourceTree = "<group>"; };
 		9D7105B8213BBCBD00B1DF7C /* SimpleButton.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SimpleButton.framework; path = Carthage/Build/iOS/SimpleButton.framework; sourceTree = "<group>"; };
+		9D7105D8213ED8C700B1DF7C /* EmotionFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionFilter.swift; sourceTree = "<group>"; };
+		9D7105DA2140B89100B1DF7C /* BracketFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BracketFilter.swift; sourceTree = "<group>"; };
 		9DD08F4C213A746300CE20D9 /* EmotionToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionToolbar.swift; sourceTree = "<group>"; };
 		9DD08F50213ADF9C00CE20D9 /* EmotionInputDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionInputDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -120,6 +124,7 @@
 		9D43075421339F80001ED814 /* EmotionInput */ = {
 			isa = PBXGroup;
 			children = (
+				9D7105D7213ED82C00B1DF7C /* filter */,
 				9D43077821339FC4001ED814 /* EmotionInput.swift */,
 				9D43077321339FC4001ED814 /* model */,
 				9D43077921339FC4001ED814 /* view */,
@@ -162,6 +167,15 @@
 				9DD08F4C213A746300CE20D9 /* EmotionToolbar.swift */,
 			);
 			path = view;
+			sourceTree = "<group>";
+		};
+		9D7105D7213ED82C00B1DF7C /* filter */ = {
+			isa = PBXGroup;
+			children = (
+				9D7105D8213ED8C700B1DF7C /* EmotionFilter.swift */,
+				9D7105DA2140B89100B1DF7C /* BracketFilter.swift */,
+			);
+			path = filter;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -277,6 +291,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D7105DB2140B89200B1DF7C /* BracketFilter.swift in Sources */,
 				9D43078121339FC4001ED814 /* EmotionPage.swift in Sources */,
 				9D43078521339FC4001ED814 /* EmotionCell.swift in Sources */,
 				9D43077F21339FC4001ED814 /* EmotionSet.swift in Sources */,
@@ -286,6 +301,7 @@
 				9DD08F51213ADF9C00CE20D9 /* EmotionInputDelegate.swift in Sources */,
 				9D43078021339FC4001ED814 /* Emotion.swift in Sources */,
 				9DD08F4D213A746300CE20D9 /* EmotionToolbar.swift in Sources */,
+				9D7105D9213ED8C700B1DF7C /* EmotionFilter.swift in Sources */,
 				9D43078421339FC4001ED814 /* EmotionGrid.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
