@@ -70,7 +70,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let textInput = UITextView(frame: CGRect.zero)
+        let textInput = EmotionTextarea()
         textInput.backgroundColor = UIColor.lightGray
         textInput.translatesAutoresizingMaskIntoConstraints = false
         textInput.font = UIFont.systemFont(ofSize: 14)
@@ -93,7 +93,7 @@ class ViewController: UIViewController {
         emotionInput.emotionSetList = [emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2]
         
         let filter = BracketFilter()
-        filter.filterTextInput(textInput: textInput, text: "123[开心]456[开心]789")
+        textInput.addFilter(filter)
 
     }
     

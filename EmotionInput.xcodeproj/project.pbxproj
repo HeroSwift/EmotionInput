@@ -26,6 +26,7 @@
 		9D7105BC213BBCBD00B1DF7C /* SimpleButton.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9D7105B8213BBCBD00B1DF7C /* SimpleButton.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9D7105D9213ED8C700B1DF7C /* EmotionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7105D8213ED8C700B1DF7C /* EmotionFilter.swift */; };
 		9D7105DB2140B89200B1DF7C /* BracketFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7105DA2140B89100B1DF7C /* BracketFilter.swift */; };
+		9D7106272141355F00B1DF7C /* EmotionTextarea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7106262141355F00B1DF7C /* EmotionTextarea.swift */; };
 		9DD08F4D213A746300CE20D9 /* EmotionToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD08F4C213A746300CE20D9 /* EmotionToolbar.swift */; };
 		9DD08F51213ADF9C00CE20D9 /* EmotionInputDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD08F50213ADF9C00CE20D9 /* EmotionInputDelegate.swift */; };
 /* End PBXBuildFile section */
@@ -77,6 +78,7 @@
 		9D7105B8213BBCBD00B1DF7C /* SimpleButton.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SimpleButton.framework; path = Carthage/Build/iOS/SimpleButton.framework; sourceTree = "<group>"; };
 		9D7105D8213ED8C700B1DF7C /* EmotionFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionFilter.swift; sourceTree = "<group>"; };
 		9D7105DA2140B89100B1DF7C /* BracketFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BracketFilter.swift; sourceTree = "<group>"; };
+		9D7106262141355F00B1DF7C /* EmotionTextarea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionTextarea.swift; sourceTree = "<group>"; };
 		9DD08F4C213A746300CE20D9 /* EmotionToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionToolbar.swift; sourceTree = "<group>"; };
 		9DD08F50213ADF9C00CE20D9 /* EmotionInputDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionInputDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -165,6 +167,7 @@
 				9D43077C21339FC4001ED814 /* EmotionCell.swift */,
 				9D43077D21339FC4001ED814 /* EmotionPager.swift */,
 				9DD08F4C213A746300CE20D9 /* EmotionToolbar.swift */,
+				9D7106262141355F00B1DF7C /* EmotionTextarea.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 				9D43077E21339FC4001ED814 /* EmotionIcon.swift in Sources */,
 				9D43078221339FC4001ED814 /* EmotionInput.swift in Sources */,
 				9D43078621339FC4001ED814 /* EmotionPager.swift in Sources */,
+				9D7106272141355F00B1DF7C /* EmotionTextarea.swift in Sources */,
 				9DD08F51213ADF9C00CE20D9 /* EmotionInputDelegate.swift in Sources */,
 				9D43078021339FC4001ED814 /* Emotion.swift in Sources */,
 				9DD08F4D213A746300CE20D9 /* EmotionToolbar.swift in Sources */,

@@ -14,18 +14,14 @@ public class EmotionFilter {
     }
     
     public func filterTextInput(textInput: UITextView, text: String) {
-        
-        textInput.attributedText = getAttributeString(text: text, font: textInput.font)
-        
+        textInput.attributedText = getAttributeString(text: text, font: textInput.font, editable: true)
     }
     
     func filterTextView(textView: UILabel, text: String) {
-        
-        textView.attributedText = getAttributeString(text: text, font: textView.font)
-        
+        textView.attributedText = getAttributeString(text: text, font: textView.font, editable: false)
     }
     
-    private func getAttributeString(text: String, font: UIFont?) -> NSAttributedString {
+    private func getAttributeString(text: String, font: UIFont?, editable: Bool) -> NSAttributedString {
         
         let attributeString = NSMutableAttributedString(string: "")
         
@@ -36,9 +32,6 @@ public class EmotionFilter {
         var lastStatus = -1
         
         func appendString(string: String) {
-            guard string != "" else {
-                return
-            }
             // 上一个是图片，加个空白符
             if lastStatus > 0 {
                 attributeString.append(
@@ -81,7 +74,10 @@ public class EmotionFilter {
         
         match(text: text) { (emotion, start, end) in
             
-            appendString(string: subString(text: text, startIndex: startIndex, endIndex: start))
+            let string = subString(text: text, startIndex: startIndex, endIndex: start)
+            if string != "" {
+                appendString(string: string)
+            }
             
             appendImage(imageName: "delete-emotion.png")
             
@@ -89,7 +85,14 @@ public class EmotionFilter {
             
         }
         
-        appendString(string: subString(text: text, startIndex: startIndex, endIndex: text.count))
+        let suffix = subString(text: text, startIndex: startIndex, endIndex: text.count)
+        if suffix != "" {
+            appendString(string: suffix)
+        }
+        else if editable {
+            appendString(string: " ")
+        }
+        
         
         return attributeString
         
