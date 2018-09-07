@@ -29,6 +29,7 @@
 		9D7106272141355F00B1DF7C /* EmotionTextarea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7106262141355F00B1DF7C /* EmotionTextarea.swift */; };
 		9DD08F4D213A746300CE20D9 /* EmotionToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD08F4C213A746300CE20D9 /* EmotionToolbar.swift */; };
 		9DD08F51213ADF9C00CE20D9 /* EmotionInputDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD08F50213ADF9C00CE20D9 /* EmotionInputDelegate.swift */; };
+		9DE9694121424BD700BFF7F4 /* EmotionAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE9694021424BD700BFF7F4 /* EmotionAttachment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +82,7 @@
 		9D7106262141355F00B1DF7C /* EmotionTextarea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionTextarea.swift; sourceTree = "<group>"; };
 		9DD08F4C213A746300CE20D9 /* EmotionToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionToolbar.swift; sourceTree = "<group>"; };
 		9DD08F50213ADF9C00CE20D9 /* EmotionInputDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionInputDelegate.swift; sourceTree = "<group>"; };
+		9DE9694021424BD700BFF7F4 /* EmotionAttachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionAttachment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +170,7 @@
 				9D43077D21339FC4001ED814 /* EmotionPager.swift */,
 				9DD08F4C213A746300CE20D9 /* EmotionToolbar.swift */,
 				9D7106262141355F00B1DF7C /* EmotionTextarea.swift */,
+				9DE9694021424BD700BFF7F4 /* EmotionAttachment.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -296,6 +299,7 @@
 			files = (
 				9D7105DB2140B89200B1DF7C /* BracketFilter.swift in Sources */,
 				9D43078121339FC4001ED814 /* EmotionPage.swift in Sources */,
+				9DE9694121424BD700BFF7F4 /* EmotionAttachment.swift in Sources */,
 				9D43078521339FC4001ED814 /* EmotionCell.swift in Sources */,
 				9D43077F21339FC4001ED814 /* EmotionSet.swift in Sources */,
 				9D43077E21339FC4001ED814 /* EmotionIcon.swift in Sources */,

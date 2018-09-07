@@ -15,10 +15,10 @@ class ViewController: UIViewController {
     
     let emotionList = [
         Emotion(["code": "", "name": "开心", "imageName": "avatar-anonymous.png"]),
-        Emotion(["code": "1", "name": "开心开心开心开心", "imageName": "hot"]),
-        Emotion(["code": "1", "name": "", "imageName": "avatar-anonymous.png"]),
-        Emotion(["code": "1", "name": "4", "imageName": "avatar-anonymous.png"]),
-        Emotion(["code": "1", "name": "5", "imageName": "avatar-anonymous.png"]),
+        Emotion(["code": "[1]", "name": "开心开心开心开心", "imageName": "hot"]),
+        Emotion(["code": "[2]", "name": "", "imageName": "avatar-anonymous.png"]),
+        Emotion(["code": "[3]", "name": "4", "imageName": "avatar-anonymous.png"]),
+        Emotion(["code": "[4]", "name": "5", "imageName": "avatar-anonymous.png"]),
         Emotion(["name": "6", "imageName": "avatar-anonymous.png"]),
         Emotion(["code": "1", "name": "7", "imageName": "avatar-anonymous.png"]),
         Emotion(["code": "1", "name": "8", "imageName": "avatar-anonymous.png"]),
@@ -66,11 +66,12 @@ class ViewController: UIViewController {
         Emotion(["code": "1", "name": "49", "imageName": "avatar-anonymous.png"]),
     ]
     
+    let textInput = EmotionTextarea()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        let textInput = EmotionTextarea()
         textInput.backgroundColor = UIColor.lightGray
         textInput.translatesAutoresizingMaskIntoConstraints = false
         textInput.font = UIFont.systemFont(ofSize: 14)
@@ -94,6 +95,7 @@ class ViewController: UIViewController {
         
         let filter = BracketFilter()
         textInput.addFilter(filter)
+        
 
     }
     
@@ -117,6 +119,7 @@ extension ViewController: EmotionInputDelegate {
     
     func emotionInputDidEmotionClick(_ emotionInput: EmotionInput, _ emotion: Emotion) {
         print("emotion click \(emotion.name)")
+        textInput.insertEmotion(emotion)
     }
 }
 
