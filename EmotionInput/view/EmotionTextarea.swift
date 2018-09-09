@@ -6,10 +6,10 @@ import UIKit
 public class EmotionTextarea: UITextView {
     
     // 文本字体
-    var inputTextFont = UIFont.systemFont(ofSize: 16)
+    let inputTextFont = UIFont.systemFont(ofSize: 16)
     
     // 文本颜色
-    var inputTextColor = UIColor(red: 60 / 255, green: 60 / 255, blue: 60 / 255, alpha: 1)
+    let inputTextColor = UIColor(red: 60 / 255, green: 60 / 255, blue: 60 / 255, alpha: 1)
     
     var onTextChange: (() -> Void)?
     
