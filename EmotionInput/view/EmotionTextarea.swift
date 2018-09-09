@@ -14,8 +14,6 @@ public class EmotionTextarea: UITextView {
     // 行高
     var inputLineHeight = 22
     
-    private var filters = [EmotionFilter]()
-    
     private var typingAttrs: [String: Any]!
     
     public override init(frame: CGRect, textContainer: NSTextContainer?) {
@@ -38,15 +36,7 @@ public class EmotionTextarea: UITextView {
         self.delegate = self
         
     }
-    
-    public func addFilter(_ filter: EmotionFilter) {
-        filters.append(filter)
-    }
-    
-    public func removeFilter(_ filter: EmotionFilter) {
-        filters = filters.filter { $0 !== filter }
-    }
-    
+
     public func insertEmotion(_ emotion: Emotion) {
         let attachment = EmotionFilter.getEmotionAttachment(emotion: emotion, font: inputTextFont)
         if let attachment = attachment {
@@ -57,54 +47,49 @@ public class EmotionTextarea: UITextView {
     }
     
     public func getPlainText() -> String {
-        let string = NSMutableAttributedString(attributedString: attributedText)
-        attributedText.enumerateAttributes(in: NSRange(location: 0, length: attributedText.length), options: [], using: { (attrs, range, stop) in
-            guard let index = attrs.keys.index(of: NSAttributedStringKey("NSAttachment")), let attachment = attrs[index].value as? EmotionAttachment else {
-                return
-            }
-            string.replaceCharacters(in: range, with: attachment.emotion.code)
-        })
-        return string.string
-    }
-    
-    public override func cut(_ sender: Any?) {
-        copy()
-        let string = NSMutableAttributedString(attributedString: attributedText)
-        
-        print("\(selectedRange.location) \(selectedRange.length)")
-
-    }
-    
-    public override func copy(_ sender: Any?) {
-        
-        let plainText = getPlainText()
-        let string = EmotionFilter.subString(text: text, startIndex: selectedRange.location, endIndex: selectedRange.location + selectedRange.length)
-        print("copy: \(text) \(selectedRange) => \(string)")
-        
-        let attributedString = NSMutableAttributedString(attributedString: attributedText)
-        attributedString.replaceCharacters(in: selectedRange, with: "")
-        
-        attributedText = attributedString
-
-    }
-
-    public override func paste(_ sender: Any?) {
-        let string = UIPasteboard.general.string
-        print(string)
+        return getPlainText(in: NSRange(location: 0, length: text.count))
     }
     
     func getPlainText(in range: NSRange) -> String {
-    
-        let string = ""
         
-        let effectiveRange = NSRange(location: range.location, length: 0)
+        var string = ""
+        
+        var effectiveRange = NSRange(location: range.location, length: 0)
         let maxLength = NSMaxRange(range)
         
         while NSMaxRange(effectiveRange) < maxLength {
-            let attachment = attributedText.attribute(at: NSMaxRange(effectiveRange), effectiveRange: effectiveRange)
-            
+            if let attachment = attributedText.attribute(NSAttributedStringKey("NSAttachment"), at: NSMaxRange(effectiveRange), effectiveRange: &effectiveRange) {
+                if (attachment is EmotionAttachment) {
+                    string = string + (attachment as! EmotionAttachment).emotion.code
+                }
+            }
+            else {
+                string = string + EmotionFilter.subString(text: text, startIndex: effectiveRange.location, endIndex: effectiveRange.location + effectiveRange.length)
+            }
         }
+        
+        return string
+        
     }
+    
+    public override func cut(_ sender: Any?) {
+        let string = getPlainText(in: selectedRange)
+        super.cut(sender)
+        UIPasteboard.general.string = string
+    }
+    
+    public override func copy(_ sender: Any?) {
+        UIPasteboard.general.string = getPlainText(in: selectedRange)
+    }
+
+    public override func paste(_ sender: Any?) {
+        guard let string = UIPasteboard.general.string else {
+            return
+        }
+        print(string)
+    }
+    
+    
     
 }
 
@@ -112,7 +97,6 @@ extension EmotionTextarea: UITextViewDelegate {
     
     // 文本变化
     public func textViewDidChange(_ textView: UITextView) {
-        print(getPlainText())
         typingAttributes = typingAttrs
     }
     
