@@ -93,8 +93,8 @@ class ViewController: UIViewController {
         
         emotionInput.emotionSetList = [emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2]
         
-        let filter = BracketFilter()
-
+        let filter = BracketFilter(emotionList: emotionList)
+        textInput.addFilter(filter)
 
     }
     

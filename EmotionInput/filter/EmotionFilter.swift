@@ -3,101 +3,42 @@ import UIKit
 
 public class EmotionFilter {
     
-    let patternString: String
+    var pattern: NSRegularExpression
     
-    lazy var pattern: NSRegularExpression = {
-        try! NSRegularExpression(pattern: patternString)
-    }()
-    
-    init(_ patternString: String) {
-        self.patternString = patternString
+    var emotions: [String: Emotion] = [:]
+
+    init(pattern: String, emotionList: [Emotion]) {
+        self.pattern = try! NSRegularExpression(pattern: pattern)
+        emotionList.forEach { emotion in
+            emotions[emotion.code] = emotion
+        }
     }
     
-    func filter(textView: UILabel, text: String) {
-        textView.attributedText = getAttributeString(text: text, font: textView.font, editable: false)
-    }
-    
-    private func getAttributeString(text: String, font: UIFont?, editable: Bool) -> NSAttributedString {
-        
-        let attributeString = NSMutableAttributedString(string: "")
-        
-        var startIndex = 0
-        
-        // 0 表示文本 1 表示图片
-        // 懒得用常量了
-        var lastStatus = -1
-        
-        func appendString(string: String) {
-            // 上一个是图片，加个空白符
-            if lastStatus > 0 {
-                attributeString.append(
-                    NSAttributedString(string: " " + string)
-                )
+    func filter(attributedString: NSMutableAttributedString, font: UIFont?) {
+        var offset = 0
+        match(text: attributedString.string) { (emotionCode, location, length) in
+            guard let emotion = emotions[emotionCode] else {
+                return
             }
-            else {
-                attributeString.append(
-                    NSAttributedString(string: string)
-                )
+            if let attachment = EmotionFilter.getEmotionAttachment(emotion: emotion, font: font) {
+                attributedString.replaceCharacters(in: NSRange(location: location - offset, length: length), with: NSAttributedString(attachment: attachment))
+                offset = offset + (length - 1)
             }
-            lastStatus = 0
         }
-        
-        func appendImage(imageName: String) {
-//            let attachment = EmotionFilter.getEmotionAttachment(imageName: imageName, font: font)
-//            if let attachment = attachment {
-//                // 前面有内容，需要加个空白符
-//                if lastStatus >= 0 {
-//                    appendString(string: " ")
-//                }
-//                attributeString.append(
-//                    NSAttributedString(attachment: attachment)
-//                )
-//                lastStatus = 1
-//            }
-        }
-        
-        match(text: text) { (emotion, start, end) in
-            
-            let string = subString(text: text, startIndex: startIndex, endIndex: start)
-            if string != "" {
-                appendString(string: string)
-            }
-            
-            appendImage(imageName: "delete-emotion.png")
-            
-            startIndex = end
-            
-        }
-        
-        let suffix = subString(text: text, startIndex: startIndex, endIndex: text.count)
-        if suffix != "" {
-            appendString(string: suffix)
-        }
-        else if editable {
-            appendString(string: " ")
-        }
-        
-        
-        return attributeString
-        
-    }
-    
-    private func subString(text: String, startIndex: Int, endIndex: Int) -> String {
-        return EmotionFilter.subString(text: text, startIndex: startIndex, endIndex: endIndex)
     }
     
     /**
      * 用正则匹配字符串中的表情
      */
-    private func match(text: String, callback: (_ emotion: String, _ start: Int, _ end: Int) -> Void) {
+    private func match(text: String, callback: (_ emotionCode: String, _ start: Int, _ end: Int) -> Void) {
         let matches = pattern.matches(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count))
         for item in matches {
             let startIndex = item.range.lowerBound
             let endIndex = item.range.upperBound
             callback(
-                subString(text: text, startIndex: item.range.lowerBound, endIndex: item.range.upperBound),
+                EmotionFilter.subString(text: text, startIndex: startIndex, endIndex: endIndex),
                 startIndex,
-                endIndex
+                endIndex - startIndex
             )
         }
     }

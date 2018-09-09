@@ -14,6 +14,8 @@ public class EmotionTextarea: UITextView {
     // 行高
     var inputLineHeight = 22
     
+    private var filters = [EmotionFilter]()
+    
     private var typingAttrs: [String: Any]!
     
     public override init(frame: CGRect, textContainer: NSTextContainer?) {
@@ -36,13 +38,22 @@ public class EmotionTextarea: UITextView {
         self.delegate = self
         
     }
-
+    
+    public func addFilter(_ filter: EmotionFilter) {
+        filters.append(filter)
+    }
+    
+    public func removeFilter(_ filter: EmotionFilter) {
+        filters = filters.filter { $0 !== filter }
+    }
+    
     public func insertEmotion(_ emotion: Emotion) {
         let attachment = EmotionFilter.getEmotionAttachment(emotion: emotion, font: inputTextFont)
         if let attachment = attachment {
             let location = selectedRange.location
             textStorage.insert(NSAttributedString(attachment: attachment), at: location)
             selectedRange = NSRange(location: location + 1, length: 0)
+            textViewDidChange(self)
         }
     }
     
@@ -83,13 +94,27 @@ public class EmotionTextarea: UITextView {
     }
 
     public override func paste(_ sender: Any?) {
+        
         guard let string = UIPasteboard.general.string else {
             return
         }
-        print(string)
+        
+        let pastedString = NSMutableAttributedString(string: string)
+        for filter in filters {
+            filter.filter(attributedString: pastedString, font: font)
+        }
+        
+        let location = selectedRange.location
+        
+        let attributedString = NSMutableAttributedString(attributedString: attributedText)
+        attributedString.replaceCharacters(in: selectedRange, with: pastedString)
+        
+        attributedText = attributedString
+        selectedRange = NSRange(location: location + attributedString.string.count, length: 0)
+        
+        textViewDidChange(self)
+        
     }
-    
-    
     
 }
 
