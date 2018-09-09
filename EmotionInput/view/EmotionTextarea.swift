@@ -9,7 +9,9 @@ public class EmotionTextarea: UITextView {
     var inputTextFont = UIFont.systemFont(ofSize: 16)
     
     // 文本颜色
-    var inputTextColor = UIColor(red: 100 / 255, green: 100 / 255, blue: 100 / 255, alpha: 1)
+    var inputTextColor = UIColor(red: 60 / 255, green: 60 / 255, blue: 60 / 255, alpha: 1)
+    
+    var onTextChange: (() -> Void)?
     
     private var filters = [EmotionFilter]()
     
@@ -45,8 +47,7 @@ public class EmotionTextarea: UITextView {
     }
     
     public func insertEmotion(_ emotion: Emotion) {
-        let attachment = EmotionFilter.getEmotionAttachment(emotion: emotion, font: inputTextFont)
-        if let attachment = attachment {
+        if let attachment = EmotionFilter.getEmotionAttachment(emotion: emotion, font: inputTextFont) {
             let location = selectedRange.location
             textStorage.insert(NSAttributedString(attachment: attachment), at: location)
             selectedRange = NSRange(location: location + 1, length: 0)
@@ -113,13 +114,19 @@ public class EmotionTextarea: UITextView {
         
     }
     
+    func autoHeight() {
+        let fixedWidth = frame.size.width
+        let newSize = sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
+        frame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
+    }
+    
 }
 
 extension EmotionTextarea: UITextViewDelegate {
     
     // 文本变化
     public func textViewDidChange(_ textView: UITextView) {
-        typingAttributes = typingAttrs
+        onTextChange?()
     }
     
     public func textViewDidChangeSelection(_ textView: UITextView) {
