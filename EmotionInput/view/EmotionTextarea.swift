@@ -9,10 +9,7 @@ public class EmotionTextarea: UITextView {
     var inputTextFont = UIFont.systemFont(ofSize: 16)
     
     // 文本颜色
-    var inputTextColor = UIColor(red: 120 / 255, green: 120 / 255, blue: 120 / 255, alpha: 1)
-    
-    // 行高
-    var inputLineHeight = 22
+    var inputTextColor = UIColor(red: 100 / 255, green: 100 / 255, blue: 100 / 255, alpha: 1)
     
     private var filters = [EmotionFilter]()
     
@@ -95,7 +92,7 @@ public class EmotionTextarea: UITextView {
 
     public override func paste(_ sender: Any?) {
         
-        guard let string = UIPasteboard.general.string else {
+        guard let string = UIPasteboard.general.string, string.count > 0 else {
             return
         }
         
@@ -122,6 +119,10 @@ extension EmotionTextarea: UITextViewDelegate {
     
     // 文本变化
     public func textViewDidChange(_ textView: UITextView) {
+        typingAttributes = typingAttrs
+    }
+    
+    public func textViewDidChangeSelection(_ textView: UITextView) {
         typingAttributes = typingAttrs
     }
     

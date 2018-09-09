@@ -52,10 +52,10 @@ public class EmotionFilter {
             
             if let font = font {
                 let imageRatio = image.size.width / image.size.height
-                let lineHeight = font.lineHeight
+                let imageHeight = font.lineHeight - 4
                 
                 // https://stackoverflow.com/questions/26105803/center-nstextattachment-image-next-to-single-line-uilabel
-                attachment.bounds = CGRect(x: 0, y: (font.capHeight - lineHeight).rounded() / 2, width: lineHeight * imageRatio, height: lineHeight)
+                attachment.bounds = CGRect(x: 0, y: (font.capHeight - imageHeight).rounded() / 2, width: imageHeight * imageRatio, height: imageHeight)
             }
             
             return attachment
