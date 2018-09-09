@@ -72,16 +72,15 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        textInput.backgroundColor = UIColor.lightGray
+        textInput.backgroundColor = UIColor(red: 240 / 255, green: 240 / 255, blue: 240 / 255, alpha: 1)
         textInput.translatesAutoresizingMaskIntoConstraints = false
-        textInput.font = UIFont.systemFont(ofSize: 14)
-        
+
         view.addSubview(textInput)
         view.addConstraints([
             NSLayoutConstraint(item: textInput, attribute: .left, relatedBy: .equal, toItem: view, attribute: .left, multiplier: 1.0, constant: 0),
             NSLayoutConstraint(item: textInput, attribute: .right, relatedBy: .equal, toItem: view, attribute: .right, multiplier: 1.0, constant: 0),
             NSLayoutConstraint(item: textInput, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: 50),
-            NSLayoutConstraint(item: textInput, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: 30),
+            NSLayoutConstraint(item: textInput, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: 80),
         ])
         
         let emotionInput = EmotionInput(frame: CGRect(x: 0, y: 120, width: view.frame.width, height: 400))

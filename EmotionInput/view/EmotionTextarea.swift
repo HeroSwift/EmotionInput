@@ -69,7 +69,7 @@ public class EmotionTextarea: UITextView {
         let maxLength = NSMaxRange(range)
         
         while NSMaxRange(effectiveRange) < maxLength {
-            if let attachment = attributedText.attribute(NSAttributedStringKey("NSAttachment"), at: NSMaxRange(effectiveRange), effectiveRange: &effectiveRange) {
+            if let attachment = attributedText.attribute(NSAttributedStringKey.attachment, at: NSMaxRange(effectiveRange), effectiveRange: &effectiveRange) {
                 if (attachment is EmotionAttachment) {
                     string = string + (attachment as! EmotionAttachment).emotion.code
                 }
@@ -99,18 +99,18 @@ public class EmotionTextarea: UITextView {
             return
         }
         
-        let pastedString = NSMutableAttributedString(string: string)
+        let pastedString = NSMutableAttributedString(string: string, attributes: [
+            NSAttributedStringKey.foregroundColor: inputTextColor,
+            NSAttributedStringKey.font: inputTextFont
+        ])
         for filter in filters {
             filter.filter(attributedString: pastedString, font: font)
         }
         
         let location = selectedRange.location
         
-        let attributedString = NSMutableAttributedString(attributedString: attributedText)
-        attributedString.replaceCharacters(in: selectedRange, with: pastedString)
-        
-        attributedText = attributedString
-        selectedRange = NSRange(location: location + attributedString.string.count, length: 0)
+        textStorage.replaceCharacters(in: selectedRange, with: pastedString)
+        selectedRange = NSRange(location: location + pastedString.string.count, length: 0)
         
         textViewDidChange(self)
         
