@@ -2,16 +2,16 @@
 import UIKit
 import DotIndicator
 
-class EmotionPager: UIView {
+public class EmotionPager: UIView {
     
-    var emotionSetList = [EmotionSet]() {
+    public var emotionSetList = [EmotionSet]() {
         didSet {
             emotionSetIndex = 0
             collectionView.reloadData()
         }
     }
     
-    var emotionSetIndex = 0 {
+    public var emotionSetIndex = 0 {
         didSet {
             
             if emotionSetList.count > emotionSetIndex {
@@ -49,16 +49,16 @@ class EmotionPager: UIView {
         }
     }
     
+    public var onEmotionClick: ((_ emotion: Emotion) -> Void)?
+    public var onDeleteClick: (() -> Void)?
+    public var onSendClick: (() -> Void)?
+    
     // indicator 与网格的距离
-    var indicatorMarginTop = CGFloat(8)
+    let indicatorMarginTop = CGFloat(8)
     
     // toolbar 与 indicator 的距离
-    var toolbarMarginTop = CGFloat(8)
-    
-    var onEmotionClick: ((_ emotion: Emotion) -> Void)?
-    var onDeleteClick: (() -> Void)?
-    var onSendClick: (() -> Void)?
-    
+    let toolbarMarginTop = CGFloat(8)
+
     private var collectionView: UICollectionView!
     private var flowLayout: UICollectionViewFlowLayout!
     
@@ -71,12 +71,12 @@ class EmotionPager: UIView {
     private var indicatorBottomConstraint: NSLayoutConstraint!
     private var indicatorHeightConstraint: NSLayoutConstraint!
     
-    override init(frame: CGRect) {
+    public override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
     }
     
-    required init?(coder aDecoder: NSCoder) {
+    public required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         setup()
     }
@@ -152,7 +152,7 @@ class EmotionPager: UIView {
 
 extension EmotionPager: UICollectionViewDataSource {
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         var count = 0
         for set in emotionSetList {
             count += set.emotionPageList.count
@@ -160,7 +160,7 @@ extension EmotionPager: UICollectionViewDataSource {
         return count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! EmotionGrid
 
@@ -179,16 +179,16 @@ extension EmotionPager: UICollectionViewDataSource {
 extension EmotionPager: UICollectionViewDelegateFlowLayout {
     
     // 行间距
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
     
     // 列间距
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return collectionView.bounds.size
     }
     
@@ -197,11 +197,11 @@ extension EmotionPager: UICollectionViewDelegateFlowLayout {
 extension EmotionPager: UICollectionViewDelegate {
     
     // 翻页事件
-    func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
+    public func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
         updateScrollX(x: scrollView.contentOffset.x, width: scrollView.bounds.size.width)
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         updateScrollX(x: scrollView.contentOffset.x, width: scrollView.bounds.size.width)
     }
     

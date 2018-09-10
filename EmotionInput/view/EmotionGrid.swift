@@ -1,7 +1,7 @@
 
 import UIKit
 
-public class EmotionGrid: UICollectionViewCell {
+class EmotionGrid: UICollectionViewCell {
     
     var emotionPage = EmotionPage([:]) {
         didSet {
@@ -10,22 +10,22 @@ public class EmotionGrid: UICollectionViewCell {
     }
     
     // 表情网格容器的上下 padding
-    public var paddingVertical = CGFloat(20)
+    let paddingVertical = CGFloat(20)
     
     // 表情网格容器的左右 padding
-    public var paddingHorizontal = CGFloat(20)
+    let paddingHorizontal = CGFloat(20)
     
     // 行间距
-    public var rowSpacing = CGFloat(10)
+    let rowSpacing = CGFloat(10)
     
     // 列间距
-    public var columnSpacing = CGFloat(10)
+    let columnSpacing = CGFloat(10)
     
     // 删除图片
-    public var deleteImageName = "delete-emotion"
+    let deleteImageName = "delete-emotion"
     
     // 表情单元格按下时的背景色
-    public var cellBackgroundColorPressed = UIColor(red: 0, green: 0, blue: 0, alpha: 0.05)
+    let cellBackgroundColorPressed = UIColor(red: 0, green: 0, blue: 0, alpha: 0.05)
     
     var onEmotionClick: ((_ emotion: Emotion) -> Void)?
     var onDeleteClick: (() -> Void)?

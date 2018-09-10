@@ -83,14 +83,23 @@ class ViewController: UIViewController {
             NSLayoutConstraint(item: textInput, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: 80),
         ])
         
-        let emotionInput = EmotionInput(frame: CGRect(x: 0, y: 120, width: view.frame.width, height: 400))
-        emotionInput.delegate = self
-        view.addSubview(emotionInput)
+        let emotionPager = EmotionPager(frame: CGRect(x: 0, y: 120, width: view.frame.width, height: 400))
+        emotionPager.onSendClick = {
+            print("send click")
+        }
+        emotionPager.onEmotionClick = { emotion in
+            print("emotion click \(emotion.name)")
+            self.textInput.insertEmotion(emotion)
+        }
+        emotionPager.onDeleteClick = {
+            self.textInput.deleteBackward()
+        }
+        view.addSubview(emotionPager)
         
         let emotionSet1 = EmotionSet.build(iconName: "hot", emotionList: emotionList, columns: 5, rows: 4, width: 40, height: 40, hasDeleteButton: true, hasIndicator: true)
         let emotionSet2 = EmotionSet.build(iconName: "hot", emotionList: emotionList, columns: 3, rows: 3, width: 40, height: 40, hasDeleteButton: false, hasIndicator: false)
         
-        emotionInput.emotionSetList = [emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2]
+        emotionPager.emotionSetList = [emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2]
         
         let filter = BracketFilter(emotionList: emotionList)
         textInput.addFilter(filter)
@@ -105,19 +114,4 @@ class ViewController: UIViewController {
     
 }
 
-extension ViewController: EmotionInputDelegate {
-    
-    func emotionInputDidSendClick(_ emotionInput: EmotionInput) {
-        print("send click")
-    }
-    
-    func emotionInputDidDeleteClick(_ emotionInput: EmotionInput) {
-        print("delete click")
-    }
-    
-    func emotionInputDidEmotionClick(_ emotionInput: EmotionInput, _ emotion: Emotion) {
-        print("emotion click \(emotion.name)")
-        textInput.insertEmotion(emotion)
-    }
-}
 

@@ -29,8 +29,8 @@ public class EmotionTextarea: UITextView {
     
     func setup() {
         
-        font = inputTextFont
-        textColor = inputTextColor
+        typingAttributes[NSAttributedStringKey.foregroundColor.rawValue] = inputTextColor
+        typingAttributes[NSAttributedStringKey.font.rawValue] = inputTextFont
         
         typingAttrs = typingAttributes
         
@@ -53,6 +53,12 @@ public class EmotionTextarea: UITextView {
             selectedRange = NSRange(location: location + 1, length: 0)
             textViewDidChange(self)
         }
+    }
+    
+    public func autoHeight() {
+        let fixedWidth = frame.size.width
+        let newSize = sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
+        frame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
     }
     
     public func getPlainText() -> String {
@@ -112,12 +118,6 @@ public class EmotionTextarea: UITextView {
         
         textViewDidChange(self)
         
-    }
-    
-    func autoHeight() {
-        let fixedWidth = frame.size.width
-        let newSize = sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
-        frame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
     }
     
 }

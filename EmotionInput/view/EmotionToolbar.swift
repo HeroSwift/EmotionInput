@@ -11,35 +11,35 @@ class EmotionToolbar: UIView {
     }
     
     // 工具栏的高度
-    var height = CGFloat(44)
+    let height = CGFloat(44)
     
     // 图标单元格宽度
-    var cellWidth = CGFloat(44)
+    let cellWidth = CGFloat(44)
     
     // 表情单元格分割线颜色
-    var cellDividerColor = UIColor(red: 230 / 255, green: 230 / 255, blue: 230 / 255, alpha: 1)
+    let cellDividerColor = UIColor(red: 230 / 255, green: 230 / 255, blue: 230 / 255, alpha: 1)
     
     // 表情单元格按下时的背景色
-    var cellBackgroundColorPressed = UIColor(red: 244 / 255, green: 242 / 255, blue: 246 / 255, alpha: 1)
+    let cellBackgroundColorPressed = UIColor(red: 244 / 255, green: 242 / 255, blue: 246 / 255, alpha: 1)
     
     // 发送按钮的文本
-    var sendButtonText = "发送"
+    let sendButtonText = "发送"
     
     // 发送按钮的文本字体
-    var sendButtonTextFont = UIFont.systemFont(ofSize: 14)
+    let sendButtonTextFont = UIFont.systemFont(ofSize: 14)
     
     // 发送按钮的文本颜色
-    var sendButtonTextColor = UIColor(red: 121 / 255, green: 121 / 255, blue: 121 / 255, alpha: 1)
+    let sendButtonTextColor = UIColor(red: 121 / 255, green: 121 / 255, blue: 121 / 255, alpha: 1)
     
     // 发送按钮左边框
-    var sendButtonBorderColor = UIColor(red: 205 / 255, green: 205 / 255, blue: 205 / 255, alpha: 1)
+    let sendButtonBorderColor = UIColor(red: 205 / 255, green: 205 / 255, blue: 205 / 255, alpha: 1)
     
     // 发送按钮的背景颜色
-    var sendButtonBackgroundColor = UIColor(red: 249 / 255, green: 248 / 255, blue: 249 / 255, alpha: 1)
+    let sendButtonBackgroundColor = UIColor(red: 249 / 255, green: 248 / 255, blue: 249 / 255, alpha: 1)
 
     // 发送按钮的左右内间距
-    var sendButtonPaddingLeft = CGFloat(14)
-    var sendButtonPaddingRight = CGFloat(14)
+    let sendButtonPaddingLeft = CGFloat(14)
+    let sendButtonPaddingRight = CGFloat(14)
     
     var onIconClick: ((_ icon: EmotionIcon) -> Void)?
     var onSendClick: (() -> Void)?

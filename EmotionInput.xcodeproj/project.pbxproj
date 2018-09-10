@@ -15,7 +15,6 @@
 		9D43077F21339FC4001ED814 /* EmotionSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D43077521339FC4001ED814 /* EmotionSet.swift */; };
 		9D43078021339FC4001ED814 /* Emotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D43077621339FC4001ED814 /* Emotion.swift */; };
 		9D43078121339FC4001ED814 /* EmotionPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D43077721339FC4001ED814 /* EmotionPage.swift */; };
-		9D43078221339FC4001ED814 /* EmotionInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D43077821339FC4001ED814 /* EmotionInput.swift */; };
 		9D43078421339FC4001ED814 /* EmotionGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D43077B21339FC4001ED814 /* EmotionGrid.swift */; };
 		9D43078521339FC4001ED814 /* EmotionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D43077C21339FC4001ED814 /* EmotionCell.swift */; };
 		9D43078621339FC4001ED814 /* EmotionPager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D43077D21339FC4001ED814 /* EmotionPager.swift */; };
@@ -28,7 +27,6 @@
 		9D7105DB2140B89200B1DF7C /* BracketFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7105DA2140B89100B1DF7C /* BracketFilter.swift */; };
 		9D7106272141355F00B1DF7C /* EmotionTextarea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7106262141355F00B1DF7C /* EmotionTextarea.swift */; };
 		9DD08F4D213A746300CE20D9 /* EmotionToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD08F4C213A746300CE20D9 /* EmotionToolbar.swift */; };
-		9DD08F51213ADF9C00CE20D9 /* EmotionInputDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD08F50213ADF9C00CE20D9 /* EmotionInputDelegate.swift */; };
 		9DE9694121424BD700BFF7F4 /* EmotionAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE9694021424BD700BFF7F4 /* EmotionAttachment.swift */; };
 /* End PBXBuildFile section */
 
@@ -70,7 +68,6 @@
 		9D43077521339FC4001ED814 /* EmotionSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionSet.swift; sourceTree = "<group>"; };
 		9D43077621339FC4001ED814 /* Emotion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Emotion.swift; sourceTree = "<group>"; };
 		9D43077721339FC4001ED814 /* EmotionPage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionPage.swift; sourceTree = "<group>"; };
-		9D43077821339FC4001ED814 /* EmotionInput.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionInput.swift; sourceTree = "<group>"; };
 		9D43077B21339FC4001ED814 /* EmotionGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionGrid.swift; sourceTree = "<group>"; };
 		9D43077C21339FC4001ED814 /* EmotionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionCell.swift; sourceTree = "<group>"; };
 		9D43077D21339FC4001ED814 /* EmotionPager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionPager.swift; sourceTree = "<group>"; };
@@ -81,7 +78,6 @@
 		9D7105DA2140B89100B1DF7C /* BracketFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BracketFilter.swift; sourceTree = "<group>"; };
 		9D7106262141355F00B1DF7C /* EmotionTextarea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionTextarea.swift; sourceTree = "<group>"; };
 		9DD08F4C213A746300CE20D9 /* EmotionToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionToolbar.swift; sourceTree = "<group>"; };
-		9DD08F50213ADF9C00CE20D9 /* EmotionInputDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionInputDelegate.swift; sourceTree = "<group>"; };
 		9DE9694021424BD700BFF7F4 /* EmotionAttachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionAttachment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -129,11 +125,9 @@
 			isa = PBXGroup;
 			children = (
 				9D7105D7213ED82C00B1DF7C /* filter */,
-				9D43077821339FC4001ED814 /* EmotionInput.swift */,
 				9D43077321339FC4001ED814 /* model */,
 				9D43077921339FC4001ED814 /* view */,
 				9D43075621339F80001ED814 /* Info.plist */,
-				9DD08F50213ADF9C00CE20D9 /* EmotionInputDelegate.swift */,
 			);
 			path = EmotionInput;
 			sourceTree = "<group>";
@@ -303,10 +297,8 @@
 				9D43078521339FC4001ED814 /* EmotionCell.swift in Sources */,
 				9D43077F21339FC4001ED814 /* EmotionSet.swift in Sources */,
 				9D43077E21339FC4001ED814 /* EmotionIcon.swift in Sources */,
-				9D43078221339FC4001ED814 /* EmotionInput.swift in Sources */,
 				9D43078621339FC4001ED814 /* EmotionPager.swift in Sources */,
 				9D7106272141355F00B1DF7C /* EmotionTextarea.swift in Sources */,
-				9DD08F51213ADF9C00CE20D9 /* EmotionInputDelegate.swift in Sources */,
 				9D43078021339FC4001ED814 /* Emotion.swift in Sources */,
 				9DD08F4D213A746300CE20D9 /* EmotionToolbar.swift in Sources */,
 				9D7105D9213ED8C700B1DF7C /* EmotionFilter.swift in Sources */,
