@@ -11,7 +11,7 @@ public class EmotionTextarea: UITextView {
     // 文本颜色
     let inputTextColor = UIColor(red: 60 / 255, green: 60 / 255, blue: 60 / 255, alpha: 1)
     
-    var onTextChange: (() -> Void)?
+    public var onTextChange: (() -> Void)?
     
     private var filters = [EmotionFilter]()
     
@@ -51,7 +51,7 @@ public class EmotionTextarea: UITextView {
             let location = selectedRange.location
             textStorage.insert(NSAttributedString(attachment: attachment), at: location)
             selectedRange = NSRange(location: location + 1, length: 0)
-            textViewDidChange(self)
+            onTextChange?()
         }
     }
     
@@ -116,7 +116,7 @@ public class EmotionTextarea: UITextView {
         textStorage.replaceCharacters(in: selectedRange, with: pastedString)
         selectedRange = NSRange(location: location + pastedString.string.count, length: 0)
         
-        textViewDidChange(self)
+        onTextChange?()
         
     }
     
