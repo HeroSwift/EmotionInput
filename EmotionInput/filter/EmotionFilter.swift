@@ -14,17 +14,30 @@ public class EmotionFilter {
         }
     }
     
-    func filter(attributedString: NSMutableAttributedString, font: UIFont?) {
+    func filter(attributedString: NSMutableAttributedString, text: String, font: UIFont?) {
         var offset = 0
-        match(text: attributedString.string) { (emotionCode, location, length) in
+        match(text: text) { (emotionCode, location, length) in
             guard let emotion = emotions[emotionCode] else {
                 return
             }
-            if let attachment = EmotionFilter.getEmotionAttachment(emotion: emotion, font: font) {
-                attributedString.replaceCharacters(in: NSRange(location: location - offset, length: length), with: NSAttributedString(attachment: attachment))
+            if let attachment = getEmotionAttachment(emotion: emotion, font: font) {
+                attributedString.replaceCharacters(
+                    in: NSRange(location: location - offset, length: length),
+                    with: NSAttributedString(attachment: attachment)
+                )
                 offset = offset + (length - 1)
             }
         }
+    }
+    
+    func insert(textInput: UITextView, emotion: Emotion) -> Bool {
+        let location = textInput.selectedRange.location
+        if let attachment = getEmotionAttachment(emotion: emotion, font: textInput.font) {
+            textInput.textStorage.insert(NSAttributedString(attachment: attachment), at: location)
+            textInput.selectedRange = NSRange(location: location + 1, length: 0)
+            return true
+        }
+        return false
     }
     
     /**
@@ -43,7 +56,7 @@ public class EmotionFilter {
         }
     }
     
-    static func getEmotionAttachment(emotion: Emotion, font: UIFont?) -> EmotionAttachment? {
+    private func getEmotionAttachment(emotion: Emotion, font: UIFont?) -> EmotionAttachment? {
         let image = UIImage(named: emotion.imageName)
         if let image = image {
             

@@ -13,6 +13,12 @@ public class EmotionTextarea: UITextView {
     
     public var onTextChange: (() -> Void)?
     
+    public var plainText: String {
+        get {
+            return getPlainText(in: NSRange(location: 0, length: text.count))
+        }
+    }
+    
     private var filters = [EmotionFilter]()
     
     private var typingAttrs: [String: Any]!
@@ -47,22 +53,22 @@ public class EmotionTextarea: UITextView {
     }
     
     public func insertEmotion(_ emotion: Emotion) {
-        if let attachment = EmotionFilter.getEmotionAttachment(emotion: emotion, font: inputTextFont) {
-            let location = selectedRange.location
-            textStorage.insert(NSAttributedString(attachment: attachment), at: location)
-            selectedRange = NSRange(location: location + 1, length: 0)
-            onTextChange?()
+        for filter in filters {
+            if filter.insert(textInput: self, emotion: emotion) {
+                onTextChange?()
+                break
+            }
         }
+    }
+    
+    public func clear() {
+        textStorage.deleteCharacters(in: NSRange(location: 0, length: text.count))
     }
     
     public func autoHeight() {
         let fixedWidth = frame.size.width
         let newSize = sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
         frame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
-    }
-    
-    public func getPlainText() -> String {
-        return getPlainText(in: NSRange(location: 0, length: text.count))
     }
     
     func getPlainText(in range: NSRange) -> String {
@@ -108,7 +114,7 @@ public class EmotionTextarea: UITextView {
             NSAttributedStringKey.font: inputTextFont
         ])
         for filter in filters {
-            filter.filter(attributedString: pastedString, font: font)
+            filter.filter(attributedString: pastedString, text: pastedString.string, font: font)
         }
         
         let location = selectedRange.location

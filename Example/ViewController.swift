@@ -75,7 +75,7 @@ class ViewController: UIViewController {
         textInput.backgroundColor = UIColor(red: 240 / 255, green: 240 / 255, blue: 240 / 255, alpha: 1)
         textInput.translatesAutoresizingMaskIntoConstraints = false
         textInput.onTextChange = {
-            print(self.textInput.getPlainText())
+            print(self.textInput.plainText)
         }
 
         view.addSubview(textInput)
@@ -88,7 +88,8 @@ class ViewController: UIViewController {
         
         let emotionPager = EmotionPager(frame: CGRect(x: 0, y: 120, width: view.frame.width, height: 400))
         emotionPager.onSendClick = {
-            print("send click")
+            print("send click \(self.textInput.plainText)")
+            self.textInput.clear()
         }
         emotionPager.onEmotionClick = { emotion in
             print("emotion click \(emotion.name)")
