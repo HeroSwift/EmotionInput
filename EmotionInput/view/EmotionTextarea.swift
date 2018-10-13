@@ -15,7 +15,9 @@ public class EmotionTextarea: UITextView {
     
     public var plainText: String {
         get {
-            return getPlainText(in: NSRange(location: 0, length: text.count))
+            // 这里不能用 text.count，因为计算 emoji 的长度有问题
+            let str = NSString(string: text)
+            return getPlainText(in: NSRange(location: 0, length: str.length))
         }
     }
     
@@ -62,7 +64,7 @@ public class EmotionTextarea: UITextView {
     }
     
     public func clear() {
-        textStorage.deleteCharacters(in: NSRange(location: 0, length: text.count))
+        textStorage.deleteCharacters(in: NSRange(location: 0, length: NSString(string: text).length))
     }
     
     public func autoHeight() {
@@ -71,25 +73,27 @@ public class EmotionTextarea: UITextView {
         frame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
     }
     
+    // 富文本转成普通文本
     func getPlainText(in range: NSRange) -> String {
         
-        var string = ""
-        
+        let fullText = NSString(string: text)
+        var plainText = ""
+
         var effectiveRange = NSRange(location: range.location, length: 0)
         let maxLength = NSMaxRange(range)
         
         while NSMaxRange(effectiveRange) < maxLength {
             if let attachment = attributedText.attribute(NSAttributedStringKey.attachment, at: NSMaxRange(effectiveRange), effectiveRange: &effectiveRange) {
                 if (attachment is EmotionAttachment) {
-                    string = string + (attachment as! EmotionAttachment).emotion.code
+                    plainText += (attachment as! EmotionAttachment).emotion.code
                 }
             }
             else {
-                string = string + EmotionFilter.subString(text: text, startIndex: effectiveRange.location, endIndex: effectiveRange.location + effectiveRange.length)
+                plainText += fullText.substring(with: effectiveRange)
             }
         }
         
-        return string
+        return plainText
         
     }
     
@@ -109,18 +113,21 @@ public class EmotionTextarea: UITextView {
             return
         }
         
-        let pastedString = NSMutableAttributedString(string: string, attributes: [
+        let pastedAttributedString = NSMutableAttributedString(string: string, attributes: [
             NSAttributedStringKey.foregroundColor: inputTextColor,
             NSAttributedStringKey.font: inputTextFont
         ])
+        
+        let pastedString = NSString(string: string)
+        
         for filter in filters {
-            filter.filter(attributedString: pastedString, text: pastedString.string, font: font)
+            filter.filter(attributedString: pastedAttributedString, text: pastedString, font: font)
         }
         
         let location = selectedRange.location
         
-        textStorage.replaceCharacters(in: selectedRange, with: pastedString)
-        selectedRange = NSRange(location: location + pastedString.string.count, length: 0)
+        textStorage.replaceCharacters(in: selectedRange, with: pastedAttributedString)
+        selectedRange = NSRange(location: location + pastedString.length, length: 0)
         
         onTextChange?()
         

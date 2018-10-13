@@ -14,7 +14,7 @@ public class EmotionFilter {
         }
     }
     
-    func filter(attributedString: NSMutableAttributedString, text: String, font: UIFont?) {
+    func filter(attributedString: NSMutableAttributedString, text: NSString, font: UIFont?) {
         var offset = 0
         match(text: text) { (emotionCode, location, length) in
             guard let emotion = emotions[emotionCode] else {
@@ -43,13 +43,13 @@ public class EmotionFilter {
     /**
      * 用正则匹配字符串中的表情
      */
-    private func match(text: String, callback: (_ emotionCode: String, _ start: Int, _ end: Int) -> Void) {
-        let matches = pattern.matches(in: text, options: [], range: NSRange(location: 0, length: text.utf16.count))
+    private func match(text: NSString, callback: (_ emotionCode: String, _ start: Int, _ end: Int) -> Void) {
+        let matches = pattern.matches(in: text as String, options: [], range: NSRange(location: 0, length: text.length))
         for item in matches {
             let startIndex = item.range.lowerBound
             let endIndex = item.range.upperBound
             callback(
-                EmotionFilter.subString(text: text, startIndex: startIndex, endIndex: endIndex),
+                text.substring(with: item.range),
                 startIndex,
                 endIndex - startIndex
             )
@@ -74,12 +74,6 @@ public class EmotionFilter {
             return attachment
         }
         return nil
-    }
-    
-    static func subString(text: String, startIndex: Int, endIndex: Int) -> String {
-        let start = text.index(text.startIndex, offsetBy: startIndex)
-        let end = text.index(text.startIndex, offsetBy: endIndex)
-        return String(text[start..<end])
     }
     
 }
