@@ -21,13 +21,13 @@ class EmotionCell: UIView {
     //
     
     // 单元格文本字体
-    let nameTextFont = UIFont.systemFont(ofSize: 12)
+    let nameTextFont: UIFont = UIFont.systemFont(ofSize: 12)
     
     // 单元格文本颜色
-    let nameTextColor = UIColor(red: 120 / 255, green: 120 / 255, blue: 120 / 255, alpha: 1)
+    let nameTextColor: UIColor = UIColor(red: 120 / 255, green: 120 / 255, blue: 120 / 255, alpha: 1)
     
     // 单元格文本与表情的距离
-    let nameMarginTop = CGFloat(5)
+    let nameMarginTop: CGFloat = 5
     
     //
     // MARK: - 表情数据
@@ -158,7 +158,6 @@ class EmotionCell: UIView {
             
             if emotion.name != "" {
                 nameView.text = emotion.name
-                nameView.sizeToFit()
                 showNameView()
             }
             else {
