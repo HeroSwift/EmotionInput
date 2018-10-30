@@ -36,10 +36,22 @@ public class EmotionInputConfiguration {
     
     
     
-    // indicator 与网格的距离
+    // 指示器与网格的距离
     public var indicatorMarginTop: CGFloat = 8
     
-    // 工具栏与 indicator 的距离
+    // 指示器普通圆点的颜色
+    public var indicatorColorNormal = UIColor(red: 0.84, green: 0.84, blue: 0.84, alpha: 1.00)
+    
+    // 指示器普通圆点的半径
+    public var indicatorRadiusNormal: Double = 3
+    
+    // 指示器当前圆点的颜色
+    public var indicatorColorActive = UIColor(red:0.55, green:0.55, blue:0.55, alpha: 1.00)
+    
+    // 指示器当前圆点的半径
+    public var indicatorRadiusActive: Double = 3.3
+    
+    // 工具栏与指示器的距离
     public var toolbarMarginTop: CGFloat = 8
     
     // 工具栏背景色

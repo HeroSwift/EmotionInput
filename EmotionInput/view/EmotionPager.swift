@@ -98,6 +98,10 @@ public class EmotionPager: UIView {
         addSubview(collectionView)
         
         indicatorView = DotIndicator()
+        indicatorView.color = configuration.indicatorColorNormal
+        indicatorView.radius = configuration.indicatorRadiusNormal
+        indicatorView.activeColor = configuration.indicatorColorActive
+        indicatorView.activeRadius = configuration.indicatorRadiusActive
         indicatorView.translatesAutoresizingMaskIntoConstraints = false
         indicatorView.isHidden = true
         
