@@ -140,12 +140,12 @@ extension EmotionGrid: UICollectionViewDelegateFlowLayout {
     
     // 行间距
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return configuration.gridRowSpacing
+        return configuration.emotionGridRowSpacing
     }
     
     // 列间距
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return configuration.gridColumnSpacing
+        return configuration.emotionGridColumnSpacing
     }
     
     // 设置单元格尺寸
