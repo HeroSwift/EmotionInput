@@ -26,61 +26,8 @@ class EmotionCell: UIView {
     // MARK: - 布局约束
     //
     
-    private var emotionTopConstraint: NSLayoutConstraint!
-    private var emotionCenterXConstraint: NSLayoutConstraint!
-    
-    private var nameTopConstraint: NSLayoutConstraint!
-    private var nameLeftConstraint: NSLayoutConstraint!
-    private var nameRightConstraint: NSLayoutConstraint!
-    
-    private var deleteCenterXConstraint: NSLayoutConstraint!
-    private var deleteCenterYConstraint: NSLayoutConstraint!
-    
-    private var emotionWidthConstraint: NSLayoutConstraint?
-    private var emotionHeightConstraint: NSLayoutConstraint?
-    
-
-    //
-    // MARK: - 获取 View 的真实尺寸
-    //
-    
-    public override var intrinsicContentSize: CGSize {
-        
-        var width: CGFloat = 0
-        var height: CGFloat = 0
-        
-        if !deleteView.isHidden {
-            width = deleteView.intrinsicContentSize.width
-            height = deleteView.intrinsicContentSize.height
-        }
-        else if !emotionView.isHidden {
-            
-            if let constraint = emotionWidthConstraint {
-                width = constraint.constant
-            }
-            else {
-                width = emotionView.intrinsicContentSize.width
-            }
-            
-            if let constraint = emotionHeightConstraint {
-                height = constraint.constant
-            }
-            else {
-                height = emotionView.intrinsicContentSize.height
-            }
-            
-            if !nameView.isHidden {
-                let labelSize = nameView.intrinsicContentSize
-                height += configuration.emotionNameMarginTop + labelSize.height
-                if labelSize.width > width {
-                    width = labelSize.width
-                }
-            }
-        }
-
-        return CGSize(width: width, height: height)
-        
-    }
+    private var emotionWidthConstraint: NSLayoutConstraint!
+    private var emotionHeightConstraint: NSLayoutConstraint!
     
     private var configuration: EmotionInputConfiguration!
     
@@ -105,6 +52,7 @@ class EmotionCell: UIView {
         emotionView.translatesAutoresizingMaskIntoConstraints = false
         emotionView.contentMode = UIViewContentMode.scaleAspectFit
         emotionView.isHidden = true
+        addSubview(emotionView)
         
         nameView = UILabel()
         nameView.translatesAutoresizingMaskIntoConstraints = false
@@ -114,20 +62,30 @@ class EmotionCell: UIView {
         nameView.lineBreakMode = .byTruncatingTail
         nameView.textAlignment = .center
         nameView.isHidden = true
+        addSubview(nameView)
         
         deleteView = UIImageView(frame: CGRect.zero)
         deleteView.translatesAutoresizingMaskIntoConstraints = false
         deleteView.isHidden = true
+        addSubview(deleteView)
 
-        emotionTopConstraint = NSLayoutConstraint(item: emotionView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0)
-        emotionCenterXConstraint = NSLayoutConstraint(item: emotionView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)
+        emotionWidthConstraint = NSLayoutConstraint(item: emotionView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 0)
+        emotionHeightConstraint = NSLayoutConstraint(item: emotionView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 0)
         
-        nameTopConstraint = NSLayoutConstraint(item: nameView, attribute: .top, relatedBy: .equal, toItem: emotionView, attribute: .bottom, multiplier: 1, constant: configuration.emotionNameMarginTop)
-        nameLeftConstraint = NSLayoutConstraint(item: nameView, attribute: .left, relatedBy: .equal, toItem: emotionView, attribute: .left, multiplier: 1, constant: 0)
-        nameRightConstraint = NSLayoutConstraint(item: nameView, attribute: .right, relatedBy: .equal, toItem: emotionView, attribute: .right, multiplier: 1, constant: 0)
-        
-        deleteCenterXConstraint = NSLayoutConstraint(item: deleteView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)
-        deleteCenterYConstraint = NSLayoutConstraint(item: deleteView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0)
+        addConstraints([
+            NSLayoutConstraint(item: emotionView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: emotionView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0),
+            emotionWidthConstraint,
+            emotionHeightConstraint,
+            
+            NSLayoutConstraint(item: nameView, attribute: .top, relatedBy: .equal, toItem: emotionView, attribute: .bottom, multiplier: 1, constant: configuration.emotionNameMarginTop),
+            NSLayoutConstraint(item: nameView, attribute: .left, relatedBy: .equal, toItem: emotionView, attribute: .left, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: nameView, attribute: .right, relatedBy: .equal, toItem: emotionView, attribute: .right, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: nameView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0),
+            
+            NSLayoutConstraint(item: deleteView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: deleteView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0)
+        ])
         
     }
     
@@ -148,6 +106,7 @@ class EmotionCell: UIView {
             self.emotion = emotion
             
             showEmotionView(emotionWidth: emotionWidth, emotionHeight: emotionHeight)
+            
             hideDeleteView()
             
             if emotion.name != "" {
@@ -157,8 +116,6 @@ class EmotionCell: UIView {
             else {
                 hideNameView()
             }
-            
-            invalidateIntrinsicContentSize()
             
         }
         else {
@@ -171,14 +128,12 @@ class EmotionCell: UIView {
         hideEmotionView()
         hideNameView()
         showDeleteView(image: image)
-        invalidateIntrinsicContentSize()
     }
     
     func showNothing() {
         hideEmotionView()
         hideNameView()
         hideDeleteView()
-        invalidateIntrinsicContentSize()
     }
     
     func hasContent() -> Bool {
@@ -191,132 +146,45 @@ extension EmotionCell {
     
     private func showEmotionView(emotionWidth: Int, emotionHeight: Int) {
         
-        let fromHidden = emotionView.isHidden
+        emotionView.isHidden = false
         
-        if fromHidden {
-            addSubview(emotionView)
-            emotionView.isHidden = false
-            addConstraints([ emotionTopConstraint, emotionCenterXConstraint ])
-        }
+        emotionWidthConstraint.constant = CGFloat(emotionWidth)
+        emotionHeightConstraint.constant = CGFloat(emotionHeight)
         
-        if emotionWidth > 0 && emotionHeight > 0 {
-            
-            let width = CGFloat(emotionWidth)
-            let height = CGFloat(emotionHeight)
-            
-            if let constraint = emotionWidthConstraint {
-                constraint.constant = width
-                if fromHidden {
-                    addConstraint(constraint)
-                }
-            }
-            else {
-                emotionWidthConstraint = NSLayoutConstraint(item: emotionView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: width)
-                if let constraint = emotionWidthConstraint {
-                    addConstraint(constraint)
-                }
-            }
-            
-            if let constraint = emotionHeightConstraint {
-                constraint.constant = height
-                if fromHidden {
-                    addConstraint(constraint)
-                }
-            }
-            else {
-                emotionHeightConstraint = NSLayoutConstraint(item: emotionView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: height)
-                if let constraint = emotionHeightConstraint {
-                    addConstraint(constraint)
-                }
-            }
-            
-        }
-        else {
-            if let constraint = emotionWidthConstraint {
-                if !fromHidden {
-                    removeConstraint(constraint)
-                }
-                emotionWidthConstraint = nil
-            }
-            if let constraint = emotionHeightConstraint {
-                if !fromHidden {
-                    removeConstraint(constraint)
-                }
-                emotionHeightConstraint = nil
-            }
-        }
+        setNeedsLayout()
         
     }
     
     private func hideEmotionView() {
         
-        let fromVisible = !emotionView.isHidden
+        emotion = nil
         
-        if fromVisible {
-            
-            emotion = nil
-            
-            removeConstraints([ emotionTopConstraint, emotionCenterXConstraint ])
-            if let constraint = emotionWidthConstraint {
-                removeConstraint(constraint)
-            }
-            if let constraint = emotionHeightConstraint {
-                removeConstraint(constraint)
-            }
-            
-            emotionView.isHidden = true
-            emotionView.removeFromSuperview()
-            
-        }
+        emotionView.isHidden = true
         
     }
     
     private func showNameView() {
         
-        let fromHidden = nameView.isHidden
-        
-        if fromHidden {
-            addSubview(nameView)
-            nameView.isHidden = false
-            addConstraints([ nameTopConstraint, nameLeftConstraint, nameRightConstraint ])
-        }
+        nameView.isHidden = false
         
     }
     
     private func hideNameView() {
         
-        let fromVisible = !nameView.isHidden
-        
-        if fromVisible {
-            removeConstraints([ nameTopConstraint, nameLeftConstraint, nameRightConstraint ])
-            nameView.isHidden = true
-            nameView.removeFromSuperview()
-        }
+        nameView.isHidden = true
         
     }
     
     private func showDeleteView(image: UIImage) {
         
-        let fromHidden = deleteView.isHidden
-        
-        if fromHidden {
-            deleteView.image = image
-            addSubview(deleteView)
-            deleteView.isHidden = false
-            addConstraints([ deleteCenterXConstraint, deleteCenterYConstraint ])
-        }
+        deleteView.image = image
+        deleteView.isHidden = false
         
     }
     
     private func hideDeleteView() {
         
-        let fromVisible = !deleteView.isHidden
-        
-        if fromVisible {
-            removeConstraints([ deleteCenterXConstraint, deleteCenterYConstraint ])
-            deleteView.isHidden = true
-            deleteView.removeFromSuperview()
-        }
+        deleteView.isHidden = true
         
     }
     

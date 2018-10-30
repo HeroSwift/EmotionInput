@@ -216,27 +216,27 @@ extension EmotionPager {
     
     private func showIndicatorView() {
         
-        let fromHidden = indicatorView.isHidden
-        
-        if fromHidden {
-            indicatorView.isHidden = false
-            collectionBottomConstraint.constant = -configuration.indicatorMarginTop
-            indicatorBottomConstraint.constant = -configuration.toolbarMarginTop
-            layoutIfNeeded()
+        guard indicatorView.isHidden else {
+            return
         }
+        
+        indicatorView.isHidden = false
+        collectionBottomConstraint.constant = -configuration.indicatorMarginTop
+        indicatorBottomConstraint.constant = -configuration.toolbarMarginTop
+        setNeedsLayout()
         
     }
     
     private func hideIndicatorView() {
         
-        let fromVisible = !indicatorView.isHidden
-        
-        if fromVisible {
-            indicatorView.isHidden = true
-            collectionBottomConstraint.constant = 0
-            indicatorBottomConstraint.constant = 0
-            layoutIfNeeded()
+        guard !indicatorView.isHidden else {
+            return
         }
+        
+        indicatorView.isHidden = true
+        collectionBottomConstraint.constant = 0
+        indicatorBottomConstraint.constant = 0
+        setNeedsLayout()
         
     }
     
