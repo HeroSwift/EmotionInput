@@ -136,7 +136,7 @@ class ViewController: UIViewController {
 
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        //拿到选择完的照片
+        // 拿到选择完的照片
         let selectedImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         print(selectedImage)
     }
