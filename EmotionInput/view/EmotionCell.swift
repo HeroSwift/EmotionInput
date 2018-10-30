@@ -71,7 +71,7 @@ class EmotionCell: UIView {
             
             if !nameView.isHidden {
                 let labelSize = nameView.intrinsicContentSize
-                height += configuration.cellNameMarginTop + labelSize.height
+                height += configuration.emotionNameMarginTop + labelSize.height
                 if labelSize.width > width {
                     width = labelSize.width
                 }
@@ -108,8 +108,8 @@ class EmotionCell: UIView {
         
         nameView = UILabel()
         nameView.translatesAutoresizingMaskIntoConstraints = false
-        nameView.font = configuration.cellNameTextFont
-        nameView.textColor = configuration.cellNameTextColor
+        nameView.font = configuration.emotionNameTextFont
+        nameView.textColor = configuration.emotionNameTextColor
         nameView.numberOfLines = 1
         nameView.lineBreakMode = .byTruncatingTail
         nameView.textAlignment = .center
@@ -122,7 +122,7 @@ class EmotionCell: UIView {
         emotionTopConstraint = NSLayoutConstraint(item: emotionView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0)
         emotionCenterXConstraint = NSLayoutConstraint(item: emotionView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)
         
-        nameTopConstraint = NSLayoutConstraint(item: nameView, attribute: .top, relatedBy: .equal, toItem: emotionView, attribute: .bottom, multiplier: 1, constant: configuration.cellNameMarginTop)
+        nameTopConstraint = NSLayoutConstraint(item: nameView, attribute: .top, relatedBy: .equal, toItem: emotionView, attribute: .bottom, multiplier: 1, constant: configuration.emotionNameMarginTop)
         nameLeftConstraint = NSLayoutConstraint(item: nameView, attribute: .left, relatedBy: .equal, toItem: emotionView, attribute: .left, multiplier: 1, constant: 0)
         nameRightConstraint = NSLayoutConstraint(item: nameView, attribute: .right, relatedBy: .equal, toItem: emotionView, attribute: .right, multiplier: 1, constant: 0)
         

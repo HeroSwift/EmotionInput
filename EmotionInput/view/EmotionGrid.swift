@@ -108,7 +108,7 @@ extension EmotionGrid: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! EmotionGridCell
         if cell.emotionCell.hasContent() {
-            cell.backgroundColor = configuration.cellBackgroundColorPressed
+            cell.backgroundColor = configuration.emotionCellBackgroundColorPressed
         }
     }
     
@@ -129,9 +129,9 @@ extension EmotionGrid: UICollectionViewDelegateFlowLayout {
 
         let rowCount = CGFloat(emotionPage.rows)
         let rowHeight = getCellSize().height
-        let contentHeight = rowCount * rowHeight + (rowCount - 1) * configuration.gridRowSpacing
+        let contentHeight = rowCount * rowHeight + (rowCount - 1) * configuration.emotionGridRowSpacing
         
-        let paddingHorizontal = configuration.gridPaddingHorizontal
+        let paddingHorizontal = configuration.emotionGridPaddingHorizontal
         let paddingVertical = (collectionView.frame.height - contentHeight) / 2
         
         return UIEdgeInsets(top: paddingVertical, left: paddingHorizontal, bottom: paddingVertical, right: paddingHorizontal)
@@ -161,12 +161,12 @@ extension EmotionGrid {
     func getCellSize() -> CGSize {
         
         let columnCount = CGFloat(emotionPage.columns)
-        let spacing = configuration.gridPaddingHorizontal * 2 + flowLayout.sectionInset.left + flowLayout.sectionInset.right + configuration.gridColumnSpacing * (columnCount - 1)
+        let spacing = configuration.emotionGridPaddingHorizontal * 2 + flowLayout.sectionInset.left + flowLayout.sectionInset.right + configuration.emotionGridColumnSpacing * (columnCount - 1)
         let width = ((collectionView.frame.width - spacing) / columnCount).rounded(.down)
 
         // 计算 itemHeight 最大值
         let rowCount = CGFloat(emotionPage.rows)
-        let maxHeight = ((collectionView.frame.height - 2 * configuration.gridPaddingVertical - (rowCount - 1) * configuration.gridRowSpacing) / rowCount).rounded(.down)
+        let maxHeight = ((collectionView.frame.height - 2 * configuration.emotionGridPaddingVertical - (rowCount - 1) * configuration.emotionGridRowSpacing) / rowCount).rounded(.down)
         
         return CGSize(width: width, height: min(width, maxHeight))
         
