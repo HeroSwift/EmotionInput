@@ -46,8 +46,8 @@ class EmotionCell: UIView {
     
     public override var intrinsicContentSize: CGSize {
         
-        var width = CGFloat(0)
-        var height = CGFloat(0)
+        var width: CGFloat = 0
+        var height: CGFloat = 0
         
         if !deleteView.isHidden {
             width = deleteView.intrinsicContentSize.width

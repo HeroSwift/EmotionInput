@@ -3,10 +3,13 @@ import UIKit
 // 配置
 public class EmotionInputConfiguration {
     
-    // 表情网格容器的上下 padding
+    // 背景色
+    public var pagerBackgroundColor = UIColor.gray
+    
+    // 表情网格容器的垂直内边距
     public var gridPaddingVertical: CGFloat = 20
     
-    // 表情网格容器的左右 padding
+    // 表情网格容器的水平内边距
     public var gridPaddingHorizontal: CGFloat = 20
     
     // 行间距
