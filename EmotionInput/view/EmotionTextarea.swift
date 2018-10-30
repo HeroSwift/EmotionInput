@@ -82,7 +82,7 @@ public class EmotionTextarea: UITextView {
     public func insertEmotion(_ emotion: Emotion) {
         for filter in filters {
             if filter.insert(textInput: self, emotion: emotion) {
-                onTextChange?()
+                textChanged()
                 break
             }
         }
@@ -149,7 +149,7 @@ public class EmotionTextarea: UITextView {
         textStorage.replaceCharacters(in: selectedRange, with: pastedAttributedString)
         selectedRange = NSRange(location: location + pastedString.length, length: 0)
         
-        onTextChange?()
+        textChanged()
         
     }
 
@@ -168,14 +168,18 @@ public class EmotionTextarea: UITextView {
         
     }
     
+    private func textChanged() {
+        onTextChange?()
+        autoHeight()
+    }
+    
 }
 
 extension EmotionTextarea: UITextViewDelegate {
     
     // 文本变化
     public func textViewDidChange(_ textView: UITextView) {
-        onTextChange?()
-        autoHeight()
+        textChanged()
     }
     
     public func textViewDidChangeSelection(_ textView: UITextView) {
