@@ -5,12 +5,6 @@ import UIKit
 
 public class EmotionTextarea: UITextView {
     
-    // 文本字体
-    let inputTextFont = UIFont.systemFont(ofSize: 16)
-    
-    // 文本颜色
-    let inputTextColor = UIColor(red: 60 / 255, green: 60 / 255, blue: 60 / 255, alpha: 1)
-    
     public var onTextChange: (() -> Void)?
     
     public var plainText: String {
@@ -25,30 +19,50 @@ public class EmotionTextarea: UITextView {
     
     private var typingAttrs: [String: Any]!
     
+    private var maxHeight: CGFloat = 0
+    
+    private var configuration: EmotionInputConfiguration!
+    
     public override var intrinsicContentSize: CGSize {
-        return CGSize(width: frame.width, height: frame.height)
+        return frame.size
     }
     
-    public override init(frame: CGRect, textContainer: NSTextContainer?) {
-        super.init(frame: frame, textContainer: textContainer)
+    public convenience init(configuration: EmotionInputConfiguration) {
+        self.init()
+        self.configuration = configuration
         setup()
+    }
+    
+    private override init(frame: CGRect, textContainer: NSTextContainer?) {
+        super.init(frame: frame, textContainer: textContainer)
     }
     
     public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
+        fatalError("init(coder:) has not been implemented")
     }
     
     func setup() {
         
-        typingAttributes[NSAttributedStringKey.foregroundColor.rawValue] = inputTextColor
-        typingAttributes[NSAttributedStringKey.font.rawValue] = inputTextFont
+        typingAttributes[NSAttributedStringKey.foregroundColor.rawValue] = configuration.textareaTextColor
+        typingAttributes[NSAttributedStringKey.font.rawValue] = configuration.textareaTextFont
         
         typingAttrs = typingAttributes
         
-        layoutManager.allowsNonContiguousLayout = true
+        layoutManager.allowsNonContiguousLayout = false
+    
+        textContainerInset = UIEdgeInsetsMake(
+            configuration.textareaPaddingVertical,
+            configuration.textareaPaddingHorizontal,
+            configuration.textareaPaddingVertical,
+            configuration.textareaPaddingHorizontal
+        )
+        textAlignment = .left
         
-        self.delegate = self
+        delegate = self
+        
+        if let font = font {
+            maxHeight = configuration.textareaMaxLines * font.lineHeight + 2 * configuration.textareaPaddingVertical
+        }
         
         autoHeight()
         
@@ -71,17 +85,11 @@ public class EmotionTextarea: UITextView {
         }
     }
     
+    // 清空文本
     public func clear() {
         textStorage.deleteCharacters(in: NSRange(location: 0, length: NSString(string: text).length))
     }
-    
-    public func autoHeight() {
-        let fixedWidth = frame.size.width
-        let newSize = sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
-        print(newSize)
-        frame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
-    }
-    
+
     // 富文本转成普通文本
     func getPlainText(in range: NSRange) -> String {
         
@@ -123,8 +131,8 @@ public class EmotionTextarea: UITextView {
         }
         
         let pastedAttributedString = NSMutableAttributedString(string: string, attributes: [
-            NSAttributedStringKey.foregroundColor: inputTextColor,
-            NSAttributedStringKey.font: inputTextFont
+            NSAttributedStringKey.foregroundColor: configuration.textareaTextColor,
+            NSAttributedStringKey.font: configuration.textareaTextFont
         ])
         
         let pastedString = NSString(string: string)
@@ -139,6 +147,28 @@ public class EmotionTextarea: UITextView {
         selectedRange = NSRange(location: location + pastedString.length, length: 0)
         
         onTextChange?()
+        
+    }
+    
+    private func scrollToBottom() {
+        
+        let location = text.count - 1
+        
+        scrollRangeToVisible(NSMakeRange(location, 1))
+        
+    }
+    
+    private func autoHeight() {
+    
+        let newSize = sizeThatFits(CGSize(width: frame.width, height: CGFloat.greatestFiniteMagnitude))
+        
+        let newHeight = min(maxHeight, newSize.height)
+
+        if frame.height != newHeight {
+            frame.size = CGSize(width: frame.width, height: newHeight)
+            invalidateIntrinsicContentSize()
+            
+        }
         
     }
     

@@ -66,12 +66,15 @@ class ViewController: UIViewController {
         Emotion(code: "1", name: "49", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
     ]
 
-    let textInput = EmotionTextarea()
+    var textInput: EmotionTextarea!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 
+        let configuration = EmotionInputConfiguration()
+        
+        textInput = EmotionTextarea(configuration: configuration)
         textInput.backgroundColor = UIColor(red: 240 / 255, green: 240 / 255, blue: 240 / 255, alpha: 1)
         textInput.translatesAutoresizingMaskIntoConstraints = false
         textInput.onTextChange = {
@@ -80,8 +83,8 @@ class ViewController: UIViewController {
 
         view.addSubview(textInput)
         
-
-        let emotionPager = EmotionPager(configuration: EmotionInputConfiguration())
+        
+        let emotionPager = EmotionPager(configuration: configuration)
         emotionPager.translatesAutoresizingMaskIntoConstraints = false
         emotionPager.onSendClick = {
             print("send click \(self.textInput.plainText)")
