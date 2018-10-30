@@ -84,7 +84,7 @@ public class EmotionInputConfiguration {
     
     
     // 输入框文本字体
-    public var textareaTextFont = UIFont.systemFont(ofSize: 16)
+    public var textareaTextFont = UIFont.systemFont(ofSize: 15)
     
     // 输入框文本颜色
     public var textareaTextColor = UIColor(red: 60 / 255, green: 60 / 255, blue: 60 / 255, alpha: 1)
@@ -93,7 +93,7 @@ public class EmotionInputConfiguration {
     public var textareaPaddingVertical: CGFloat = 10
     
     // 输入框的水平内间距
-    public var textareaPaddingHorizontal: CGFloat = 5
+    public var textareaPaddingHorizontal: CGFloat = 7
     
     // 输入框自动增高的最大行数
     public var textareaMaxLines: CGFloat = 5
