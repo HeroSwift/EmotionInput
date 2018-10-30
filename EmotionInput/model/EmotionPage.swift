@@ -1,29 +1,35 @@
 
-import Foundation
-
-public class EmotionPage: NSObject {
+public class EmotionPage {
     
     // 每页的图标列表
-    @objc public var emotionList = [Emotion]()
+    public var emotionList: [Emotion]
     
     // 每页有多少列
-    @objc public var columns = 0
+    public var columns: Int
     
     // 每页有多少行
-    @objc public var rows = 0
+    public var rows: Int
     
     // 显示宽度
-    @objc public var width = 0
+    public var width: Int
     
     // 显示高度
-    @objc public var height = 0
+    public var height: Int
     
     // 是否显示删除按钮
-    @objc public var hasDeleteButton = false
+    public var hasDeleteButton: Bool
     
-    public init(_ dict: [String: Any]) {
-        super.init()
-        setValuesForKeys(dict)
+    public init(emotionList: [Emotion], columns: Int, rows: Int, width: Int, height: Int, hasDeleteButton: Bool) {
+        self.emotionList = emotionList
+        self.columns = columns
+        self.rows = rows
+        self.width = width
+        self.height = height
+        self.hasDeleteButton = hasDeleteButton
+    }
+    
+    public convenience init() {
+        self.init(emotionList: [Emotion](), columns: 0, rows: 0, width: 0, height: 0, hasDeleteButton: false)
     }
     
 }

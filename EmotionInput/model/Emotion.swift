@@ -1,30 +1,31 @@
 
-import Foundation
-
-public class Emotion: NSObject {
+public class Emotion {
     
     // 表情值
-    @objc public var code = ""
+    public var code: String
     
     // 显示在图片下方的文本
-    @objc public var name = ""
+    public var name: String
     
     // 表情对应的本地图片
-    @objc public var imageName = ""
+    public var imageName: String
     
     // 表情对应的网络图片
-    @objc public var imageUrl = ""
+    public var imageUrl: String
 
     // 是否支持在输入框显示
-    @objc public var inline = true
+    public var inline: Bool
     
-    public init(_ dict: [String: Any]) {
-        super.init()
-        setValuesForKeys(dict)
+    public init(code: String, name: String, imageName: String, imageUrl: String, inline: Bool) {
+        self.code = code
+        self.name = name
+        self.imageName = imageName
+        self.imageUrl = imageUrl
+        self.inline = inline
     }
     
-    public override init() {
-        
+    public convenience init() {
+        self.init(code: "", name: "", imageName: "", imageUrl: "", inline: true)
     }
     
 }

@@ -1,20 +1,19 @@
 
-import Foundation
-
-public class EmotionIcon: NSObject {
+public class EmotionIcon {
     
     // 当前是第几套图标
-    @objc public var index = 0
+    public var index: Int
     
     // 本地图标
-    @objc public var iconName = ""
+    public var iconName: String
     
     // 是否是选中状态
-    @objc public var selected = false
+    public var selected: Bool
     
-    public init(_ dict: [String: Any]) {
-        super.init()
-        setValuesForKeys(dict)
+    public init(index: Int, iconName: String, selected: Bool) {
+        self.index = index
+        self.iconName = iconName
+        self.selected = selected
     }
     
 }

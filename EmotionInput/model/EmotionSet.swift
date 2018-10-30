@@ -1,22 +1,23 @@
 
 import Foundation
 
-public class EmotionSet: NSObject {
+public class EmotionSet {
     
     // 底部栏图标
-    @objc public var iconName = ""
+    public var iconName: String
     
     // 该套表情的所有表情
-    @objc public var emotionPageList = [EmotionPage]()
+    public var emotionPageList: [EmotionPage]
     
     // 是否需要导航指示器
-    @objc public var hasIndicator = false
+    public var hasIndicator: Bool
     
-    public init(_ dict: [String: Any]) {
-        super.init()
-        setValuesForKeys(dict)
+    public init(iconName: String, emotionPageList: [EmotionPage], hasIndicator: Bool) {
+        self.iconName = iconName
+        self.emotionPageList = emotionPageList
+        self.hasIndicator = hasIndicator
     }
-    
+
     public static func build(iconName: String, emotionList: [Emotion], columns: Int, rows: Int, width: Int, height: Int, hasDeleteButton: Bool, hasIndicator: Bool) -> EmotionSet {
         
         var emotionPageList = [EmotionPage]()
@@ -53,25 +54,14 @@ public class EmotionSet: NSObject {
             }
 
             emotionPageList.append(
-                EmotionPage([
-                    "emotionList": subList,
-                    "columns": columns,
-                    "rows": rows,
-                    "width": width,
-                    "height": height,
-                    "hasDeleteButton": hasDeleteButton
-                ])
+                EmotionPage(emotionList: subList, columns: columns, rows: rows, width: width, height: height, hasDeleteButton: hasDeleteButton)
             )
             
             start = end
             
         }
         
-        return EmotionSet([
-            "iconName": iconName,
-            "emotionPageList": emotionPageList,
-            "hasIndicator": hasIndicator
-        ])
+        return EmotionSet(iconName: iconName, emotionPageList: emotionPageList, hasIndicator: hasIndicator)
         
     }
     

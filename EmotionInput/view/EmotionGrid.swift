@@ -3,7 +3,7 @@ import UIKit
 
 class EmotionGrid: UICollectionViewCell {
     
-    var emotionPage = EmotionPage([:]) {
+    var emotionPage = EmotionPage() {
         didSet {
             collectionView.reloadData()
         }

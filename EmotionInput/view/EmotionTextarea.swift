@@ -25,6 +25,10 @@ public class EmotionTextarea: UITextView {
     
     private var typingAttrs: [String: Any]!
     
+    public override var intrinsicContentSize: CGSize {
+        return CGSize(width: frame.width, height: frame.height)
+    }
+    
     public override init(frame: CGRect, textContainer: NSTextContainer?) {
         super.init(frame: frame, textContainer: textContainer)
         setup()
@@ -42,7 +46,11 @@ public class EmotionTextarea: UITextView {
         
         typingAttrs = typingAttributes
         
+        layoutManager.allowsNonContiguousLayout = true
+        
         self.delegate = self
+        
+        autoHeight()
         
     }
     
@@ -70,6 +78,7 @@ public class EmotionTextarea: UITextView {
     public func autoHeight() {
         let fixedWidth = frame.size.width
         let newSize = sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
+        print(newSize)
         frame.size = CGSize(width: max(newSize.width, fixedWidth), height: newSize.height)
     }
     
@@ -140,6 +149,7 @@ extension EmotionTextarea: UITextViewDelegate {
     // 文本变化
     public func textViewDidChange(_ textView: UITextView) {
         onTextChange?()
+        autoHeight()
     }
     
     public func textViewDidChangeSelection(_ textView: UITextView) {
