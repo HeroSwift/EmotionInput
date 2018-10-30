@@ -48,6 +48,9 @@ public class EmotionTextarea: UITextView {
         
         typingAttrs = typingAttributes
         
+        // 默认左侧有 5 点
+        contentInset = UIEdgeInsetsMake(0, -5, 0, 0)
+        
         textContainerInset = UIEdgeInsetsMake(
             configuration.textareaPaddingVertical,
             configuration.textareaPaddingHorizontal,
@@ -138,7 +141,7 @@ public class EmotionTextarea: UITextView {
         let pastedString = NSString(string: string)
         
         for filter in filters {
-            filter.filter(attributedString: pastedAttributedString, text: pastedString, font: font)
+            filter.filter(attributedString: pastedAttributedString, text: pastedString, font: font!)
         }
         
         let location = selectedRange.location

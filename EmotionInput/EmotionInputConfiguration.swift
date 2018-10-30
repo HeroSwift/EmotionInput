@@ -79,8 +79,7 @@ public class EmotionInputConfiguration {
     public var sendButtonBackgroundColor = UIColor(red: 249 / 255, green: 248 / 255, blue: 249 / 255, alpha: 1)
     
     // 发送按钮的左右内间距
-    public var sendButtonPaddingLeft: CGFloat = 14
-    public var sendButtonPaddingRight: CGFloat = 14
+    public var sendButtonPaddingHorizontal: CGFloat = 14
     
     
     // 输入框文本字体
@@ -93,7 +92,7 @@ public class EmotionInputConfiguration {
     public var textareaPaddingVertical: CGFloat = 10
     
     // 输入框的水平内间距
-    public var textareaPaddingHorizontal: CGFloat = 7
+    public var textareaPaddingHorizontal: CGFloat = 8
     
     // 输入框自动增高的最大行数
     public var textareaMaxLines: CGFloat = 5

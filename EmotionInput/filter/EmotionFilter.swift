@@ -14,7 +14,7 @@ public class EmotionFilter {
         }
     }
     
-    func filter(attributedString: NSMutableAttributedString, text: NSString, font: UIFont?) {
+    func filter(attributedString: NSMutableAttributedString, text: NSString, font: UIFont) {
         var offset = 0
         match(text: text) { (emotionCode, location, length) in
             guard let emotion = emotions[emotionCode] else {
@@ -32,7 +32,7 @@ public class EmotionFilter {
     
     func insert(textInput: UITextView, emotion: Emotion) -> Bool {
         let location = textInput.selectedRange.location
-        if let attachment = getEmotionAttachment(emotion: emotion, font: textInput.font) {
+        if let attachment = getEmotionAttachment(emotion: emotion, font: textInput.font!) {
             textInput.textStorage.insert(NSAttributedString(attachment: attachment), at: location)
             textInput.selectedRange = NSRange(location: location + 1, length: 0)
             return true
@@ -56,20 +56,18 @@ public class EmotionFilter {
         }
     }
     
-    private func getEmotionAttachment(emotion: Emotion, font: UIFont?) -> EmotionAttachment? {
+    private func getEmotionAttachment(emotion: Emotion, font: UIFont) -> EmotionAttachment? {
         let image = UIImage(named: emotion.imageName)
         if let image = image {
             
             let attachment = EmotionAttachment(emotion)
             attachment.image = image
             
-            if let font = font {
-                let imageRatio = image.size.width / image.size.height
-                // 两行之间稍微留点间距
-                let imageHeight = font.lineHeight - 4
-                // https://stackoverflow.com/questions/26105803/center-nstextattachment-image-next-to-single-line-uilabel
-                attachment.bounds = CGRect(x: 0, y: (font.capHeight - imageHeight).rounded() / 2, width: imageHeight * imageRatio, height: imageHeight)
-            }
+            let imageRatio = image.size.width / image.size.height
+            let imageHeight = font.lineHeight
+            let imageWidth = imageHeight * imageRatio
+            // https://stackoverflow.com/questions/26105803/center-nstextattachment-image-next-to-single-line-uilabel
+            attachment.bounds = CGRect(x: 0, y: (font.capHeight - imageHeight).rounded() / 2, width: imageWidth, height: imageHeight)
             
             return attachment
         }

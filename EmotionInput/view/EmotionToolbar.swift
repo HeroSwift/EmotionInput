@@ -59,7 +59,7 @@ class EmotionToolbar: UIView {
         sendButton.setTitle(configuration.sendButtonText, for: .normal)
         sendButton.setTitleColor(configuration.sendButtonTextColor, for: .normal)
         sendButton.titleLabel?.font = configuration.sendButtonTextFont
-        sendButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: configuration.sendButtonPaddingLeft, bottom: 0, right: configuration.sendButtonPaddingRight)
+        sendButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: configuration.sendButtonPaddingHorizontal, bottom: 0, right: configuration.sendButtonPaddingHorizontal)
         sendButton.backgroundColor = configuration.sendButtonBackgroundColor
         
         sendButton.layer.shadowColor = UIColor.black.cgColor
