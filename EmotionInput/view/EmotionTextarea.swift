@@ -48,8 +48,6 @@ public class EmotionTextarea: UITextView {
         
         typingAttrs = typingAttributes
         
-        layoutManager.allowsNonContiguousLayout = false
-    
         textContainerInset = UIEdgeInsetsMake(
             configuration.textareaPaddingVertical,
             configuration.textareaPaddingHorizontal,
@@ -59,6 +57,8 @@ public class EmotionTextarea: UITextView {
         textAlignment = .left
         
         delegate = self
+        
+        layoutManager.allowsNonContiguousLayout = false
         
         if let font = font {
             maxHeight = configuration.textareaMaxLines * font.lineHeight + 2 * configuration.textareaPaddingVertical
@@ -149,15 +149,7 @@ public class EmotionTextarea: UITextView {
         onTextChange?()
         
     }
-    
-    private func scrollToBottom() {
-        
-        let location = text.count - 1
-        
-        scrollRangeToVisible(NSMakeRange(location, 1))
-        
-    }
-    
+
     private func autoHeight() {
     
         let newSize = sizeThatFits(CGSize(width: frame.width, height: CGFloat.greatestFiniteMagnitude))
@@ -167,7 +159,8 @@ public class EmotionTextarea: UITextView {
         if frame.height != newHeight {
             frame.size = CGSize(width: frame.width, height: newHeight)
             invalidateIntrinsicContentSize()
-            
+            // 滚动到光标处
+            scrollRangeToVisible(selectedRange)
         }
         
     }
