@@ -177,10 +177,10 @@ extension EmotionGrid {
         var emotionCell: EmotionCell!
         
         var configuration: EmotionInputConfiguration! {
-            didSet {
+            willSet {
                 
-                if (emotionCell == nil) {
-                    emotionCell = EmotionCell(configuration: configuration)
+                if (configuration == nil) {
+                    emotionCell = EmotionCell(configuration: newValue)
                     emotionCell.translatesAutoresizingMaskIntoConstraints = false
                     
                     addSubview(emotionCell)

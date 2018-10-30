@@ -44,7 +44,7 @@ public class EmotionPager: UIView {
         }
     }
     
-    public var onEmotionClick: ((_ emotion: Emotion) -> Void)?
+    public var onEmotionClick: ((Emotion) -> Void)?
     public var onDeleteClick: (() -> Void)?
     public var onSendClick: (() -> Void)?
     
@@ -60,7 +60,6 @@ public class EmotionPager: UIView {
     
     private var collectionBottomConstraint: NSLayoutConstraint!
     private var indicatorBottomConstraint: NSLayoutConstraint!
-    private var indicatorHeightConstraint: NSLayoutConstraint!
     
     
     private var configuration: EmotionInputConfiguration!
@@ -96,15 +95,14 @@ public class EmotionPager: UIView {
         
         addSubview(collectionView)
         
-        indicatorView = DotIndicator(frame: frame)
+        indicatorView = DotIndicator()
         indicatorView.translatesAutoresizingMaskIntoConstraints = false
         indicatorView.isHidden = true
         
         addSubview(indicatorView)
         
-        toolbarView = EmotionToolbar(frame: frame)
+        toolbarView = EmotionToolbar(configuration: configuration)
         toolbarView.translatesAutoresizingMaskIntoConstraints = false
-        toolbarView.backgroundColor = .white
         toolbarView.onIconClick = { icon in
             var count = 0
             for i in 0..<self.emotionSetList.count {
@@ -122,23 +120,22 @@ public class EmotionPager: UIView {
         
         addSubview(toolbarView)
 
-        collectionBottomConstraint = NSLayoutConstraint(item: collectionView, attribute: .bottom, relatedBy: .equal, toItem: indicatorView, attribute: .top, multiplier: 1.0, constant: 0)
-        indicatorBottomConstraint = NSLayoutConstraint(item: indicatorView, attribute: .bottom, relatedBy: .equal, toItem: toolbarView, attribute: .top, multiplier: 1.0, constant: 0)
-        indicatorHeightConstraint = NSLayoutConstraint(item: indicatorView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: 0)
+        collectionBottomConstraint = NSLayoutConstraint(item: collectionView, attribute: .bottom, relatedBy: .equal, toItem: indicatorView, attribute: .top, multiplier: 1, constant: 0)
+        indicatorBottomConstraint = NSLayoutConstraint(item: indicatorView, attribute: .bottom, relatedBy: .equal, toItem: toolbarView, attribute: .top, multiplier: 1, constant: 0)
         
         addConstraints([
             
-            NSLayoutConstraint(item: toolbarView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: 0),
-            NSLayoutConstraint(item: toolbarView, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: 0),
-            NSLayoutConstraint(item: toolbarView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: 0),
+            NSLayoutConstraint(item: toolbarView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: toolbarView, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: toolbarView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: toolbarView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: configuration.toolbarHeight),
             
-            NSLayoutConstraint(item: indicatorView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.0, constant: 0),
+            NSLayoutConstraint(item: indicatorView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0),
             indicatorBottomConstraint,
-            indicatorHeightConstraint,
             
-            NSLayoutConstraint(item: collectionView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: 0),
-            NSLayoutConstraint(item: collectionView, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: 0),
-            NSLayoutConstraint(item: collectionView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0),
+            NSLayoutConstraint(item: collectionView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: collectionView, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: collectionView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0),
             collectionBottomConstraint,
             
         ])
@@ -217,7 +214,7 @@ extension EmotionPager {
             indicatorView.isHidden = false
             collectionBottomConstraint.constant = -configuration.indicatorMarginTop
             indicatorBottomConstraint.constant = -configuration.toolbarMarginTop
-            removeConstraint(indicatorHeightConstraint)
+            layoutIfNeeded()
         }
         
     }
@@ -227,10 +224,10 @@ extension EmotionPager {
         let fromVisible = !indicatorView.isHidden
         
         if fromVisible {
-            addConstraint(indicatorHeightConstraint)
+            indicatorView.isHidden = true
             collectionBottomConstraint.constant = 0
             indicatorBottomConstraint.constant = 0
-            indicatorView.isHidden = true
+            layoutIfNeeded()
         }
         
     }
