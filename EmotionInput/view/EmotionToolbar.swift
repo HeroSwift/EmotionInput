@@ -4,15 +4,15 @@ import SimpleButton
 
 class EmotionToolbar: UIView {
     
+    var onIconClick: ((EmotionIcon) -> Void)!
+    var onSendClick: (() -> Void)!
+    
     var emotionIconList = [EmotionIcon]() {
         didSet {
             collectionView.reloadData()
         }
     }
-    
-    var onIconClick: ((EmotionIcon) -> Void)?
-    var onSendClick: (() -> Void)?
-    
+
     private var collectionView: UICollectionView!
     private var flowLayout: UICollectionViewFlowLayout!
     
@@ -70,7 +70,7 @@ class EmotionToolbar: UIView {
         sendButton.setLeftBorder(width: configuration.sendButtonLeftBorderWidth, color: configuration.sendButtonLeftBorderColor)
         
         sendButton.onClick = {
-            self.onSendClick?()
+            self.onSendClick()
         }
 
         addSubview(sendButton)
@@ -99,7 +99,7 @@ extension EmotionToolbar: UICollectionViewDelegate {
     
     // 点击事件
     public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        onIconClick?(emotionIconList[indexPath.item])
+        onIconClick(emotionIconList[indexPath.item])
     }
     
     // 按下事件
@@ -178,13 +178,11 @@ extension EmotionToolbar {
                     imageView.contentMode = .center
                     addSubview(imageView)
                     
-                    let dividerOffset = (newValue.toolbarHeight - newValue.toolbarCellDividerHeight) / 2
-                    
                     addConstraints([
                         
                         NSLayoutConstraint(item: dividerView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 0),
-                        NSLayoutConstraint(item: dividerView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: dividerOffset),
-                        NSLayoutConstraint(item: dividerView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: -dividerOffset),
+                        NSLayoutConstraint(item: dividerView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: newValue.toolbarCellDividerOffset),
+                        NSLayoutConstraint(item: dividerView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: -newValue.toolbarCellDividerOffset),
                         NSLayoutConstraint(item: dividerView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: newValue.toolbarCellDividerWidth),
                         
                         NSLayoutConstraint(item: imageView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0),

@@ -80,10 +80,10 @@ public class EmotionPager: UIView {
     
     private func setup() {
         
+        backgroundColor = configuration.pagerBackgroundColor
+        
         flowLayout = UICollectionViewFlowLayout()
         flowLayout.scrollDirection = .horizontal
-        
-        backgroundColor = configuration.pagerBackgroundColor
         
         collectionView = UICollectionView(frame: frame, collectionViewLayout: flowLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false

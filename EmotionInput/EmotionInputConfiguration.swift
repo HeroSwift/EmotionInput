@@ -58,7 +58,7 @@ public class EmotionInputConfiguration {
     public var toolbarCellDividerWidth = 1 / UIScreen.main.scale
     
     // 表情单元格分割线高度
-    public var toolbarCellDividerHeight: CGFloat = 32
+    public var toolbarCellDividerOffset: CGFloat = 6
     
     // 表情单元格按下时的背景色
     public var toolbarCellBackgroundColorPressed = UIColor(red: 244 / 255, green: 242 / 255, blue: 246 / 255, alpha: 1)
