@@ -75,7 +75,7 @@ extension EmotionGrid: UICollectionViewDataSource {
         
         
         if emotionPage.hasDeleteButton && index == emotionPage.rows * emotionPage.columns - 1 {
-            cell.emotionCell.showDelete(deleteImageName: configuration.gridDeleteImageName)
+            cell.emotionCell.showDelete(image: configuration.deleteButtonImage!)
         }
         else if emotion.code != "" {
             cell.emotionCell.showEmotion(emotion: emotion, emotionWidth: emotionPage.width, emotionHeight: emotionPage.height)

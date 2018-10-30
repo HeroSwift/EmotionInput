@@ -4,7 +4,10 @@ import UIKit
 public class EmotionInputConfiguration {
     
     // 背景色
-    public var pagerBackgroundColor = UIColor.gray
+    public var pagerBackgroundColor = UIColor.clear
+    
+    // 删除图片
+    public var deleteButtonImage = UIImage(named: "delete-emotion")
     
     // 表情网格容器的垂直内边距
     public var gridPaddingVertical: CGFloat = 20
@@ -17,9 +20,6 @@ public class EmotionInputConfiguration {
     
     // 列间距
     public var gridColumnSpacing: CGFloat = 10
-    
-    // 删除图片
-    public var gridDeleteImageName = "delete-emotion"
     
     // 表情单元格按下时的背景色
     public var cellBackgroundColorPressed = UIColor(red: 0, green: 0, blue: 0, alpha: 0.05)

@@ -167,10 +167,10 @@ class EmotionCell: UIView {
         
     }
     
-    func showDelete(deleteImageName: String) {
+    func showDelete(image: UIImage) {
         hideEmotionView()
         hideNameView()
-        showDeleteView(deleteImageName: deleteImageName)
+        showDeleteView(image: image)
         invalidateIntrinsicContentSize()
     }
     
@@ -295,12 +295,12 @@ extension EmotionCell {
         
     }
     
-    private func showDeleteView(deleteImageName: String) {
+    private func showDeleteView(image: UIImage) {
         
         let fromHidden = deleteView.isHidden
         
         if fromHidden {
-            deleteView.image = UIImage(named: deleteImageName)
+            deleteView.image = image
             addSubview(deleteView)
             deleteView.isHidden = false
             addConstraints([ deleteCenterXConstraint, deleteCenterYConstraint ])
