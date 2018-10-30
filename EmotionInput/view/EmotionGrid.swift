@@ -3,14 +3,15 @@ import UIKit
 
 class EmotionGrid: UICollectionViewCell {
     
+    var onEmotionClick: ((Emotion) -> Void)?
+    var onDeleteClick: (() -> Void)?
+    
     var emotionPage = EmotionPage() {
         didSet {
             collectionView.reloadData()
         }
     }
-    
-    var onEmotionClick: ((Emotion) -> Void)?
-    var onDeleteClick: (() -> Void)?
+
     var configuration: EmotionInputConfiguration!
     
     private var collectionView: UICollectionView!

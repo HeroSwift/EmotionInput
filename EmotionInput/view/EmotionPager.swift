@@ -190,6 +190,7 @@ extension EmotionPager: UICollectionViewDelegateFlowLayout {
         return 0
     }
     
+    // 单元格尺寸
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return collectionView.bounds.size
     }
@@ -198,11 +199,12 @@ extension EmotionPager: UICollectionViewDelegateFlowLayout {
 
 extension EmotionPager: UICollectionViewDelegate {
     
-    // 翻页事件
+    // 翻页开始
     public func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
         updateScrollX(x: scrollView.contentOffset.x, width: scrollView.bounds.size.width)
     }
     
+    // 翻页结束
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         updateScrollX(x: scrollView.contentOffset.x, width: scrollView.bounds.size.width)
     }
