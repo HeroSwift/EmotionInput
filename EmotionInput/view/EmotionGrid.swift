@@ -131,9 +131,10 @@ extension EmotionGrid: UICollectionViewDelegateFlowLayout {
         let rowHeight = getCellSize().height
         let contentHeight = rowCount * rowHeight + (rowCount - 1) * configuration.gridRowSpacing
         
+        let paddingHorizontal = configuration.gridPaddingHorizontal
         let paddingVertical = (collectionView.frame.height - contentHeight) / 2
         
-        return UIEdgeInsets(top: paddingVertical, left: configuration.gridPaddingHorizontal, bottom: paddingVertical, right: configuration.gridPaddingHorizontal)
+        return UIEdgeInsets(top: paddingVertical, left: paddingHorizontal, bottom: paddingVertical, right: paddingHorizontal)
     
     }
     
