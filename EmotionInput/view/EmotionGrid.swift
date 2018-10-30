@@ -9,26 +9,9 @@ class EmotionGrid: UICollectionViewCell {
         }
     }
     
-    // 表情网格容器的上下 padding
-    let paddingVertical = CGFloat(20)
-    
-    // 表情网格容器的左右 padding
-    let paddingHorizontal = CGFloat(20)
-    
-    // 行间距
-    let rowSpacing = CGFloat(10)
-    
-    // 列间距
-    let columnSpacing = CGFloat(10)
-    
-    // 删除图片
-    let deleteImageName = "delete-emotion"
-    
-    // 表情单元格按下时的背景色
-    let cellBackgroundColorPressed = UIColor(red: 0, green: 0, blue: 0, alpha: 0.05)
-    
-    var onEmotionClick: ((_ emotion: Emotion) -> Void)?
+    var onEmotionClick: ((Emotion) -> Void)?
     var onDeleteClick: (() -> Void)?
+    var configuration: EmotionInputConfiguration!
     
     private var collectionView: UICollectionView!
     private var flowLayout: UICollectionViewFlowLayout!
@@ -63,10 +46,10 @@ class EmotionGrid: UICollectionViewCell {
         
         addConstraints([
             
-            NSLayoutConstraint(item: collectionView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: 0),
-            NSLayoutConstraint(item: collectionView, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1.0, constant: 0),
-            NSLayoutConstraint(item: collectionView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0),
-            NSLayoutConstraint(item: collectionView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1.0, constant: 0)
+            NSLayoutConstraint(item: collectionView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: collectionView, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: collectionView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: collectionView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0)
             
         ])
 
@@ -85,11 +68,14 @@ extension EmotionGrid: UICollectionViewDataSource {
     public func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! EmotionGridCell
+        cell.configuration = configuration
+        
         let index = indexPath.item
         let emotion = emotionPage.emotionList[index]
         
+        
         if emotionPage.hasDeleteButton && index == emotionPage.rows * emotionPage.columns - 1 {
-            cell.emotionCell.showDelete(deleteImageName: deleteImageName)
+            cell.emotionCell.showDelete(deleteImageName: configuration.gridDeleteImageName)
         }
         else if emotion.code != "" {
             cell.emotionCell.showEmotion(emotion: emotion, emotionWidth: emotionPage.width, emotionHeight: emotionPage.height)
@@ -122,7 +108,7 @@ extension EmotionGrid: UICollectionViewDelegate {
     public func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! EmotionGridCell
         if cell.emotionCell.hasContent() {
-            cell.backgroundColor = cellBackgroundColorPressed
+            cell.backgroundColor = configuration.cellBackgroundColorPressed
         }
     }
     
@@ -143,22 +129,22 @@ extension EmotionGrid: UICollectionViewDelegateFlowLayout {
 
         let rowCount = CGFloat(emotionPage.rows)
         let rowHeight = getCellSize().height
-        let contentHeight = rowCount * rowHeight + (rowCount - 1) * rowSpacing
+        let contentHeight = rowCount * rowHeight + (rowCount - 1) * configuration.gridRowSpacing
         
         let paddingVertical = (collectionView.frame.height - contentHeight) / 2
         
-        return UIEdgeInsets(top: paddingVertical, left: paddingHorizontal, bottom: paddingVertical, right: paddingHorizontal)
+        return UIEdgeInsets(top: paddingVertical, left: configuration.gridPaddingHorizontal, bottom: configuration.gridPaddingVertical, right: configuration.gridPaddingHorizontal)
     
     }
     
     // 行间距
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return rowSpacing
+        return configuration.gridRowSpacing
     }
     
     // 列间距
     public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return columnSpacing
+        return configuration.gridColumnSpacing
     }
     
     // 设置单元格尺寸
@@ -174,12 +160,12 @@ extension EmotionGrid {
     func getCellSize() -> CGSize {
         
         let columnCount = CGFloat(emotionPage.columns)
-        let spacing = paddingHorizontal * 2 + flowLayout.sectionInset.left + flowLayout.sectionInset.right + columnSpacing * (columnCount - 1)
+        let spacing = configuration.gridPaddingHorizontal * 2 + flowLayout.sectionInset.left + flowLayout.sectionInset.right + configuration.gridColumnSpacing * (columnCount - 1)
         let width = ((collectionView.frame.width - spacing) / columnCount).rounded(.down)
 
         // 计算 itemHeight 最大值
         let rowCount = CGFloat(emotionPage.rows)
-        let maxHeight = ((collectionView.frame.height - 2 * paddingVertical - (rowCount - 1) * rowSpacing) / rowCount).rounded(.down)
+        let maxHeight = ((collectionView.frame.height - 2 * configuration.gridPaddingVertical - (rowCount - 1) * configuration.gridRowSpacing) / rowCount).rounded(.down)
         
         return CGSize(width: width, height: min(width, maxHeight))
         
@@ -190,20 +176,26 @@ extension EmotionGrid {
         
         var emotionCell: EmotionCell!
         
+        var configuration: EmotionInputConfiguration! {
+            didSet {
+                
+                if (emotionCell == nil) {
+                    emotionCell = EmotionCell(configuration: configuration)
+                    emotionCell.translatesAutoresizingMaskIntoConstraints = false
+                    
+                    addSubview(emotionCell)
+                    
+                    addConstraints([
+                        NSLayoutConstraint(item: emotionCell, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0),
+                        NSLayoutConstraint(item: emotionCell, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0),
+                    ])
+                }
+                
+            }
+        }
+
         public override init(frame: CGRect) {
-            
             super.init(frame: frame)
-            
-            emotionCell = EmotionCell(frame: frame)
-            emotionCell.translatesAutoresizingMaskIntoConstraints = false
-            
-            addSubview(emotionCell)
-            
-            addConstraints([
-                NSLayoutConstraint(item: emotionCell, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.0, constant: 0),
-                NSLayoutConstraint(item: emotionCell, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: 0),
-            ])
-            
         }
         
         public required init?(coder aDecoder: NSCoder) {

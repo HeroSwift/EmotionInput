@@ -19,6 +19,7 @@
 		9D43078521339FC4001ED814 /* EmotionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D43077C21339FC4001ED814 /* EmotionCell.swift */; };
 		9D43078621339FC4001ED814 /* EmotionPager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D43077D21339FC4001ED814 /* EmotionPager.swift */; };
 		9D43078A2133A018001ED814 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4307892133A018001ED814 /* ViewController.swift */; };
+		9D6420122187FB25005CAE53 /* EmotionInputConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6420112187FB25005CAE53 /* EmotionInputConfiguration.swift */; };
 		9D7105B9213BBCBD00B1DF7C /* DotIndicator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D7105B7213BBCBD00B1DF7C /* DotIndicator.framework */; };
 		9D7105BA213BBCBD00B1DF7C /* DotIndicator.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9D7105B7213BBCBD00B1DF7C /* DotIndicator.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9D7105BB213BBCBD00B1DF7C /* SimpleButton.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D7105B8213BBCBD00B1DF7C /* SimpleButton.framework */; };
@@ -72,6 +73,7 @@
 		9D43077C21339FC4001ED814 /* EmotionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionCell.swift; sourceTree = "<group>"; };
 		9D43077D21339FC4001ED814 /* EmotionPager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmotionPager.swift; sourceTree = "<group>"; };
 		9D4307892133A018001ED814 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		9D6420112187FB25005CAE53 /* EmotionInputConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionInputConfiguration.swift; sourceTree = "<group>"; };
 		9D7105B7213BBCBD00B1DF7C /* DotIndicator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DotIndicator.framework; path = Carthage/Build/iOS/DotIndicator.framework; sourceTree = "<group>"; };
 		9D7105B8213BBCBD00B1DF7C /* SimpleButton.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SimpleButton.framework; path = Carthage/Build/iOS/SimpleButton.framework; sourceTree = "<group>"; };
 		9D7105D8213ED8C700B1DF7C /* EmotionFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionFilter.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 				9D43077321339FC4001ED814 /* model */,
 				9D43077921339FC4001ED814 /* view */,
 				9D43075621339F80001ED814 /* Info.plist */,
+				9D6420112187FB25005CAE53 /* EmotionInputConfiguration.swift */,
 			);
 			path = EmotionInput;
 			sourceTree = "<group>";
@@ -295,6 +298,7 @@
 				9D43078121339FC4001ED814 /* EmotionPage.swift in Sources */,
 				9DE9694121424BD700BFF7F4 /* EmotionAttachment.swift in Sources */,
 				9D43078521339FC4001ED814 /* EmotionCell.swift in Sources */,
+				9D6420122187FB25005CAE53 /* EmotionInputConfiguration.swift in Sources */,
 				9D43077F21339FC4001ED814 /* EmotionSet.swift in Sources */,
 				9D43077E21339FC4001ED814 /* EmotionIcon.swift in Sources */,
 				9D43078621339FC4001ED814 /* EmotionPager.swift in Sources */,

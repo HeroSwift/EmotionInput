@@ -81,7 +81,7 @@ class ViewController: UIViewController {
         view.addSubview(textInput)
         
 
-        let emotionPager = EmotionPager()
+        let emotionPager = EmotionPager(configuration: EmotionInputConfiguration())
         emotionPager.translatesAutoresizingMaskIntoConstraints = false
         emotionPager.onSendClick = {
             print("send click \(self.textInput.plainText)")

@@ -20,7 +20,6 @@ public class EmotionPager: UIView {
                     showIndicatorView()
                     indicatorView.index = 0
                     indicatorView.count = emotionSet.emotionPageList.count
-                    indicatorView.sizeToFit()
                     indicatorView.setNeedsLayout()
                     indicatorView.setNeedsDisplay()
                 }
@@ -33,12 +32,12 @@ public class EmotionPager: UIView {
             }
             
             var index = 0
-            toolbarView.emotionIconList = emotionSetList.map {
+            toolbarView.emotionIconList = emotionSetList.map { emotionSet in
                 
                 let currentIndex = index
                 index = index + 1
                 
-                return EmotionIcon(index: currentIndex, iconName: $0.iconName, selected: currentIndex == emotionSetIndex)
+                return EmotionIcon(index: currentIndex, iconName: emotionSet.iconName, selected: currentIndex == emotionSetIndex)
                 
             }
             
@@ -49,11 +48,7 @@ public class EmotionPager: UIView {
     public var onDeleteClick: (() -> Void)?
     public var onSendClick: (() -> Void)?
     
-    // indicator 与网格的距离
-    let indicatorMarginTop = CGFloat(8)
     
-    // toolbar 与 indicator 的距离
-    let toolbarMarginTop = CGFloat(8)
 
     private var collectionView: UICollectionView!
     private var flowLayout: UICollectionViewFlowLayout!
@@ -67,14 +62,21 @@ public class EmotionPager: UIView {
     private var indicatorBottomConstraint: NSLayoutConstraint!
     private var indicatorHeightConstraint: NSLayoutConstraint!
     
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
+    
+    private var configuration: EmotionInputConfiguration!
+    
+    public convenience init(configuration: EmotionInputConfiguration) {
+        self.init()
+        self.configuration = configuration
         setup()
     }
     
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
     public required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func setup() {
@@ -164,6 +166,7 @@ extension EmotionPager: UICollectionViewDataSource {
             cell.emotionPage = emotionSetList[$0].emotionPageList[$1]
         }
         
+        cell.configuration = configuration
         cell.onEmotionClick = onEmotionClick
         cell.onDeleteClick = onDeleteClick
         
@@ -212,8 +215,8 @@ extension EmotionPager {
         
         if fromHidden {
             indicatorView.isHidden = false
-            collectionBottomConstraint.constant = -indicatorMarginTop
-            indicatorBottomConstraint.constant = -toolbarMarginTop
+            collectionBottomConstraint.constant = -configuration.indicatorMarginTop
+            indicatorBottomConstraint.constant = -configuration.toolbarMarginTop
             removeConstraint(indicatorHeightConstraint)
         }
         

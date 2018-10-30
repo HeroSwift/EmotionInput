@@ -17,19 +17,6 @@ class EmotionCell: UIView {
     var deleteView: UIImageView!
     
     //
-    // MARK: - 界面配置
-    //
-    
-    // 单元格文本字体
-    let nameTextFont: UIFont = UIFont.systemFont(ofSize: 12)
-    
-    // 单元格文本颜色
-    let nameTextColor: UIColor = UIColor(red: 120 / 255, green: 120 / 255, blue: 120 / 255, alpha: 1)
-    
-    // 单元格文本与表情的距离
-    let nameMarginTop: CGFloat = 5
-    
-    //
     // MARK: - 表情数据
     //
     
@@ -84,7 +71,7 @@ class EmotionCell: UIView {
             
             if !nameView.isHidden {
                 let labelSize = nameView.intrinsicContentSize
-                height += nameMarginTop + labelSize.height
+                height += configuration.cellNameMarginTop + labelSize.height
                 if labelSize.width > width {
                     width = labelSize.width
                 }
@@ -95,9 +82,16 @@ class EmotionCell: UIView {
         
     }
     
+    private var configuration: EmotionInputConfiguration!
+    
+    public convenience init(configuration: EmotionInputConfiguration) {
+        self.init()
+        self.configuration = configuration
+        setup()
+    }
+    
     public override init(frame: CGRect) {
         super.init(frame: frame)
-        setup()
     }
     
     public required init?(coder aDecoder: NSCoder) {
@@ -114,8 +108,8 @@ class EmotionCell: UIView {
         
         nameView = UILabel()
         nameView.translatesAutoresizingMaskIntoConstraints = false
-        nameView.font = nameTextFont
-        nameView.textColor = nameTextColor
+        nameView.font = configuration.cellNameTextFont
+        nameView.textColor = configuration.cellNameTextColor
         nameView.numberOfLines = 1
         nameView.lineBreakMode = .byTruncatingTail
         nameView.textAlignment = .center
@@ -125,15 +119,15 @@ class EmotionCell: UIView {
         deleteView.translatesAutoresizingMaskIntoConstraints = false
         deleteView.isHidden = true
 
-        emotionTopConstraint = NSLayoutConstraint(item: emotionView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1.0, constant: 0)
-        emotionCenterXConstraint = NSLayoutConstraint(item: emotionView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.0, constant: 0)
+        emotionTopConstraint = NSLayoutConstraint(item: emotionView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0)
+        emotionCenterXConstraint = NSLayoutConstraint(item: emotionView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)
         
-        nameTopConstraint = NSLayoutConstraint(item: nameView, attribute: .top, relatedBy: .equal, toItem: emotionView, attribute: .bottom, multiplier: 1.0, constant: nameMarginTop)
-        nameLeftConstraint = NSLayoutConstraint(item: nameView, attribute: .left, relatedBy: .equal, toItem: emotionView, attribute: .left, multiplier: 1.0, constant: 0)
-        nameRightConstraint = NSLayoutConstraint(item: nameView, attribute: .right, relatedBy: .equal, toItem: emotionView, attribute: .right, multiplier: 1.0, constant: 0)
+        nameTopConstraint = NSLayoutConstraint(item: nameView, attribute: .top, relatedBy: .equal, toItem: emotionView, attribute: .bottom, multiplier: 1, constant: configuration.cellNameMarginTop)
+        nameLeftConstraint = NSLayoutConstraint(item: nameView, attribute: .left, relatedBy: .equal, toItem: emotionView, attribute: .left, multiplier: 1, constant: 0)
+        nameRightConstraint = NSLayoutConstraint(item: nameView, attribute: .right, relatedBy: .equal, toItem: emotionView, attribute: .right, multiplier: 1, constant: 0)
         
-        deleteCenterXConstraint = NSLayoutConstraint(item: deleteView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.0, constant: 0)
-        deleteCenterYConstraint = NSLayoutConstraint(item: deleteView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1.0, constant: 0)
+        deleteCenterXConstraint = NSLayoutConstraint(item: deleteView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)
+        deleteCenterYConstraint = NSLayoutConstraint(item: deleteView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0)
         
     }
     
