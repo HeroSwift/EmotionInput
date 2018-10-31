@@ -1,7 +1,7 @@
 import UIKit
 
 // 配置
-public class EmotionInputConfiguration {
+open class EmotionInputConfiguration {
     
     // 背景色
     public var pagerBackgroundColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1)
@@ -112,6 +112,9 @@ public class EmotionInputConfiguration {
     // 输入框自动增高的最大行数
     public var textareaMaxLines: CGFloat = 5
     
+    open func loadImage(imageView: UIImageView, url: String) {
+        
+    }
     
     public init() { }
     

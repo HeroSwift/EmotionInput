@@ -99,6 +99,7 @@ class EmotionCell: UIView {
         }
         else if emotion.imageUrl != "" {
             hasEmotion = true
+            configuration.loadImage(imageView: emotionView, url: emotion.imageUrl)
         }
         
         if hasEmotion {

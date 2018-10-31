@@ -10,6 +10,14 @@ import UIKit
 import EmotionInput
 
 
+class Configuration: EmotionInputConfiguration {
+    
+    override func loadImage(imageView: UIImageView, url: String) {
+        
+    }
+    
+}
+
 
 class ViewController: UIViewController {
 
