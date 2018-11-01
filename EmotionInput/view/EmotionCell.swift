@@ -29,9 +29,9 @@ class EmotionCell: UIView {
     private var emotionWidthConstraint: NSLayoutConstraint!
     private var emotionHeightConstraint: NSLayoutConstraint!
     
-    private var configuration: EmotionInputConfiguration!
+    private var configuration: EmotionPagerConfiguration!
     
-    public convenience init(configuration: EmotionInputConfiguration) {
+    public convenience init(configuration: EmotionPagerConfiguration) {
         self.init()
         self.configuration = configuration
         setup()

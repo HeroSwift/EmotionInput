@@ -21,13 +21,13 @@ public class EmotionTextarea: UITextView {
     
     private var maxHeight: CGFloat = 0
     
-    private var configuration: EmotionInputConfiguration!
+    private var configuration: EmotionTextareaConfiguration!
     
     public override var intrinsicContentSize: CGSize {
         return frame.size
     }
     
-    public convenience init(configuration: EmotionInputConfiguration) {
+    public convenience init(configuration: EmotionTextareaConfiguration) {
         self.init()
         self.configuration = configuration
         setup()
@@ -43,8 +43,8 @@ public class EmotionTextarea: UITextView {
     
     func setup() {
         
-        typingAttributes[NSAttributedStringKey.foregroundColor.rawValue] = configuration.textareaTextColor
-        typingAttributes[NSAttributedStringKey.font.rawValue] = configuration.textareaTextFont
+        typingAttributes[NSAttributedStringKey.foregroundColor.rawValue] = configuration.textColor
+        typingAttributes[NSAttributedStringKey.font.rawValue] = configuration.textFont
         
         typingAttrs = typingAttributes
         
@@ -52,19 +52,25 @@ public class EmotionTextarea: UITextView {
         contentInset = UIEdgeInsetsMake(0, -5, 0, 0)
         
         textContainerInset = UIEdgeInsetsMake(
-            configuration.textareaPaddingVertical,
-            configuration.textareaPaddingHorizontal,
-            configuration.textareaPaddingVertical,
-            configuration.textareaPaddingHorizontal
+            configuration.paddingVertical,
+            configuration.paddingHorizontal,
+            configuration.paddingVertical,
+            configuration.paddingHorizontal
         )
         textAlignment = .left
+        
+        backgroundColor = configuration.backgroundColor
+        
+        layer.borderColor = configuration.borderColor.cgColor
+        layer.borderWidth = configuration.borderWidth
+        layer.cornerRadius = configuration.borderRadius
         
         delegate = self
         
         layoutManager.allowsNonContiguousLayout = false
         
         if let font = font {
-            maxHeight = configuration.textareaMaxLines * font.lineHeight + 2 * configuration.textareaPaddingVertical
+            maxHeight = configuration.maxLines * font.lineHeight + 2 * configuration.paddingVertical
         }
         
         autoHeight()
@@ -134,8 +140,8 @@ public class EmotionTextarea: UITextView {
         }
         
         let pastedAttributedString = NSMutableAttributedString(string: string, attributes: [
-            NSAttributedStringKey.foregroundColor: configuration.textareaTextColor,
-            NSAttributedStringKey.font: configuration.textareaTextFont
+            NSAttributedStringKey.foregroundColor: configuration.textColor,
+            NSAttributedStringKey.font: configuration.textFont
         ])
         
         let pastedString = NSString(string: string)
@@ -171,6 +177,10 @@ public class EmotionTextarea: UITextView {
     private func textChanged() {
         onTextChange?()
         autoHeight()
+    }
+    
+    public override func layoutSubviews() {
+        print("layoutSubviews \(frame.size)")
     }
     
 }

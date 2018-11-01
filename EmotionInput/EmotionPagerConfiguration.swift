@@ -1,13 +1,13 @@
 import UIKit
 
 // 配置
-open class EmotionInputConfiguration {
+open class EmotionPagerConfiguration {
     
     // 背景色
     public var pagerBackgroundColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1)
     
     // 删除图片
-    public var deleteButtonImage = UIImage(named: "delete", in: Bundle(for: EmotionInputConfiguration.self), compatibleWith: nil)
+    public var deleteButtonImage = UIImage(named: "delete", in: Bundle(for: EmotionPagerConfiguration.self), compatibleWith: nil)
     
     // 表情网格容器的垂直内边距
     public var emotionGridPaddingVertical: CGFloat = 20
@@ -95,22 +95,6 @@ open class EmotionInputConfiguration {
     
     // 发送按钮的左右内间距
     public var sendButtonPaddingHorizontal: CGFloat = 14
-    
-    
-    // 输入框文本字体
-    public var textareaTextFont = UIFont.systemFont(ofSize: 15)
-    
-    // 输入框文本颜色
-    public var textareaTextColor = UIColor(red: 60 / 255, green: 60 / 255, blue: 60 / 255, alpha: 1)
-    
-    // 输入框的垂直内间距
-    public var textareaPaddingVertical: CGFloat = 10
-    
-    // 输入框的水平内间距
-    public var textareaPaddingHorizontal: CGFloat = 8
-    
-    // 输入框自动增高的最大行数
-    public var textareaMaxLines: CGFloat = 5
     
     open func loadImage(imageView: UIImageView, url: String) {
         

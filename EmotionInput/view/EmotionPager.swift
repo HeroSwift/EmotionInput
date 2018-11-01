@@ -62,9 +62,9 @@ public class EmotionPager: UIView {
     private var indicatorBottomConstraint: NSLayoutConstraint!
     
     
-    private var configuration: EmotionInputConfiguration!
+    private var configuration: EmotionPagerConfiguration!
     
-    public convenience init(configuration: EmotionInputConfiguration) {
+    public convenience init(configuration: EmotionPagerConfiguration) {
         self.init()
         self.configuration = configuration
         setup()

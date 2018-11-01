@@ -12,7 +12,7 @@ class EmotionGrid: UICollectionViewCell {
         }
     }
 
-    var configuration: EmotionInputConfiguration!
+    var configuration: EmotionPagerConfiguration!
     
     private var collectionView: UICollectionView!
     private var flowLayout: UICollectionViewFlowLayout!
@@ -178,7 +178,7 @@ extension EmotionGrid {
         
         var emotionCell: EmotionCell!
         
-        var configuration: EmotionInputConfiguration! {
+        var configuration: EmotionPagerConfiguration! {
             willSet {
                 
                 if (configuration == nil) {

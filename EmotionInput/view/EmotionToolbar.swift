@@ -20,9 +20,9 @@ class EmotionToolbar: UIView {
     
     private let cellIdentifier = "icon"
 
-    private var configuration: EmotionInputConfiguration!
+    private var configuration: EmotionPagerConfiguration!
     
-    public convenience init(configuration: EmotionInputConfiguration) {
+    public convenience init(configuration: EmotionPagerConfiguration) {
         self.init()
         self.configuration = configuration
         setup()
@@ -164,7 +164,7 @@ extension EmotionToolbar {
         var dividerView: UIView!
         var imageView: UIImageView!
         
-        var configuration: EmotionInputConfiguration! {
+        var configuration: EmotionPagerConfiguration! {
             willSet {
                 if configuration == nil {
                     

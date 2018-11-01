@@ -10,7 +10,7 @@ import UIKit
 import EmotionInput
 
 
-class Configuration: EmotionInputConfiguration {
+class Configuration: EmotionPagerConfiguration {
     
     override func loadImage(imageView: UIImageView, url: String) {
         
@@ -80,10 +80,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 
-        let configuration = EmotionInputConfiguration()
+        let configuration = Configuration()
         
-        textInput = EmotionTextarea(configuration: configuration)
-        textInput.backgroundColor = UIColor(red: 240 / 255, green: 240 / 255, blue: 240 / 255, alpha: 1)
+        textInput = EmotionTextarea(configuration: EmotionTextareaConfiguration())
         textInput.translatesAutoresizingMaskIntoConstraints = false
         textInput.onTextChange = {
             print(self.textInput.plainText)
@@ -122,14 +121,18 @@ class ViewController: UIViewController {
         
         
         view.addConstraints([
-            NSLayoutConstraint(item: textInput, attribute: .left, relatedBy: .equal, toItem: view, attribute: .left, multiplier: 1.0, constant: 0),
-            NSLayoutConstraint(item: textInput, attribute: .right, relatedBy: .equal, toItem: view, attribute: .right, multiplier: 1.0, constant: 0),
-            NSLayoutConstraint(item: textInput, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: 50),
             
-            NSLayoutConstraint(item: emotionPager, attribute: .top, relatedBy: .equal, toItem: textInput, attribute: .bottom, multiplier: 1.0, constant: 0),
+            NSLayoutConstraint(item: emotionPager, attribute: .top, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: -258),
             NSLayoutConstraint(item: emotionPager, attribute: .left, relatedBy: .equal, toItem: view, attribute: .left, multiplier: 1.0, constant: 0),
             NSLayoutConstraint(item: emotionPager, attribute: .right, relatedBy: .equal, toItem: view, attribute: .right, multiplier: 1.0, constant: 0),
-            NSLayoutConstraint(item: emotionPager, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: -50),
+            NSLayoutConstraint(item: emotionPager, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: 0),
+            
+            
+            NSLayoutConstraint(item: textInput, attribute: .left, relatedBy: .equal, toItem: view, attribute: .left, multiplier: 1.0, constant: 10),
+            NSLayoutConstraint(item: textInput, attribute: .right, relatedBy: .equal, toItem: view, attribute: .right, multiplier: 1.0, constant: -10),
+            NSLayoutConstraint(item: textInput, attribute: .bottom, relatedBy: .equal, toItem: emotionPager, attribute: .top, multiplier: 1.0, constant: -10),
+            
+            
         ])
 
     }

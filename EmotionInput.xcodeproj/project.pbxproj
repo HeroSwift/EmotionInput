@@ -22,7 +22,8 @@
 		9D511277218AE3AF00886938 /* DotIndicator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D511275218AE3AE00886938 /* DotIndicator.framework */; };
 		9D511278218AE3AF00886938 /* SimpleButton.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D511276218AE3AE00886938 /* SimpleButton.framework */; };
 		9D51127A218AE60200886938 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D511279218AE60200886938 /* Assets.xcassets */; };
-		9D6420122187FB25005CAE53 /* EmotionInputConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6420112187FB25005CAE53 /* EmotionInputConfiguration.swift */; };
+		9D511280218AFA1B00886938 /* EmotionTextareaConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D51127F218AFA1B00886938 /* EmotionTextareaConfiguration.swift */; };
+		9D6420122187FB25005CAE53 /* EmotionPagerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6420112187FB25005CAE53 /* EmotionPagerConfiguration.swift */; };
 		9D7105D9213ED8C700B1DF7C /* EmotionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7105D8213ED8C700B1DF7C /* EmotionFilter.swift */; };
 		9D7105DB2140B89200B1DF7C /* BracketFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7105DA2140B89100B1DF7C /* BracketFilter.swift */; };
 		9D7106272141355F00B1DF7C /* EmotionTextarea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7106262141355F00B1DF7C /* EmotionTextarea.swift */; };
@@ -73,7 +74,8 @@
 		9D511275218AE3AE00886938 /* DotIndicator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DotIndicator.framework; path = Carthage/Build/iOS/DotIndicator.framework; sourceTree = "<group>"; };
 		9D511276218AE3AE00886938 /* SimpleButton.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SimpleButton.framework; path = Carthage/Build/iOS/SimpleButton.framework; sourceTree = "<group>"; };
 		9D511279218AE60200886938 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		9D6420112187FB25005CAE53 /* EmotionInputConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionInputConfiguration.swift; sourceTree = "<group>"; };
+		9D51127F218AFA1B00886938 /* EmotionTextareaConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionTextareaConfiguration.swift; sourceTree = "<group>"; };
+		9D6420112187FB25005CAE53 /* EmotionPagerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionPagerConfiguration.swift; sourceTree = "<group>"; };
 		9D7105D8213ED8C700B1DF7C /* EmotionFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionFilter.swift; sourceTree = "<group>"; };
 		9D7105DA2140B89100B1DF7C /* BracketFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BracketFilter.swift; sourceTree = "<group>"; };
 		9D7106262141355F00B1DF7C /* EmotionTextarea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionTextarea.swift; sourceTree = "<group>"; };
@@ -127,7 +129,8 @@
 				9D43077321339FC4001ED814 /* model */,
 				9D43077921339FC4001ED814 /* view */,
 				9D43075621339F80001ED814 /* Info.plist */,
-				9D6420112187FB25005CAE53 /* EmotionInputConfiguration.swift */,
+				9D51127F218AFA1B00886938 /* EmotionTextareaConfiguration.swift */,
+				9D6420112187FB25005CAE53 /* EmotionPagerConfiguration.swift */,
 				9D511279218AE60200886938 /* Assets.xcassets */,
 			);
 			path = EmotionInput;
@@ -325,7 +328,8 @@
 				9D43078121339FC4001ED814 /* EmotionPage.swift in Sources */,
 				9DE9694121424BD700BFF7F4 /* EmotionAttachment.swift in Sources */,
 				9D43078521339FC4001ED814 /* EmotionCell.swift in Sources */,
-				9D6420122187FB25005CAE53 /* EmotionInputConfiguration.swift in Sources */,
+				9D511280218AFA1B00886938 /* EmotionTextareaConfiguration.swift in Sources */,
+				9D6420122187FB25005CAE53 /* EmotionPagerConfiguration.swift in Sources */,
 				9D43077F21339FC4001ED814 /* EmotionSet.swift in Sources */,
 				9D43077E21339FC4001ED814 /* EmotionIcon.swift in Sources */,
 				9D43078621339FC4001ED814 /* EmotionPager.swift in Sources */,
