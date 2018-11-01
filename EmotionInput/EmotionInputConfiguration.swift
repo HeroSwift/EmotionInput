@@ -7,7 +7,7 @@ open class EmotionInputConfiguration {
     public var pagerBackgroundColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1)
     
     // 删除图片
-    public var deleteButtonImage = UIImage(named: "delete-emotion")
+    public var deleteButtonImage = UIImage(named: "delete", in: Bundle(for: EmotionInputConfiguration.self), compatibleWith: nil)
     
     // 表情网格容器的垂直内边距
     public var emotionGridPaddingVertical: CGFloat = 20

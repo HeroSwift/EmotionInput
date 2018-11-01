@@ -21,6 +21,7 @@
 		9D43078A2133A018001ED814 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4307892133A018001ED814 /* ViewController.swift */; };
 		9D511277218AE3AF00886938 /* DotIndicator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D511275218AE3AE00886938 /* DotIndicator.framework */; };
 		9D511278218AE3AF00886938 /* SimpleButton.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D511276218AE3AE00886938 /* SimpleButton.framework */; };
+		9D51127A218AE60200886938 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9D511279218AE60200886938 /* Assets.xcassets */; };
 		9D6420122187FB25005CAE53 /* EmotionInputConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6420112187FB25005CAE53 /* EmotionInputConfiguration.swift */; };
 		9D7105D9213ED8C700B1DF7C /* EmotionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7105D8213ED8C700B1DF7C /* EmotionFilter.swift */; };
 		9D7105DB2140B89200B1DF7C /* BracketFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7105DA2140B89100B1DF7C /* BracketFilter.swift */; };
@@ -71,6 +72,7 @@
 		9D4307892133A018001ED814 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9D511275218AE3AE00886938 /* DotIndicator.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DotIndicator.framework; path = Carthage/Build/iOS/DotIndicator.framework; sourceTree = "<group>"; };
 		9D511276218AE3AE00886938 /* SimpleButton.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SimpleButton.framework; path = Carthage/Build/iOS/SimpleButton.framework; sourceTree = "<group>"; };
+		9D511279218AE60200886938 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9D6420112187FB25005CAE53 /* EmotionInputConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionInputConfiguration.swift; sourceTree = "<group>"; };
 		9D7105D8213ED8C700B1DF7C /* EmotionFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionFilter.swift; sourceTree = "<group>"; };
 		9D7105DA2140B89100B1DF7C /* BracketFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BracketFilter.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				9D43077921339FC4001ED814 /* view */,
 				9D43075621339F80001ED814 /* Info.plist */,
 				9D6420112187FB25005CAE53 /* EmotionInputConfiguration.swift */,
+				9D511279218AE60200886938 /* Assets.xcassets */,
 			);
 			path = EmotionInput;
 			sourceTree = "<group>";
@@ -279,6 +282,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D51127A218AE60200886938 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
