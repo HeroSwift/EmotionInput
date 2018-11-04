@@ -22,56 +22,79 @@ class Configuration: EmotionPagerConfiguration {
 class ViewController: UIViewController {
 
     let emotionList = [
-        Emotion(code: "", name: "开心", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "[1]", name: "开心开心开心开心", imageName: "hot", imageUrl: "", inline: true),
-        Emotion(code: "[2]", name: "", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "[3]", name: "4", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "[4]", name: "5", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "", name: "6", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "7", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "8", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "9", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "10", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "11", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "12", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "", name: "13", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "", name: "14", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "", name: "15", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "", name: "16", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "", name: "17", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "", name: "18", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
+        Emotion(code: "😄", name: "", imageAsset: UIImage(named: "emoji_1f604"), inline: true),
+        Emotion(code: "😷", name: "", imageAsset: UIImage(named: "emoji_1f637"), inline: true),
+        Emotion(code: "😂", name: "", imageAsset: UIImage(named: "emoji_1f602"), inline: true),
+        Emotion(code: "😝", name: "", imageAsset: UIImage(named: "emoji_1f61d"), inline: true),
+        Emotion(code: "😳", name: "", imageAsset: UIImage(named: "emoji_1f633"), inline: true),
+        Emotion(code: "😱", name: "", imageAsset: UIImage(named: "emoji_1f631"), inline: true),
+        Emotion(code: "😔", name: "", imageAsset: UIImage(named: "emoji_1f614"), inline: true),
+        Emotion(code: "😒", name: "", imageAsset: UIImage(named: "emoji_1f612"), inline: true),
+        Emotion(code: "🤗", name: "", imageAsset: UIImage(named: "emoji_1f917"), inline: true),
+        Emotion(code: "🙂", name: "", imageAsset: UIImage(named: "emoji_1f642"), inline: true),
+        Emotion(code: "😊", name: "", imageAsset: UIImage(named: "emoji_1f60a"), inline: true),
+        Emotion(code: "😋", name: "", imageAsset: UIImage(named: "emoji_1f60b"), inline: true),
+        Emotion(code: "😌", name: "", imageAsset: UIImage(named: "emoji_1f60c"), inline: true),
+        Emotion(code: "😍", name: "", imageAsset: UIImage(named: "emoji_1f60d"), inline: true),
+        Emotion(code: "😎", name: "", imageAsset: UIImage(named: "emoji_1f60e"), inline: true),
+        Emotion(code: "😪", name: "", imageAsset: UIImage(named: "emoji_1f62a"), inline: true),
+        Emotion(code: "😓", name: "", imageAsset: UIImage(named: "emoji_1f613"), inline: true),
+        Emotion(code: "😭", name: "", imageAsset: UIImage(named: "emoji_1f62d"), inline: true),
+        Emotion(code: "😘", name: "", imageAsset: UIImage(named: "emoji_1f618"), inline: true),
+        Emotion(code: "😏", name: "", imageAsset: UIImage(named: "emoji_1f60f"), inline: true),
+        Emotion(code: "😚", name: "", imageAsset: UIImage(named: "emoji_1f61a"), inline: true),
+        Emotion(code: "😛", name: "", imageAsset: UIImage(named: "emoji_1f61b"), inline: true),
+        Emotion(code: "😜", name: "", imageAsset: UIImage(named: "emoji_1f61c"), inline: true),
+        
+        
+        Emotion(code: "💪", name: "", imageAsset: UIImage(named: "emoji_1f4aa"), inline: true),
+        Emotion(code: "👊", name: "", imageAsset: UIImage(named: "emoji_1f44a"), inline: true),
+        Emotion(code: "👍", name: "", imageAsset: UIImage(named: "emoji_1f44d"), inline: true),
+        Emotion(code: "🤘", name: "", imageAsset: UIImage(named: "emoji_1f918"), inline: true),
+        Emotion(code: "👏", name: "", imageAsset: UIImage(named: "emoji_1f44f"), inline: true),
+        Emotion(code: "👋", name: "", imageAsset: UIImage(named: "emoji_1f44b"), inline: true),
+        Emotion(code: "🙌", name: "", imageAsset: UIImage(named: "emoji_1f64c"), inline: true),
+        Emotion(code: "🖐", name: "", imageAsset: UIImage(named: "emoji_1f590"), inline: true),
+        Emotion(code: "🖖", name: "", imageAsset: UIImage(named: "emoji_1f596"), inline: true),
+        Emotion(code: "👎", name: "", imageAsset: UIImage(named: "emoji_1f44e"), inline: true),
+        Emotion(code: "🙏", name: "", imageAsset: UIImage(named: "emoji_1f64f"), inline: true),
+        Emotion(code: "👌", name: "", imageAsset: UIImage(named: "emoji_1f44c"), inline: true),
+        Emotion(code: "👈", name: "", imageAsset: UIImage(named: "emoji_1f448"), inline: true),
+        Emotion(code: "👉", name: "", imageAsset: UIImage(named: "emoji_1f449"), inline: true),
+        Emotion(code: "👆", name: "", imageAsset: UIImage(named: "emoji_1f446"), inline: true),
+        Emotion(code: "👇", name: "", imageAsset: UIImage(named: "emoji_1f447"), inline: true),
+        Emotion(code: "🎃", name: "", imageAsset: UIImage(named: "emoji_1f383"), inline: true),
+        Emotion(code: "👀", name: "", imageAsset: UIImage(named: "emoji_1f440"), inline: true),
+        Emotion(code: "👃", name: "", imageAsset: UIImage(named: "emoji_1f443"), inline: true),
+        Emotion(code: "👄", name: "", imageAsset: UIImage(named: "emoji_1f444"), inline: true),
+        Emotion(code: "👂", name: "", imageAsset: UIImage(named: "emoji_1f442"), inline: true),
+        Emotion(code: "👻", name: "", imageAsset: UIImage(named: "emoji_1f47b"), inline: true),
+        Emotion(code: "💋", name: "", imageAsset: UIImage(named: "emoji_1f48b"), inline: true),
+        
+        
+        
+        Emotion(code: "😞", name: "", imageAsset: UIImage(named: "emoji_1f61e"), inline: true),
+        Emotion(code: "😟", name: "", imageAsset: UIImage(named: "emoji_1f61f"), inline: true),
+        Emotion(code: "😫", name: "", imageAsset: UIImage(named: "emoji_1f62b"), inline: true),
+        Emotion(code: "😮", name: "", imageAsset: UIImage(named: "emoji_1f62e"), inline: true),
+        Emotion(code: "😯", name: "", imageAsset: UIImage(named: "emoji_1f62f"), inline: true),
+        Emotion(code: "😉", name: "", imageAsset: UIImage(named: "emoji_1f609"), inline: true),
+        Emotion(code: "😡", name: "", imageAsset: UIImage(named: "emoji_1f621"), inline: true),
+        Emotion(code: "😢", name: "", imageAsset: UIImage(named: "emoji_1f622"), inline: true),
+        Emotion(code: "😣", name: "", imageAsset: UIImage(named: "emoji_1f623"), inline: true),
+        Emotion(code: "😤", name: "", imageAsset: UIImage(named: "emoji_1f624"), inline: true),
+        Emotion(code: "😥", name: "", imageAsset: UIImage(named: "emoji_1f625"), inline: true),
+        Emotion(code: "😧", name: "", imageAsset: UIImage(named: "emoji_1f627"), inline: true),
+        Emotion(code: "😨", name: "", imageAsset: UIImage(named: "emoji_1f628"), inline: true),
+        Emotion(code: "😩", name: "", imageAsset: UIImage(named: "emoji_1f629"), inline: true),
+        Emotion(code: "😲", name: "", imageAsset: UIImage(named: "emoji_1f632"), inline: true),
+        Emotion(code: "😴", name: "", imageAsset: UIImage(named: "emoji_1f634"), inline: true),
+        Emotion(code: "😵", name: "", imageAsset: UIImage(named: "emoji_1f635"), inline: true),
+        Emotion(code: "🙄", name: "", imageAsset: UIImage(named: "emoji_1f644"), inline: true),
+        Emotion(code: "🤒", name: "", imageAsset: UIImage(named: "emoji_1f912"), inline: true),
+        Emotion(code: "🤓", name: "", imageAsset: UIImage(named: "emoji_1f913"), inline: true),
+        Emotion(code: "🤔", name: "", imageAsset: UIImage(named: "emoji_1f914"), inline: true),
 
-        Emotion(code: "1", name: "19", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "20", imageName: "hot", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "21", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "22", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "23", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "24", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "25", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "26", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "27", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "28", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "29", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "30", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "31", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "32", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "33", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "34", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "35", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "36", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "37", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "38", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "39", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "40", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "41", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "42", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "43", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "44", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "45", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "46", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "47", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "48", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
-        Emotion(code: "1", name: "49", imageName: "avatar-anonymous.png", imageUrl: "", inline: true),
     ]
 
     var textInput: EmotionTextarea!
@@ -104,17 +127,17 @@ class ViewController: UIViewController {
         emotionPager.onDeleteClick = {
             self.textInput.deleteBackward()
 
-            let imagePicker = UIImagePickerController()
-            imagePicker.sourceType = .photoLibrary
-            imagePicker.delegate = self
-            self.present(imagePicker, animated: true, completion: nil)
+//            let imagePicker = UIImagePickerController()
+//            imagePicker.sourceType = .photoLibrary
+//            imagePicker.delegate = self
+//            self.present(imagePicker, animated: true, completion: nil)
         }
         view.addSubview(emotionPager)
 
-        let emotionSet1 = EmotionSet.build(iconName: "hot", emotionList: emotionList, columns: 5, rows: 4, width: 40, height: 40, hasDeleteButton: true, hasIndicator: true)
+        let emotionSet1 = EmotionSet.build(iconName: "hot", emotionList: emotionList, columns: 8, rows: 3, width: 24, height: 24, hasDeleteButton: true, hasIndicator: true)
         let emotionSet2 = EmotionSet.build(iconName: "hot", emotionList: emotionList, columns: 3, rows: 3, width: 40, height: 40, hasDeleteButton: false, hasIndicator: false)
 
-        emotionPager.emotionSetList = [emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2, emotionSet1, emotionSet2]
+        emotionPager.emotionSetList = [emotionSet1, emotionSet2 ]
 
         let filter = BracketFilter(emotionList: emotionList)
         textInput.addFilter(filter)

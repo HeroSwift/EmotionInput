@@ -179,10 +179,6 @@ public class EmotionTextarea: UITextView {
         autoHeight()
     }
     
-    public override func layoutSubviews() {
-        print("layoutSubviews \(frame.size)")
-    }
-    
 }
 
 extension EmotionTextarea: UITextViewDelegate {

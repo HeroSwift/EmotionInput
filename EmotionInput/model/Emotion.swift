@@ -1,4 +1,6 @@
 
+import UIKit
+
 public class Emotion {
     
     // 表情值
@@ -8,7 +10,7 @@ public class Emotion {
     public var name: String
     
     // 表情对应的本地图片
-    public var imageName: String
+    public var imageAsset: UIImage?
     
     // 表情对应的网络图片
     public var imageUrl: String
@@ -16,16 +18,24 @@ public class Emotion {
     // 是否支持在输入框显示
     public var inline: Bool
     
-    public init(code: String, name: String, imageName: String, imageUrl: String, inline: Bool) {
+    public init(code: String, name: String, imageAsset: UIImage?, imageUrl: String, inline: Bool) {
         self.code = code
         self.name = name
-        self.imageName = imageName
+        self.imageAsset = imageAsset
         self.imageUrl = imageUrl
         self.inline = inline
     }
     
+    public convenience init(code: String, name: String, imageAsset: UIImage?, inline: Bool) {
+        self.init(code: code, name: name, imageAsset: imageAsset, imageUrl: "", inline: inline)
+    }
+    
+    public convenience init(code: String, name: String, imageUrl: String) {
+        self.init(code: code, name: name, imageAsset: nil, imageUrl: imageUrl, inline: false)
+    }
+    
     public convenience init() {
-        self.init(code: "", name: "", imageName: "", imageUrl: "", inline: true)
+        self.init(code: "", name: "", imageUrl: "")
     }
     
 }

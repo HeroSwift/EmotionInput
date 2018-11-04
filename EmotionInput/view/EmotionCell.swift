@@ -93,9 +93,9 @@ class EmotionCell: UIView {
 
         var hasEmotion = false
         
-        if emotion.imageName != "" {
+        if let imageAsset = emotion.imageAsset {
             hasEmotion = true
-            emotionView.image = UIImage(named: emotion.imageName)
+            emotionView.image = imageAsset
         }
         else if emotion.imageUrl != "" {
             hasEmotion = true

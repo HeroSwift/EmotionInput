@@ -57,13 +57,12 @@ public class EmotionFilter {
     }
     
     private func getEmotionAttachment(emotion: Emotion, font: UIFont) -> EmotionAttachment? {
-        let image = UIImage(named: emotion.imageName)
-        if let image = image {
+        if let imageAsset = emotion.imageAsset {
             
             let attachment = EmotionAttachment(emotion)
-            attachment.image = image
+            attachment.image = imageAsset
             
-            let imageRatio = image.size.width / image.size.height
+            let imageRatio = imageAsset.size.width / imageAsset.size.height
             let imageHeight = font.lineHeight
             let imageWidth = imageHeight * imageRatio
             // https://stackoverflow.com/questions/26105803/center-nstextattachment-image-next-to-single-line-uilabel
