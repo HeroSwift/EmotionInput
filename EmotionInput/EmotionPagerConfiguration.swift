@@ -16,7 +16,7 @@ open class EmotionPagerConfiguration {
     public var emotionGridPaddingHorizontal: CGFloat = 20
     
     // 行间距
-    public var emotionGridRowSpacing: CGFloat = 10
+    public var emotionGridRowSpacing: CGFloat = 15
     
     // 列间距
     public var emotionGridColumnSpacing: CGFloat = 10

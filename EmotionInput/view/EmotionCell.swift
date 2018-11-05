@@ -26,6 +26,8 @@ class EmotionCell: UIView {
     // MARK: - 布局约束
     //
     
+    private var emotionTopConstraint: NSLayoutConstraint!
+    private var emotionCenterYConstraint: NSLayoutConstraint!
     private var emotionWidthConstraint: NSLayoutConstraint!
     private var emotionHeightConstraint: NSLayoutConstraint!
     
@@ -69,11 +71,15 @@ class EmotionCell: UIView {
         deleteView.isHidden = true
         addSubview(deleteView)
 
+        emotionTopConstraint = NSLayoutConstraint(item: emotionView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0)
+        
+        emotionCenterYConstraint = NSLayoutConstraint(item: emotionView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0)
+        
         emotionWidthConstraint = NSLayoutConstraint(item: emotionView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 0)
+        
         emotionHeightConstraint = NSLayoutConstraint(item: emotionView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 0)
         
         addConstraints([
-            NSLayoutConstraint(item: emotionView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: emotionView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0),
             emotionWidthConstraint,
             emotionHeightConstraint,
@@ -168,11 +174,17 @@ extension EmotionCell {
         
         nameView.isHidden = false
         
+        addConstraint(emotionTopConstraint)
+        removeConstraint(emotionCenterYConstraint)
+        
     }
     
     private func hideNameView() {
         
         nameView.isHidden = true
+        
+        addConstraint(emotionCenterYConstraint)
+        removeConstraint(emotionTopConstraint)
         
     }
     

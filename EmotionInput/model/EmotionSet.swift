@@ -1,10 +1,10 @@
 
-import Foundation
+import UIKit
 
 public class EmotionSet {
     
     // 底部栏图标
-    public var iconName: String
+    public var iconAsset: UIImage
     
     // 该套表情的所有表情
     public var emotionPageList: [EmotionPage]
@@ -12,13 +12,13 @@ public class EmotionSet {
     // 是否需要导航指示器
     public var hasIndicator: Bool
     
-    public init(iconName: String, emotionPageList: [EmotionPage], hasIndicator: Bool) {
-        self.iconName = iconName
+    public init(iconAsset: UIImage, emotionPageList: [EmotionPage], hasIndicator: Bool) {
+        self.iconAsset = iconAsset
         self.emotionPageList = emotionPageList
         self.hasIndicator = hasIndicator
     }
 
-    public static func build(iconName: String, emotionList: [Emotion], columns: Int, rows: Int, width: Int, height: Int, hasDeleteButton: Bool, hasIndicator: Bool) -> EmotionSet {
+    public static func build(iconAsset: UIImage, emotionList: [Emotion], columns: Int, rows: Int, width: Int, height: Int, hasDeleteButton: Bool, hasIndicator: Bool) -> EmotionSet {
         
         var emotionPageList = [EmotionPage]()
         
@@ -61,7 +61,7 @@ public class EmotionSet {
             
         }
         
-        return EmotionSet(iconName: iconName, emotionPageList: emotionPageList, hasIndicator: hasIndicator)
+        return EmotionSet(iconAsset: iconAsset, emotionPageList: emotionPageList, hasIndicator: hasIndicator)
         
     }
     

@@ -63,8 +63,17 @@ public class EmotionFilter {
             attachment.image = imageAsset
             
             let imageRatio = imageAsset.size.width / imageAsset.size.height
-            let imageHeight = font.lineHeight
-            let imageWidth = imageHeight * imageRatio
+            var imageHeight = font.lineHeight
+            var imageWidth = imageHeight * imageRatio
+            
+            // 宽度不能超过高度
+            // 否则当表情是 👈 时，宽度会很大
+            
+            if imageWidth > imageHeight {
+                imageWidth = imageHeight
+                imageHeight = imageWidth / imageRatio
+            }
+
             // https://stackoverflow.com/questions/26105803/center-nstextattachment-image-next-to-single-line-uilabel
             attachment.bounds = CGRect(x: 0, y: (font.capHeight - imageHeight).rounded() / 2, width: imageWidth, height: imageHeight)
             
