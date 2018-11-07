@@ -96,7 +96,11 @@ public class EmotionTextarea: UITextView {
     
     // 清空文本
     public func clear() {
-        textStorage.deleteCharacters(in: NSRange(location: 0, length: NSString(string: text).length))
+        let length = NSString(string: text).length
+        if length > 0 {
+            textStorage.deleteCharacters(in: NSRange(location: 0, length: length))
+            textChanged()
+        }
     }
 
     // 富文本转成普通文本

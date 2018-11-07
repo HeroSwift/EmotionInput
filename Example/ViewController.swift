@@ -139,7 +139,7 @@ class ViewController: UIViewController {
 
         emotionPager.emotionSetList = [emotionSet1, emotionSet2 ]
 
-        let filter = BracketFilter(emotionList: emotionList)
+        let filter = EmojiFilter(emotionList: emotionList)
         textInput.addFilter(filter)
         
         

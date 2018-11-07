@@ -54,6 +54,7 @@ public class EmotionFilter {
                 endIndex - startIndex
             )
         }
+        
     }
     
     private func getEmotionAttachment(emotion: Emotion, font: UIFont) -> EmotionAttachment? {
