@@ -48,6 +48,15 @@ public class EmotionTextarea: UITextView {
         
         typingAttrs = typingAttributes
         
+        // 自动大写
+        autocapitalizationType = .none
+        
+        // 自动修正
+        autocorrectionType = .no
+        
+        // 拼写检查
+        spellCheckingType = .no
+        
         // 默认左侧有 5 点
         contentInset = UIEdgeInsetsMake(0, -5, 0, 0)
         
