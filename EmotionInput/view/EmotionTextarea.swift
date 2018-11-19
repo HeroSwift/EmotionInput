@@ -57,15 +57,15 @@ public class EmotionTextarea: UITextView {
         // 拼写检查
         spellCheckingType = .no
         
-        // 默认左侧有 5 点
-        contentInset = UIEdgeInsetsMake(0, -5, 0, 0)
-        
         textContainerInset = UIEdgeInsetsMake(
             configuration.paddingVertical,
             configuration.paddingHorizontal,
             configuration.paddingVertical,
             configuration.paddingHorizontal
         )
+        
+        textContainer.lineFragmentPadding = 0
+        
         textAlignment = .left
         
         backgroundColor = configuration.backgroundColor
