@@ -99,6 +99,8 @@ class ViewController: UIViewController {
 
     var textInput: EmotionTextarea!
 
+    var emotionPager: EmotionPager!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -109,12 +111,13 @@ class ViewController: UIViewController {
         textInput.translatesAutoresizingMaskIntoConstraints = false
         textInput.onTextChange = {
             print(self.textInput.plainText)
+            self.emotionPager.isSendButtonEnabled = self.textInput.plainText != ""
         }
 
         view.addSubview(textInput)
         
         
-        let emotionPager = EmotionPager(configuration: configuration)
+        emotionPager = EmotionPager(configuration: configuration)
         emotionPager.translatesAutoresizingMaskIntoConstraints = false
         emotionPager.onSendClick = {
             print("send click \(self.textInput.plainText)")

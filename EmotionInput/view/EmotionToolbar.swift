@@ -57,17 +57,12 @@ class EmotionToolbar: UIView {
         sendButton = SimpleButton()
         sendButton.translatesAutoresizingMaskIntoConstraints = false
         sendButton.setTitle(configuration.sendButtonText, for: .normal)
-        sendButton.setTitleColor(configuration.sendButtonTextColor, for: .normal)
         sendButton.titleLabel?.font = configuration.sendButtonTextFont
         sendButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: configuration.sendButtonPaddingHorizontal, bottom: 0, right: configuration.sendButtonPaddingHorizontal)
-        sendButton.backgroundColor = configuration.sendButtonBackgroundColor
-        
         sendButton.layer.shadowColor = UIColor.black.cgColor
         sendButton.layer.shadowOpacity = 0.12
         sendButton.layer.shadowOffset = CGSize(width: -2, height: 0)
         sendButton.layer.shadowRadius = 3
-        
-        sendButton.setLeftBorder(width: configuration.sendButtonLeftBorderWidth, color: configuration.sendButtonLeftBorderColor)
         
         sendButton.onClick = {
             self.onSendClick()
@@ -90,7 +85,32 @@ class EmotionToolbar: UIView {
         
         // 隐藏垂直方向的阴影
         clipsToBounds = true
+        
+        disableSendButton()
 
+    }
+    
+    func enableSendButton() {
+        
+        sendButton.isEnabled = true
+        
+        sendButton.setTitleColor(configuration.sendButtonTextColorEnabled, for: .normal)
+        sendButton.backgroundColor = configuration.sendButtonBackgroundColorEnabledNormal
+        sendButton.setBackgroundColor(color: configuration.sendButtonBackgroundColorEnabledPressed, for: .highlighted)
+        
+        sendButton.setLeftBorder(width: configuration.sendButtonLeftBorderWidth, color: configuration.sendButtonLeftBorderColorEnabled)
+        
+    }
+    
+    func disableSendButton() {
+        
+        sendButton.isEnabled = false
+        
+        sendButton.setTitleColor(configuration.sendButtonTextColorDisabled, for: .normal)
+        sendButton.backgroundColor = configuration.sendButtonBackgroundColorDisabled
+
+        sendButton.setLeftBorder(width: configuration.sendButtonLeftBorderWidth, color: configuration.sendButtonLeftBorderColorDisabled)
+        
     }
     
 }

@@ -44,6 +44,17 @@ public class EmotionPager: UIView {
         }
     }
     
+    public var isSendButtonEnabled = false {
+        didSet {
+            if isSendButtonEnabled {
+                toolbarView.enableSendButton()
+            }
+            else {
+                toolbarView.disableSendButton()
+            }
+        }
+    }
+    
     public var onEmotionClick: ((Emotion) -> Void)?
     public var onDeleteClick: (() -> Void)?
     public var onSendClick: (() -> Void)?

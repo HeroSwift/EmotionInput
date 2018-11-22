@@ -68,6 +68,7 @@ public class EmotionTextarea: UITextView {
         
         textAlignment = .left
         
+        tintColor = configuration.tintColor
         backgroundColor = configuration.backgroundColor
         
         layer.borderColor = configuration.borderColor.cgColor

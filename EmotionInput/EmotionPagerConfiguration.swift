@@ -4,7 +4,7 @@ import UIKit
 open class EmotionPagerConfiguration {
     
     // 背景色
-    public var pagerBackgroundColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1)
+    public var pagerBackgroundColor = UIColor.clear
     
     // 删除图片
     public var deleteButtonImage = UIImage(named: "delete", in: Bundle(for: EmotionPagerConfiguration.self), compatibleWith: nil)
@@ -81,17 +81,31 @@ open class EmotionPagerConfiguration {
     // 发送按钮的文本字体
     public var sendButtonTextFont = UIFont.systemFont(ofSize: 14)
     
-    // 发送按钮的文本颜色
-    public var sendButtonTextColor = UIColor(red: 150 / 255, green: 150 / 255, blue: 150 / 255, alpha: 1)
-    
     // 发送按钮左边框的大小
     public var sendButtonLeftBorderWidth =  1 / UIScreen.main.scale
+
+    // 发送按钮置灰时
     
-    // 发送按钮左边框的颜色
-    public var sendButtonLeftBorderColor = UIColor(red: 205 / 255, green: 205 / 255, blue: 205 / 255, alpha: 1)
+    // 发送按钮的文本颜色
+    public var sendButtonTextColorDisabled = UIColor(red: 150 / 255, green: 150 / 255, blue: 150 / 255, alpha: 1)
     
     // 发送按钮的背景颜色
-    public var sendButtonBackgroundColor = UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 1)
+    public var sendButtonBackgroundColorDisabled = UIColor(red: 0.98, green: 0.98, blue: 0.98, alpha: 1)
+    
+    // 发送按钮左边框的颜色
+    public var sendButtonLeftBorderColorDisabled = UIColor(red: 205 / 255, green: 205 / 255, blue: 205 / 255, alpha: 1)
+    
+    // 发送按钮可用时
+    
+    // 发送按钮的文本颜色
+    public var sendButtonTextColorEnabled = UIColor.white
+    
+    // 发送按钮的背景颜色
+    public var sendButtonBackgroundColorEnabledNormal = UIColor(red: 1, green: 0.61, blue: 0, alpha: 1)
+    public var sendButtonBackgroundColorEnabledPressed = UIColor(red: 0.99, green: 0.56, blue: 0.01, alpha: 1)
+    
+    // 发送按钮左边框的颜色
+    public var sendButtonLeftBorderColorEnabled = UIColor(red: 0.92, green: 0.48, blue: 0, alpha: 1)
     
     // 发送按钮的左右内间距
     public var sendButtonPaddingHorizontal: CGFloat = 14

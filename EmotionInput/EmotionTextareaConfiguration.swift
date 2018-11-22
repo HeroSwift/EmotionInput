@@ -10,10 +10,13 @@ open class EmotionTextareaConfiguration {
     public var borderWidth = 1 / UIScreen.main.scale
     
     // 输入框边框颜色
-    public var borderColor = UIColor(red: 0.56, green: 0.56, blue: 0.56, alpha: 1)
+    public var borderColor = UIColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 1)
     
     // 输入框边框圆角大小
     public var borderRadius: CGFloat = 4
+    
+    // 选区颜色
+    public var tintColor = UIColor(red: 1, green: 0.48, blue: 0.03, alpha: 1)
     
     // 输入框文本字体
     public var textFont = UIFont.systemFont(ofSize: 15)
