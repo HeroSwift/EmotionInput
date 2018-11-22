@@ -96,7 +96,7 @@ class EmotionToolbar: UIView {
         
         sendButton.setTitleColor(configuration.sendButtonTextColorEnabled, for: .normal)
         sendButton.backgroundColor = configuration.sendButtonBackgroundColorEnabledNormal
-        sendButton.setBackgroundColor(color: configuration.sendButtonBackgroundColorEnabledPressed, for: .highlighted)
+        sendButton.setBackgroundColor(configuration.sendButtonBackgroundColorEnabledPressed, for: .highlighted)
         
         sendButton.setLeftBorder(width: configuration.sendButtonLeftBorderWidth, color: configuration.sendButtonLeftBorderColorEnabled)
         
