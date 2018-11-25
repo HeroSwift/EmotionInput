@@ -4,7 +4,7 @@ import UIKit
 open class EmotionPagerConfiguration {
     
     // 背景色
-    public var pagerBackgroundColor = UIColor.clear
+    public var backgroundColor = UIColor.clear
     
     // 删除图片
     public var deleteButtonImage = UIImage(named: "delete", in: Bundle(for: EmotionPagerConfiguration.self), compatibleWith: nil)
