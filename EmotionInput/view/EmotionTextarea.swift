@@ -19,6 +19,7 @@ public class EmotionTextarea: UITextView {
     
     private var typingAttrs: [String: Any]!
     
+    private var minHeight: CGFloat = 0
     private var maxHeight: CGFloat = 0
     
     private var configuration: EmotionTextareaConfiguration!
@@ -84,6 +85,8 @@ public class EmotionTextarea: UITextView {
         }
         
         autoHeight()
+        
+        minHeight = frame.size.height
         
     }
     
@@ -177,7 +180,13 @@ public class EmotionTextarea: UITextView {
     
         let newSize = sizeThatFits(CGSize(width: frame.width, height: CGFloat.greatestFiniteMagnitude))
         
-        let newHeight = min(maxHeight, newSize.height)
+        var newHeight = newSize.height
+        if newHeight > maxHeight {
+            newHeight = maxHeight
+        }
+        else if newHeight < minHeight {
+            newHeight = minHeight
+        }
 
         if frame.height != newHeight {
             frame.size = CGSize(width: frame.width, height: newHeight)
