@@ -37,7 +37,7 @@ public class EmotionPager: UIView {
                 let currentIndex = index
                 index = index + 1
                 
-                return EmotionIcon(index: currentIndex, iconAsset: emotionSet.iconAsset, selected: currentIndex == emotionSetIndex)
+                return EmotionIcon(index: currentIndex, localImage: emotionSet.localImage, selected: currentIndex == emotionSetIndex)
                 
             }
             

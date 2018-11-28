@@ -7,7 +7,7 @@ open class EmotionPagerConfiguration {
     public var backgroundColor = UIColor.clear
     
     // 删除图片
-    public var deleteButtonImage = UIImage(named: "delete", in: Bundle(for: EmotionPagerConfiguration.self), compatibleWith: nil)
+    public var deleteButtonImage = UIImage(named: "delete-emotion", in: Bundle(for: EmotionPagerConfiguration.self), compatibleWith: nil)
     
     // 表情网格容器的垂直内边距
     public var emotionGridPaddingVertical: CGFloat = 20

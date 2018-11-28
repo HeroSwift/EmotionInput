@@ -151,7 +151,7 @@ extension EmotionToolbar: UICollectionViewDataSource {
         let icon = emotionIconList[index]
         
         cell.dividerView.isHidden = index == 0
-        cell.imageView.image = icon.iconAsset
+        cell.imageView.image = icon.localImage
         cell.backgroundColor = icon.selected ? configuration.toolbarCellBackgroundColorPressed : .clear
         
         return cell

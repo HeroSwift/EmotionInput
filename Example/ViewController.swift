@@ -137,8 +137,8 @@ class ViewController: UIViewController {
         }
         view.addSubview(emotionPager)
 
-        let emotionSet1 = EmotionSet.build(iconAsset: UIImage(named: "emoji_icon")!, emotionList: emotionList, columns: 8, rows: 3, width: 24, height: 24, hasDeleteButton: true, hasIndicator: true)
-        let emotionSet2 = EmotionSet.build(iconAsset: UIImage(named: "emoji_icon")!, emotionList: emotionList, columns: 3, rows: 3, width: 40, height: 40, hasDeleteButton: false, hasIndicator: false)
+        let emotionSet1 = EmotionSet.build(localImage: UIImage(named: "emoji_icon")!, emotionList: emotionList, columns: 8, rows: 3, width: 24, height: 24, hasDeleteButton: true, hasIndicator: true)
+        let emotionSet2 = EmotionSet.build(localImage: UIImage(named: "emoji_icon")!, emotionList: emotionList, columns: 3, rows: 3, width: 40, height: 40, hasDeleteButton: false, hasIndicator: false)
 
         emotionPager.emotionSetList = [emotionSet1, emotionSet2 ]
 
