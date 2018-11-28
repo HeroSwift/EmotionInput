@@ -99,13 +99,13 @@ class EmotionCell: UIView {
 
         var hasEmotion = false
         
-        if let imageAsset = emotion.imageAsset {
+        if let localImage = emotion.localImage {
             hasEmotion = true
-            emotionView.image = imageAsset
+            emotionView.image = localImage
         }
-        else if emotion.imageUrl != "" {
+        else if emotion.remoteImage != "" {
             hasEmotion = true
-            configuration.loadImage(imageView: emotionView, url: emotion.imageUrl)
+            configuration.loadImage(imageView: emotionView, url: emotion.remoteImage)
         }
         
         if hasEmotion {

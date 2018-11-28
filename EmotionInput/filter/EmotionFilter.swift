@@ -58,12 +58,12 @@ public class EmotionFilter {
     }
     
     private func getEmotionAttachment(emotion: Emotion, font: UIFont) -> EmotionAttachment? {
-        if let imageAsset = emotion.imageAsset {
+        if let localImage = emotion.localImage {
             
             let attachment = EmotionAttachment(emotion)
-            attachment.image = imageAsset
+            attachment.image = localImage
             
-            let imageRatio = imageAsset.size.width / imageAsset.size.height
+            let imageRatio = localImage.size.width / localImage.size.height
             var imageHeight = font.lineHeight
             var imageWidth = imageHeight * imageRatio
             
