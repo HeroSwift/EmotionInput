@@ -2,12 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "avatar-anonymous.jpg",
+      "filename" : "emotion_input_delete.pdf",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "avatar-anonymous@2x.jpg",
       "scale" : "2x"
     },
     {

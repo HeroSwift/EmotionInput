@@ -19,6 +19,9 @@ public class EmotionTextarea: UITextView {
     
     private var typingAttrs: [String: Any]!
     
+    private var lineHeight: CGFloat = 0
+    private var capHeight: CGFloat = 0
+    
     private var minHeight: CGFloat = 0
     private var maxHeight: CGFloat = 0
     
@@ -79,9 +82,11 @@ public class EmotionTextarea: UITextView {
         delegate = self
         
         layoutManager.allowsNonContiguousLayout = false
-        
+
         if let font = font {
-            maxHeight = configuration.maxLines * font.lineHeight + 2 * configuration.paddingVertical
+            lineHeight = font.lineHeight
+            capHeight = font.capHeight
+            maxHeight = configuration.maxLines * lineHeight + 2 * configuration.paddingVertical
         }
         
         autoHeight()
@@ -100,7 +105,7 @@ public class EmotionTextarea: UITextView {
     
     public func insertEmotion(_ emotion: Emotion) {
         for filter in filters {
-            if filter.insert(textInput: self, emotion: emotion) {
+            if filter.insert(textInput: self, emotion: emotion, lineHeight: lineHeight, capHeight: capHeight) {
                 textChanged()
                 break
             }
@@ -164,7 +169,7 @@ public class EmotionTextarea: UITextView {
         let pastedString = NSString(string: string)
         
         for filter in filters {
-            filter.filter(attributedString: pastedAttributedString, text: pastedString, font: font!)
+            filter.filter(attributedString: pastedAttributedString, text: pastedString, lineHeight: lineHeight, capHeight: capHeight)
         }
         
         let location = selectedRange.location

@@ -14,13 +14,13 @@ public class EmotionFilter {
         }
     }
     
-    func filter(attributedString: NSMutableAttributedString, text: NSString, font: UIFont) {
+    func filter(attributedString: NSMutableAttributedString, text: NSString, lineHeight: CGFloat, capHeight: CGFloat) {
         var offset = 0
         match(text: text) { (emotionCode, location, length) in
             guard let emotion = emotions[emotionCode] else {
                 return
             }
-            if let attachment = getEmotionAttachment(emotion: emotion, font: font) {
+            if let attachment = getEmotionAttachment(emotion: emotion, lineHeight: lineHeight, capHeight: capHeight) {
                 attributedString.replaceCharacters(
                     in: NSRange(location: location - offset, length: length),
                     with: NSAttributedString(attachment: attachment)
@@ -30,9 +30,9 @@ public class EmotionFilter {
         }
     }
     
-    func insert(textInput: UITextView, emotion: Emotion) -> Bool {
+    func insert(textInput: UITextView, emotion: Emotion, lineHeight: CGFloat, capHeight: CGFloat) -> Bool {
         let location = textInput.selectedRange.location
-        if let attachment = getEmotionAttachment(emotion: emotion, font: textInput.font!) {
+        if let attachment = getEmotionAttachment(emotion: emotion, lineHeight: lineHeight, capHeight: capHeight) {
             textInput.textStorage.insert(NSAttributedString(attachment: attachment), at: location)
             textInput.selectedRange = NSRange(location: location + 1, length: 0)
             return true
@@ -57,14 +57,14 @@ public class EmotionFilter {
         
     }
     
-    private func getEmotionAttachment(emotion: Emotion, font: UIFont) -> EmotionAttachment? {
+    private func getEmotionAttachment(emotion: Emotion, lineHeight: CGFloat, capHeight: CGFloat) -> EmotionAttachment? {
         if let localImage = emotion.localImage {
-            
+
             let attachment = EmotionAttachment(emotion)
             attachment.image = localImage
             
             let imageRatio = localImage.size.width / localImage.size.height
-            var imageHeight = font.lineHeight
+            var imageHeight = lineHeight
             var imageWidth = imageHeight * imageRatio
             
             // 宽度不能超过高度
@@ -74,9 +74,9 @@ public class EmotionFilter {
                 imageWidth = imageHeight
                 imageHeight = imageWidth / imageRatio
             }
-
+            
             // https://stackoverflow.com/questions/26105803/center-nstextattachment-image-next-to-single-line-uilabel
-            attachment.bounds = CGRect(x: 0, y: (font.capHeight - imageHeight).rounded() / 2, width: imageWidth, height: imageHeight)
+            attachment.bounds = CGRect(x: 0, y: (capHeight - imageHeight).rounded() / 2, width: imageWidth, height: imageHeight)
             
             return attachment
         }
