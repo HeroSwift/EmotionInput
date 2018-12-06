@@ -63,8 +63,9 @@ public class EmotionFilter {
             let attachment = EmotionAttachment(emotion)
             attachment.image = localImage
             
+            let textHeight = font.ascender - font.descender
             let imageRatio = localImage.size.width / localImage.size.height
-            var imageHeight = font.lineHeight * emotionTextHeightRatio
+            var imageHeight = textHeight * emotionTextHeightRatio
             var imageWidth = imageHeight * imageRatio
             
             // 宽度不能超过高度
