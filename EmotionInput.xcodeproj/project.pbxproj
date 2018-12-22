@@ -27,6 +27,10 @@
 		9D7105D9213ED8C700B1DF7C /* EmotionFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7105D8213ED8C700B1DF7C /* EmotionFilter.swift */; };
 		9D7105DB2140B89200B1DF7C /* BracketFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7105DA2140B89100B1DF7C /* BracketFilter.swift */; };
 		9D7106272141355F00B1DF7C /* EmotionTextarea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7106262141355F00B1DF7C /* EmotionTextarea.swift */; };
+		9D76B7D421CE8BA600A516C6 /* DotIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B7D221CE8BA600A516C6 /* DotIndicator.swift */; };
+		9D76B7D521CE8BA600A516C6 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9D76B7D321CE8BA600A516C6 /* Info.plist */; };
+		9D76B7D921CE8BB700A516C6 /* SimpleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B7D721CE8BB700A516C6 /* SimpleButton.swift */; };
+		9D76B7DA21CE8BB700A516C6 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9D76B7D821CE8BB700A516C6 /* Info.plist */; };
 		9DD08F4D213A746300CE20D9 /* EmotionToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD08F4C213A746300CE20D9 /* EmotionToolbar.swift */; };
 		9DE9694121424BD700BFF7F4 /* EmotionAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE9694021424BD700BFF7F4 /* EmotionAttachment.swift */; };
 /* End PBXBuildFile section */
@@ -79,6 +83,10 @@
 		9D7105D8213ED8C700B1DF7C /* EmotionFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionFilter.swift; sourceTree = "<group>"; };
 		9D7105DA2140B89100B1DF7C /* BracketFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BracketFilter.swift; sourceTree = "<group>"; };
 		9D7106262141355F00B1DF7C /* EmotionTextarea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionTextarea.swift; sourceTree = "<group>"; };
+		9D76B7D221CE8BA600A516C6 /* DotIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotIndicator.swift; sourceTree = "<group>"; };
+		9D76B7D321CE8BA600A516C6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9D76B7D721CE8BB700A516C6 /* SimpleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleButton.swift; sourceTree = "<group>"; };
+		9D76B7D821CE8BB700A516C6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9DD08F4C213A746300CE20D9 /* EmotionToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionToolbar.swift; sourceTree = "<group>"; };
 		9DE9694021424BD700BFF7F4 /* EmotionAttachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionAttachment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -125,6 +133,8 @@
 		9D43075421339F80001ED814 /* EmotionInput */ = {
 			isa = PBXGroup;
 			children = (
+				9D76B7D621CE8BB700A516C6 /* SimpleButton */,
+				9D76B7D121CE8BA600A516C6 /* DotIndicator */,
 				9D7105D7213ED82C00B1DF7C /* filter */,
 				9D43077321339FC4001ED814 /* model */,
 				9D43077921339FC4001ED814 /* view */,
@@ -189,6 +199,24 @@
 				9D5167AF2192E2540047BBEE /* EmojiFilter.swift */,
 			);
 			path = filter;
+			sourceTree = "<group>";
+		};
+		9D76B7D121CE8BA600A516C6 /* DotIndicator */ = {
+			isa = PBXGroup;
+			children = (
+				9D76B7D221CE8BA600A516C6 /* DotIndicator.swift */,
+				9D76B7D321CE8BA600A516C6 /* Info.plist */,
+			);
+			path = DotIndicator;
+			sourceTree = "<group>";
+		};
+		9D76B7D621CE8BB700A516C6 /* SimpleButton */ = {
+			isa = PBXGroup;
+			children = (
+				9D76B7D721CE8BB700A516C6 /* SimpleButton.swift */,
+				9D76B7D821CE8BB700A516C6 /* Info.plist */,
+			);
+			path = SimpleButton;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -285,6 +313,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9D76B7DA21CE8BB700A516C6 /* Info.plist in Resources */,
+				9D76B7D521CE8BA600A516C6 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,6 +354,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9D7105DB2140B89200B1DF7C /* BracketFilter.swift in Sources */,
+				9D76B7D421CE8BA600A516C6 /* DotIndicator.swift in Sources */,
+				9D76B7D921CE8BB700A516C6 /* SimpleButton.swift in Sources */,
 				9D5167B02192E2540047BBEE /* EmojiFilter.swift in Sources */,
 				9D43078121339FC4001ED814 /* EmotionPage.swift in Sources */,
 				9DE9694121424BD700BFF7F4 /* EmotionAttachment.swift in Sources */,

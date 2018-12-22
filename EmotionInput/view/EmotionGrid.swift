@@ -18,7 +18,7 @@ class EmotionGrid: UICollectionViewCell {
     private var flowLayout: UICollectionViewFlowLayout!
     
     private let cellIdentifier = "cell"
-    
+
     public override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -196,14 +196,6 @@ extension EmotionGrid {
             }
         }
 
-        public override init(frame: CGRect) {
-            super.init(frame: frame)
-        }
-        
-        public required init?(coder aDecoder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-        
     }
 
 }

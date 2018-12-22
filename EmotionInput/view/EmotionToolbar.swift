@@ -1,6 +1,5 @@
 
 import UIKit
-import SimpleButton
 
 class EmotionToolbar: UIView {
     
@@ -28,15 +27,7 @@ class EmotionToolbar: UIView {
         self.configuration = configuration
         setup()
     }
-    
-    private override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    public required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+
     func setup() {
         
         backgroundColor = configuration.toolbarBackgroundColor
@@ -61,10 +52,17 @@ class EmotionToolbar: UIView {
         addSubview(collectionView)
         
         sendButton = SimpleButton()
+        sendButton.backgroundColor = configuration.sendButtonBackgroundColorEnabledNormal
+        sendButton.backgroundColorPressed = configuration.sendButtonBackgroundColorEnabledPressed
         sendButton.translatesAutoresizingMaskIntoConstraints = false
         sendButton.setTitle(configuration.sendButtonText, for: .normal)
         sendButton.titleLabel?.font = configuration.sendButtonTextFont
-        sendButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: configuration.sendButtonPaddingHorizontal, bottom: 0, right: configuration.sendButtonPaddingHorizontal)
+        sendButton.contentEdgeInsets = UIEdgeInsets(
+            top: 0,
+            left: configuration.sendButtonPaddingHorizontal,
+            bottom: 0,
+            right: configuration.sendButtonPaddingHorizontal
+        )
         sendButton.layer.shadowColor = UIColor.black.cgColor
         sendButton.layer.shadowOpacity = 0.12
         sendButton.layer.shadowOffset = CGSize(width: -2, height: 0)
@@ -105,10 +103,9 @@ class EmotionToolbar: UIView {
         
         sendButton.isEnabled = true
         
-        sendButton.setTitleColor(configuration.sendButtonTextColorEnabled, for: .normal)
         sendButton.backgroundColor = configuration.sendButtonBackgroundColorEnabledNormal
-        sendButton.setBackgroundColor(configuration.sendButtonBackgroundColorEnabledPressed, for: .highlighted)
-        
+        sendButton.setTitleColor(configuration.sendButtonTextColorEnabled, for: .normal)
+
         sendButton.setLeftBorder(width: configuration.sendButtonLeftBorderWidth, color: configuration.sendButtonLeftBorderColorEnabled)
         
     }
@@ -117,8 +114,8 @@ class EmotionToolbar: UIView {
         
         sendButton.isEnabled = false
         
-        sendButton.setTitleColor(configuration.sendButtonTextColorDisabled, for: .normal)
         sendButton.backgroundColor = configuration.sendButtonBackgroundColorDisabled
+        sendButton.setTitleColor(configuration.sendButtonTextColorDisabled, for: .normal)
 
         sendButton.setLeftBorder(width: configuration.sendButtonLeftBorderWidth, color: configuration.sendButtonLeftBorderColorDisabled)
         
@@ -166,6 +163,7 @@ extension EmotionToolbar: UICollectionViewDataSource {
         cell.backgroundColor = icon.selected ? configuration.toolbarCellBackgroundColorPressed : .clear
         
         return cell
+        
     }
     
 }
@@ -223,14 +221,6 @@ extension EmotionToolbar {
                     
                 }
             }
-        }
-        
-        public override init(frame: CGRect) {
-            super.init(frame: frame)
-        }
-        
-        public required init?(coder aDecoder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
         }
         
     }

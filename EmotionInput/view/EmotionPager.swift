@@ -1,6 +1,5 @@
 
 import UIKit
-import DotIndicator
 
 public class EmotionPager: UIView {
     
@@ -79,14 +78,6 @@ public class EmotionPager: UIView {
         self.init()
         self.configuration = configuration
         setup()
-    }
-    
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    public required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     private func setup() {
@@ -210,14 +201,13 @@ extension EmotionPager: UICollectionViewDelegateFlowLayout {
 
 extension EmotionPager: UICollectionViewDelegate {
     
-    // 翻页开始
-    public func scrollViewWillBeginDecelerating(_ scrollView: UIScrollView) {
-        updateScrollX(x: scrollView.contentOffset.x, width: scrollView.bounds.size.width)
-    }
-    
-    // 翻页结束
-    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        updateScrollX(x: scrollView.contentOffset.x, width: scrollView.bounds.size.width)
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let index = Int(scrollView.contentOffset.x / scrollView.bounds.width)
+        checkRange(index: index) {
+            emotionSetIndex = $0
+            indicatorView.index = $1
+            indicatorView.setNeedsDisplay()
+        }
     }
     
 }
@@ -248,18 +238,6 @@ extension EmotionPager {
         collectionBottomConstraint.constant = 0
         indicatorBottomConstraint.constant = 0
         setNeedsLayout()
-        
-    }
-    
-    private func updateScrollX(x: CGFloat, width: CGFloat) {
-        
-        let index = Int(ceil(x / width))
-
-        checkRange(index: index) {
-            emotionSetIndex = $0
-            indicatorView.index = $1
-            indicatorView.setNeedsDisplay()
-        }
         
     }
     

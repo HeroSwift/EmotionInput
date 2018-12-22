@@ -39,14 +39,6 @@ class EmotionCell: UIView {
         setup()
     }
     
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    public required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     // 初始化界面元素和约束
     func setup() {
         
