@@ -8,13 +8,78 @@ class EmotionCell: UIView {
     //
     
     // 显示表情图片
-    var emotionView: UIImageView!
+    lazy var emotionView: UIImageView = {
+        
+        let view = UIImageView()
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.contentMode = .scaleAspectFit
+        view.isHidden = true
+        
+        addSubview(view)
+        
+        emotionTopConstraint = NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0)
+        
+        emotionCenterYConstraint = NSLayoutConstraint(item: view, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0)
+        
+        emotionWidthConstraint = NSLayoutConstraint(item: view, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 0)
+        
+        emotionHeightConstraint = NSLayoutConstraint(item: view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 0)
+        
+        addConstraints([
+            NSLayoutConstraint(item: view, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0),
+            emotionWidthConstraint,
+            emotionHeightConstraint,
+        ])
+        
+        return view
+        
+    }()
     
     // 显示表情文字
-    var nameView: UILabel!
+    lazy var nameView: UILabel = {
+        
+        let view = UILabel()
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.font = configuration.emotionNameTextFont
+        view.textColor = configuration.emotionNameTextColor
+        view.numberOfLines = 1
+        view.lineBreakMode = .byTruncatingTail
+        view.textAlignment = .center
+        view.isHidden = true
+        
+        addSubview(view)
+        
+        addConstraints([
+            NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: emotionView, attribute: .bottom, multiplier: 1, constant: configuration.emotionNameMarginTop),
+            NSLayoutConstraint(item: view, attribute: .left, relatedBy: .equal, toItem: emotionView, attribute: .left, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: view, attribute: .right, relatedBy: .equal, toItem: emotionView, attribute: .right, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0),
+        ])
+        
+        return view
+        
+    }()
     
     // 显示删除按钮
-    var deleteView: UIImageView!
+    lazy var deleteView: UIImageView = {
+        
+        let view = UIImageView()
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isHidden = true
+        
+        addSubview(view)
+        
+        addConstraints([
+            NSLayoutConstraint(item: view, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: view, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0)
+        ])
+        
+        return view
+        
+    }()
     
     //
     // MARK: - 表情数据
@@ -36,57 +101,8 @@ class EmotionCell: UIView {
     public convenience init(configuration: EmotionPagerConfiguration) {
         self.init()
         self.configuration = configuration
-        setup()
     }
-    
-    // 初始化界面元素和约束
-    func setup() {
-        
-        emotionView = UIImageView(frame: CGRect.zero)
-        emotionView.translatesAutoresizingMaskIntoConstraints = false
-        emotionView.contentMode = UIViewContentMode.scaleAspectFit
-        emotionView.isHidden = true
-        addSubview(emotionView)
-        
-        nameView = UILabel()
-        nameView.translatesAutoresizingMaskIntoConstraints = false
-        nameView.font = configuration.emotionNameTextFont
-        nameView.textColor = configuration.emotionNameTextColor
-        nameView.numberOfLines = 1
-        nameView.lineBreakMode = .byTruncatingTail
-        nameView.textAlignment = .center
-        nameView.isHidden = true
-        addSubview(nameView)
-        
-        deleteView = UIImageView(frame: CGRect.zero)
-        deleteView.translatesAutoresizingMaskIntoConstraints = false
-        deleteView.isHidden = true
-        addSubview(deleteView)
 
-        emotionTopConstraint = NSLayoutConstraint(item: emotionView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0)
-        
-        emotionCenterYConstraint = NSLayoutConstraint(item: emotionView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0)
-        
-        emotionWidthConstraint = NSLayoutConstraint(item: emotionView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: 0)
-        
-        emotionHeightConstraint = NSLayoutConstraint(item: emotionView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 0)
-        
-        addConstraints([
-            NSLayoutConstraint(item: emotionView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0),
-            emotionWidthConstraint,
-            emotionHeightConstraint,
-            
-            NSLayoutConstraint(item: nameView, attribute: .top, relatedBy: .equal, toItem: emotionView, attribute: .bottom, multiplier: 1, constant: configuration.emotionNameMarginTop),
-            NSLayoutConstraint(item: nameView, attribute: .left, relatedBy: .equal, toItem: emotionView, attribute: .left, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: nameView, attribute: .right, relatedBy: .equal, toItem: emotionView, attribute: .right, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: nameView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0),
-            
-            NSLayoutConstraint(item: deleteView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: deleteView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0)
-        ])
-        
-    }
-    
     func showEmotion(emotion: Emotion, emotionWidth: Int, emotionHeight: Int) {
 
         var hasEmotion = false

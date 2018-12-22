@@ -12,11 +12,100 @@ class EmotionToolbar: UIView {
         }
     }
 
-    private var topBorder: UIView!
-    private var collectionView: UICollectionView!
-    private var flowLayout: UICollectionViewFlowLayout!
+    private lazy var topBorder: UIView = {
+        
+        let view = UIView()
+        
+        view.backgroundColor = configuration.toolbarTopBorderColor
+        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        addSubview(view)
+        
+        addConstraints([
+            NSLayoutConstraint(item: view, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: view, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: view, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: configuration.toolbarTopBorderWidth),
+        ])
+        
+        return view
+        
+    }()
     
-    private var sendButton: SimpleButton!
+    private lazy var flowLayout: UICollectionViewFlowLayout = {
+        
+        let view = UICollectionViewFlowLayout()
+        
+        view.scrollDirection = .horizontal
+        
+        return view
+        
+    }()
+    
+    private lazy var collectionView: UICollectionView = {
+        
+        let view = UICollectionView(frame: frame, collectionViewLayout: flowLayout)
+        
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.showsHorizontalScrollIndicator = false
+        
+        view.register(EmotionIconCell.self, forCellWithReuseIdentifier: cellIdentifier)
+        view.dataSource = self
+        view.delegate = self
+        view.backgroundColor = .clear
+        
+        addSubview(view)
+        
+        addConstraints([
+            NSLayoutConstraint(item: view, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: view, attribute: .right, relatedBy: .equal, toItem: sendButton, attribute: .left, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: topBorder, attribute: .bottom, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0)
+        ])
+        
+        return view
+        
+    }()
+
+    private lazy var sendButton: SimpleButton = {
+        
+        let view = SimpleButton()
+        
+        view.backgroundColor = configuration.sendButtonBackgroundColorEnabledNormal
+        view.backgroundColorPressed = configuration.sendButtonBackgroundColorEnabledPressed
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.setTitle(configuration.sendButtonText, for: .normal)
+        view.titleLabel?.font = configuration.sendButtonTextFont
+        view.contentEdgeInsets = UIEdgeInsets(
+            top: 0,
+            left: configuration.sendButtonPaddingHorizontal,
+            bottom: 0,
+            right: configuration.sendButtonPaddingHorizontal
+        )
+        
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.12
+        view.layer.shadowOffset = CGSize(width: -2, height: 0)
+        view.layer.shadowRadius = 3
+        
+        view.onClick = {
+            self.onSendClick()
+        }
+        
+        addSubview(view)
+        
+        addConstraints([
+            NSLayoutConstraint(item: view, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: topBorder, attribute: .bottom, multiplier: 1, constant: 0),
+            NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0)
+        ])
+        
+        // 隐藏垂直方向的阴影
+        clipsToBounds = true
+        
+        return view
+        
+    }()
     
     private let cellIdentifier = "icon"
 
@@ -25,80 +114,10 @@ class EmotionToolbar: UIView {
     public convenience init(configuration: EmotionPagerConfiguration) {
         self.init()
         self.configuration = configuration
-        setup()
-    }
-
-    func setup() {
-        
         backgroundColor = configuration.toolbarBackgroundColor
-        
-        topBorder = UIView()
-        topBorder.backgroundColor = configuration.toolbarTopBorderColor
-        topBorder.translatesAutoresizingMaskIntoConstraints = false
-        addSubview(topBorder)
-        
-        flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .horizontal
-        
-        collectionView = UICollectionView(frame: frame, collectionViewLayout: flowLayout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.showsHorizontalScrollIndicator = false
-        
-        collectionView.register(EmotionIconCell.self, forCellWithReuseIdentifier: cellIdentifier)
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        collectionView.backgroundColor = .clear
-        
-        addSubview(collectionView)
-        
-        sendButton = SimpleButton()
-        sendButton.backgroundColor = configuration.sendButtonBackgroundColorEnabledNormal
-        sendButton.backgroundColorPressed = configuration.sendButtonBackgroundColorEnabledPressed
-        sendButton.translatesAutoresizingMaskIntoConstraints = false
-        sendButton.setTitle(configuration.sendButtonText, for: .normal)
-        sendButton.titleLabel?.font = configuration.sendButtonTextFont
-        sendButton.contentEdgeInsets = UIEdgeInsets(
-            top: 0,
-            left: configuration.sendButtonPaddingHorizontal,
-            bottom: 0,
-            right: configuration.sendButtonPaddingHorizontal
-        )
-        sendButton.layer.shadowColor = UIColor.black.cgColor
-        sendButton.layer.shadowOpacity = 0.12
-        sendButton.layer.shadowOffset = CGSize(width: -2, height: 0)
-        sendButton.layer.shadowRadius = 3
-        
-        sendButton.onClick = {
-            self.onSendClick()
-        }
-
-        addSubview(sendButton)
-
-        addConstraints([
-            
-            NSLayoutConstraint(item: topBorder, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: topBorder, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: topBorder, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: topBorder, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: configuration.toolbarTopBorderWidth),
-            
-            NSLayoutConstraint(item: sendButton, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: sendButton, attribute: .top, relatedBy: .equal, toItem: topBorder, attribute: .bottom, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: sendButton, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0),
-
-            NSLayoutConstraint(item: collectionView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: collectionView, attribute: .right, relatedBy: .equal, toItem: sendButton, attribute: .left, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: collectionView, attribute: .top, relatedBy: .equal, toItem: topBorder, attribute: .bottom, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: collectionView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0)
-            
-        ])
-        
-        // 隐藏垂直方向的阴影
-        clipsToBounds = true
-        
         disableSendButton()
-
     }
-    
+
     func enableSendButton() {
         
         sendButton.isEnabled = true
@@ -190,38 +209,47 @@ extension EmotionToolbar {
     
     class EmotionIconCell: UICollectionViewCell {
         
-        var dividerView: UIView!
-        var imageView: UIImageView!
+        lazy var dividerView: UIView = {
         
-        var configuration: EmotionPagerConfiguration! {
-            willSet {
-                if configuration == nil {
-                    
-                    dividerView = UIView()
-                    dividerView.translatesAutoresizingMaskIntoConstraints = false
-                    dividerView.backgroundColor = newValue.toolbarCellDividerColor
-                    addSubview(dividerView)
-                    
-                    imageView = UIImageView()
-                    imageView.translatesAutoresizingMaskIntoConstraints = false
-                    imageView.contentMode = .center
-                    addSubview(imageView)
-                    
-                    addConstraints([
-                        
-                        NSLayoutConstraint(item: dividerView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1, constant: 0),
-                        NSLayoutConstraint(item: dividerView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: newValue.toolbarCellDividerOffset),
-                        NSLayoutConstraint(item: dividerView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: -newValue.toolbarCellDividerOffset),
-                        NSLayoutConstraint(item: dividerView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: newValue.toolbarCellDividerWidth),
-                        
-                        NSLayoutConstraint(item: imageView, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0),
-                        NSLayoutConstraint(item: imageView, attribute: .centerY, relatedBy: .equal, toItem: self, attribute: .centerY, multiplier: 1, constant: 0),
-                        
-                    ])
-                    
-                }
-            }
-        }
+            let view = UIView()
+            
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.backgroundColor = configuration.toolbarCellDividerColor
+            
+            contentView.addSubview(view)
+            
+            contentView.addConstraints([
+                
+                NSLayoutConstraint(item: view, attribute: .left, relatedBy: .equal, toItem: contentView, attribute: .left, multiplier: 1, constant: 0),
+                NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: contentView, attribute: .top, multiplier: 1, constant: configuration.toolbarCellDividerOffset),
+                NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal, toItem: contentView, attribute: .bottom, multiplier: 1, constant: -configuration.toolbarCellDividerOffset),
+                NSLayoutConstraint(item: view, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: configuration.toolbarCellDividerWidth),
+                
+            ])
+            
+            return view
+            
+        }()
+        
+        lazy var imageView: UIImageView = {
+            
+            let view = UIImageView()
+            
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.contentMode = .center
+            
+            contentView.addSubview(view)
+            
+            contentView.addConstraints([
+                NSLayoutConstraint(item: view, attribute: .centerX, relatedBy: .equal, toItem: contentView, attribute: .centerX, multiplier: 1, constant: 0),
+                NSLayoutConstraint(item: view, attribute: .centerY, relatedBy: .equal, toItem: contentView, attribute: .centerY, multiplier: 1, constant: 0),
+            ])
+            
+            return view
+            
+        }()
+        
+        var configuration: EmotionPagerConfiguration!
         
     }
     
