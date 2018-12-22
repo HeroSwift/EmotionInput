@@ -19,8 +19,6 @@
 		9D43078521339FC4001ED814 /* EmotionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D43077C21339FC4001ED814 /* EmotionCell.swift */; };
 		9D43078621339FC4001ED814 /* EmotionPager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D43077D21339FC4001ED814 /* EmotionPager.swift */; };
 		9D43078A2133A018001ED814 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D4307892133A018001ED814 /* ViewController.swift */; };
-		9D511277218AE3AF00886938 /* DotIndicator.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D511275218AE3AE00886938 /* DotIndicator.framework */; };
-		9D511278218AE3AF00886938 /* SimpleButton.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D511276218AE3AE00886938 /* SimpleButton.framework */; };
 		9D511280218AFA1B00886938 /* EmotionTextareaConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D51127F218AFA1B00886938 /* EmotionTextareaConfiguration.swift */; };
 		9D5167B02192E2540047BBEE /* EmojiFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5167AF2192E2540047BBEE /* EmojiFilter.swift */; };
 		9D6420122187FB25005CAE53 /* EmotionPagerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D6420112187FB25005CAE53 /* EmotionPagerConfiguration.swift */; };
@@ -28,9 +26,7 @@
 		9D7105DB2140B89200B1DF7C /* BracketFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7105DA2140B89100B1DF7C /* BracketFilter.swift */; };
 		9D7106272141355F00B1DF7C /* EmotionTextarea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7106262141355F00B1DF7C /* EmotionTextarea.swift */; };
 		9D76B7D421CE8BA600A516C6 /* DotIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B7D221CE8BA600A516C6 /* DotIndicator.swift */; };
-		9D76B7D521CE8BA600A516C6 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9D76B7D321CE8BA600A516C6 /* Info.plist */; };
 		9D76B7D921CE8BB700A516C6 /* SimpleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D76B7D721CE8BB700A516C6 /* SimpleButton.swift */; };
-		9D76B7DA21CE8BB700A516C6 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 9D76B7D821CE8BB700A516C6 /* Info.plist */; };
 		9DD08F4D213A746300CE20D9 /* EmotionToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DD08F4C213A746300CE20D9 /* EmotionToolbar.swift */; };
 		9DE9694121424BD700BFF7F4 /* EmotionAttachment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9DE9694021424BD700BFF7F4 /* EmotionAttachment.swift */; };
 /* End PBXBuildFile section */
@@ -84,9 +80,7 @@
 		9D7105DA2140B89100B1DF7C /* BracketFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BracketFilter.swift; sourceTree = "<group>"; };
 		9D7106262141355F00B1DF7C /* EmotionTextarea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionTextarea.swift; sourceTree = "<group>"; };
 		9D76B7D221CE8BA600A516C6 /* DotIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DotIndicator.swift; sourceTree = "<group>"; };
-		9D76B7D321CE8BA600A516C6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9D76B7D721CE8BB700A516C6 /* SimpleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SimpleButton.swift; sourceTree = "<group>"; };
-		9D76B7D821CE8BB700A516C6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9DD08F4C213A746300CE20D9 /* EmotionToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionToolbar.swift; sourceTree = "<group>"; };
 		9DE9694021424BD700BFF7F4 /* EmotionAttachment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmotionAttachment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -96,8 +90,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D511277218AE3AF00886938 /* DotIndicator.framework in Frameworks */,
-				9D511278218AE3AF00886938 /* SimpleButton.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,7 +197,6 @@
 			isa = PBXGroup;
 			children = (
 				9D76B7D221CE8BA600A516C6 /* DotIndicator.swift */,
-				9D76B7D321CE8BA600A516C6 /* Info.plist */,
 			);
 			path = DotIndicator;
 			sourceTree = "<group>";
@@ -214,7 +205,6 @@
 			isa = PBXGroup;
 			children = (
 				9D76B7D721CE8BB700A516C6 /* SimpleButton.swift */,
-				9D76B7D821CE8BB700A516C6 /* Info.plist */,
 			);
 			path = SimpleButton;
 			sourceTree = "<group>";
@@ -313,8 +303,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9D76B7DA21CE8BB700A516C6 /* Info.plist in Resources */,
-				9D76B7D521CE8BA600A516C6 /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,14 +325,12 @@
 			files = (
 			);
 			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/SimpleButton.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/DotIndicator.framework",
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
+			shellScript = "";
 		};
 /* End PBXShellScriptBuildPhase section */
 
