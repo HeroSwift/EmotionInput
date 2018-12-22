@@ -74,7 +74,7 @@ class EmotionToolbar: UIView {
         view.backgroundColor = configuration.sendButtonBackgroundColorEnabledNormal
         view.backgroundColorPressed = configuration.sendButtonBackgroundColorEnabledPressed
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.setTitle(configuration.sendButtonText, for: .normal)
+        view.setTitle(configuration.sendButtonTitle, for: .normal)
         view.titleLabel?.font = configuration.sendButtonTextFont
         view.contentEdgeInsets = UIEdgeInsets(
             top: 0,
