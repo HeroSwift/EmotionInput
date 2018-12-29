@@ -172,10 +172,12 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(didFinishPickingMediaWithInfo info: [String : AnyObject]) {
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         // 拿到选择完的照片
-        let selectedImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
         print(selectedImage)
     }
+    
 }
 
