@@ -50,11 +50,13 @@ public class EmotionTextarea: UITextView {
         // 拼写检查
         spellCheckingType = .no
         
+        // 左右必须设置为 0，否则粘贴大段文本会显示错乱
+        // 水平内间距/边框/背景色 只能外部设置了...
         textContainerInset = UIEdgeInsets(
             top: configuration.paddingVertical,
-            left: configuration.paddingHorizontal,
+            left: 0,
             bottom: configuration.paddingVertical,
-            right: configuration.paddingHorizontal
+            right: 0
         )
         
         textContainer.lineFragmentPadding = 0
@@ -62,11 +64,13 @@ public class EmotionTextarea: UITextView {
         textAlignment = .left
         
         tintColor = configuration.tintColor
-        backgroundColor = configuration.backgroundColor
         
-        layer.borderColor = configuration.borderColor.cgColor
-        layer.borderWidth = configuration.borderWidth
-        layer.cornerRadius = configuration.borderRadius
+        // 因为上面的水平内间距问题，这段要改到外部去设置
+//        backgroundColor = configuration.backgroundColor
+//
+//        layer.borderColor = configuration.borderColor.cgColor
+//        layer.borderWidth = configuration.borderWidth
+//        layer.cornerRadius = configuration.borderRadius
         
         delegate = self
         

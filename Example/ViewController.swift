@@ -146,7 +146,18 @@ class ViewController: UIViewController {
         textInput.addFilter(filter)
         
         
+        let textarea = UITextView()
+        textarea.translatesAutoresizingMaskIntoConstraints = false
+        textarea.backgroundColor = .gray
+        view.addSubview(textarea)
+        textarea.text = "123"
+        
         view.addConstraints([
+            
+            NSLayoutConstraint(item: textarea, attribute: .top, relatedBy: .equal, toItem: view, attribute: .top, multiplier: 1.0, constant: 20),
+            NSLayoutConstraint(item: textarea, attribute: .left, relatedBy: .equal, toItem: view, attribute: .left, multiplier: 1.0, constant: 0),
+            NSLayoutConstraint(item: textarea, attribute: .right, relatedBy: .equal, toItem: view, attribute: .right, multiplier: 1.0, constant: 0),
+            NSLayoutConstraint(item: textarea, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1.0, constant: 50),
             
             NSLayoutConstraint(item: emotionPager, attribute: .top, relatedBy: .equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: -258),
             NSLayoutConstraint(item: emotionPager, attribute: .left, relatedBy: .equal, toItem: view, attribute: .left, multiplier: 1.0, constant: 0),
@@ -157,8 +168,7 @@ class ViewController: UIViewController {
             NSLayoutConstraint(item: textInput, attribute: .left, relatedBy: .equal, toItem: view, attribute: .left, multiplier: 1.0, constant: 10),
             NSLayoutConstraint(item: textInput, attribute: .right, relatedBy: .equal, toItem: view, attribute: .right, multiplier: 1.0, constant: -10),
             NSLayoutConstraint(item: textInput, attribute: .bottom, relatedBy: .equal, toItem: emotionPager, attribute: .top, multiplier: 1.0, constant: -10),
-            
-            
+
         ])
 
     }
