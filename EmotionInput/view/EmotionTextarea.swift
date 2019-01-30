@@ -19,7 +19,6 @@ public class EmotionTextarea: UITextView {
     
     private var typingAttrs: [NSAttributedString.Key: Any]!
     
-    private var minHeight: CGFloat = 0
     private var maxHeight: CGFloat = 0
     
     private var configuration: EmotionTextareaConfiguration!
@@ -49,23 +48,16 @@ public class EmotionTextarea: UITextView {
         
         // 拼写检查
         spellCheckingType = .no
-        
-        // 左右必须设置为 0，否则粘贴大段文本会显示错乱
-        // 水平内间距/边框/背景色 只能外部设置了...
-        textContainerInset = UIEdgeInsets(
-            top: configuration.paddingVertical,
-            left: 0,
-            bottom: configuration.paddingVertical,
-            right: 0
-        )
-        
+
         textContainer.lineFragmentPadding = 0
         
         textAlignment = .left
         
         tintColor = configuration.tintColor
         
-        // 因为上面的水平内间距问题，这段要改到外部去设置
+        // 左右内边距必须设置为 0，否则粘贴大段文本会显示错乱
+        // 为了保持统一的样式配置，把 内间距/边框/背景色 全部改成让外部去设置
+
 //        backgroundColor = configuration.backgroundColor
 //
 //        layer.borderColor = configuration.borderColor.cgColor
@@ -79,10 +71,6 @@ public class EmotionTextarea: UITextView {
         if let font = font {
             maxHeight = configuration.maxLines * font.lineHeight + 2 * configuration.paddingVertical
         }
-        
-        autoHeight()
-        
-        minHeight = frame.size.height
         
     }
     
@@ -177,17 +165,19 @@ public class EmotionTextarea: UITextView {
         insertText(string)
         
     }
+    
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        autoHeight()
+    }
 
     private func autoHeight() {
     
         let newSize = sizeThatFits(CGSize(width: frame.width, height: CGFloat.greatestFiniteMagnitude))
-        
+
         var newHeight = newSize.height
         if newHeight > maxHeight {
             newHeight = maxHeight
-        }
-        else if newHeight < minHeight {
-            newHeight = minHeight
         }
 
         if frame.height != newHeight {
