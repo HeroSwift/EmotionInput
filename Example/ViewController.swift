@@ -111,7 +111,7 @@ class ViewController: UIViewController {
         textInput.translatesAutoresizingMaskIntoConstraints = false
         textInput.onTextChange = {
             print(self.textInput.plainText)
-            self.emotionPager.isSendButtonEnabled = self.textInput.plainText != ""
+            self.emotionPager.isSubmitButtonEnabled = self.textInput.plainText != ""
         }
 
         view.addSubview(textInput)
